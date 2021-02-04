@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\InventoryApp",
+    "\\InventoryApp\\packages"
   ],
+  "SelectedNode": "\\InventoryApp\\InventoryApp.sln",
   "PreviewInSolutionExplorer": false
 }
