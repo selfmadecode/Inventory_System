@@ -20,20 +20,10 @@ namespace inventoryAppWebUi
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/js").Include(
-                "~/Content/Assets/js/bootstrap.min.js",
-                "~/Content/Assets/js/custom-datatables.js",
-                "~/Content/Assets/js/custom-flot.js",
-                "~/Content/Assets/js/custom-gmap.js",
-                "~/Content/Assets/js/custom-morris.js",
-                "~/Content/Assets/js/custom-vector.js",
-                "~/Content/Assets/js/custom.js",
                 "~/Content/Assets/js/jquery-3.2.1.min.js",
-                "~/Content/Assets/js/jquery-jvectormap-world-mill.js",
-                "~/Content/Assets/js/jquery-jvectormap.min.js",
-                "~/Content/Assets/js/jquery.vmap.india.js",
-                "~/Content/Assets/js/jquery.vmap.usa.js",
-                "~/Content/Assets/js/modernizr.min.js",
-                      "~/Content/Assets/js/popper.min.js"));
+                "~/Content/Assets/js/popper.min.js",
+                "~/Content/Assets/js/bootstrap.min.js",
+                "~/Content/Assets/js/custom.js"));
 
 
             bundles.Add(new StyleBundle("~/Content/template/css").Include(
@@ -41,11 +31,9 @@ namespace inventoryAppWebUi
                       "~/Content/Assets/css/themify-icons.css",
                       "~/Content/Assets/css/animate.css",
                       "~/Content/Assets/css/styles.css",
-                      "~/Content/Assets/css/green.css",
                       "~/Content/Assets/css/responsive.css",
                       "~/Content/Assets/css/morris.css",
-                      "~/Content/Assets/css/jquery-jvectormap.css",
-                      "~/Content/site.css"));
+                      "~/Content/Assets/css/jquery-jvectormap.css"));
         }
     }
 }
