@@ -10,47 +10,49 @@
 
 
     <!-- Fav  Icon Link -->
-    <link rel="shortcut icon" type="image/png" href="images/fav.png">
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="~/Content/assets/css/bootstrap.min.css">
-    <!-- themify icons CSS -->
-    <link rel="stylesheet" href="~/Content/assets/css/themify-icons.css">
-    <!-- Animations CSS -->
-    <link rel="stylesheet" href="~/Content/assets/css/animate.css">
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="~/Content/assets/css/styles.css">
+    <link rel="shortcut icon" type="image/png" href="~/Content/Assets/images/fav.png">
+    
     <link rel="stylesheet" href="~/Content/assets/css/green.css" id="style_theme">
-    <link rel="stylesheet" href="~/Content/assets/css/responsive.css">
-    <!-- morris charts -->
-    <link rel="stylesheet" href="~/Content/assets/charts/css/morris.css">
-    <!-- jvectormap -->
-    <link rel="stylesheet" href="~/Content/assets/css/jquery-jvectormap.css">
 
     <script src="~/Content/assets/js/modernizr.min.js"></script>
 
-    <title>@ViewBag.Title - ProClinic-Bootstrap4 Hospital Admin</title>
+    <title>@ViewBag.Title - ProClinic-Bootstrap4 Hospital </title>
 
-
-    @*i never bundle*@
-
-    @*@Styles.Render("~/Content/template/css")*@
+    @Styles.Render("~/Content/template/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
 
+    <!-- Pre Loader -->
+    <div class="loading">
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+    </div>
+    <!--/Pre Loader -->
 
     <div class="wrapper">
         <!-- Sidebar -->
         <nav id="sidebar" class="proclinic-bg">
             <div class="sidebar-header">
-                <a href="index.html"><img src="~/Content/Assets/images/logo.png" class="logo" alt="logo"></a>
+                <a href=""><img src="~/Content/Assets/images/logo.png" class="logo" alt="logo"></a>
             </div>
             <ul class="list-unstyled components">
                 <li class="active">
                     <a href="#nav-dashboard" data-toggle="collapse" aria-expanded="true">
                         <span class="ti-home"></span> Dashboard
                     </a>
+
+                    <ul class="collapse list-unstyled show" id="nav-dashboard">
+                        <li>
+                            @Html.ActionLink("Graph Chart", "")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Pie Chart", "")
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="#nav-patients" data-toggle="collapse" aria-expanded="false">
@@ -58,16 +60,16 @@
                     </a>
                     <ul class="collapse list-unstyled" id="nav-patients">
                         <li>
-                            <a href="add-patient.html">Add Patient</a>
+                            @Html.ActionLink("Request Drugs", "About", "Home")
                         </li>
                         <li>
-                            <a href="patients.html">All Patients</a>
+                            @Html.ActionLink("Request Drugs", "")
                         </li>
                         <li>
-                            <a href="about-patient.html">Patient Details</a>
+                            @Html.ActionLink("Request Details", "")
                         </li>
                         <li>
-                            <a href="edit-patient.html">Edit Patient</a>
+                            @Html.ActionLink("Request Drugs", "")
                         </li>
                     </ul>
                 </li>
@@ -77,16 +79,16 @@
                     </a>
                     <ul class="collapse list-unstyled" id="nav-doctors">
                         <li>
-                            <a href="add-doctor.html">Add Doctor</a>
+                            @Html.ActionLink("Add Drugs", "")
                         </li>
                         <li>
-                            <a href="doctors.html">All Doctors</a>
+                            @Html.ActionLink("All Drugs", "")
                         </li>
                         <li>
-                            <a href="about-doctor.html">Doctor Details</a>
+                            @Html.ActionLink("Drug Details", "")
                         </li>
                         <li>
-                            <a href="edit-doctor.html">Edit Doctor</a>
+                            @Html.ActionLink("Edit Drugs", "")
                         </li>
                     </ul>
                 </li>
@@ -96,16 +98,17 @@
                     </a>
                     <ul class="collapse list-unstyled" id="nav-appointment">
                         <li>
-                            <a href="add-appointment.html">Add Appointment</a>
+                            @Html.ActionLink("Add Appointment", "")
                         </li>
                         <li>
-                            <a href="appointments.html">All Appointments</a>
+                            @Html.ActionLink("All Appointment", "")
                         </li>
                         <li>
-                            <a href="about-appointment.html">Appointment Details</a>
+                            @Html.ActionLink("Appointment Details", "")
+
                         </li>
                         <li>
-                            <a href="edit-appointment.html">Edit Appointment</a>
+                            @Html.ActionLink("Edit Appointment", "")
                         </li>
                     </ul>
                 </li>
@@ -115,13 +118,13 @@
                     </a>
                     <ul class="collapse list-unstyled" id="nav-payment">
                         <li>
-                            <a href="add-payment.html">Add Payment</a>
+                            @Html.ActionLink("Add Payment", "")
                         </li>
                         <li>
-                            <a href="payments.html">All Payments</a>
+                            @Html.ActionLink("All Payments", "")
                         </li>
                         <li>
-                            <a href="about-payment.html">Payment Invoice</a>
+                            @Html.ActionLink("Payment Invoice", "")
                         </li>
                     </ul>
                 </li>
@@ -131,28 +134,29 @@
                     </a>
                     <ul class="collapse list-unstyled" id="nav-pages">
                         <li>
-                            <a href="login.html">Login </a>
+                            @Html.ActionLink("Login", "")
+
                         </li>
                         <li>
-                            <a href="sign-up.html">Sign Up</a>
+                            @Html.ActionLink("Sign Up", "")
                         </li>
                         <li>
-                            <a href="404.html">404</a>
+                            @Html.ActionLink("404", "")
                         </li>
                         <li>
-                            <a href="blank-page.html">Blank Page</a>
+                            @Html.ActionLink("Blank Page", "")
                         </li>
                         <li>
-                            <a href="pricing.html">Pricing</a>
+                            @Html.ActionLink("Pricing", "")
                         </li>
                         <li>
-                            <a href="faq.html">FAQ</a>
+                            @Html.ActionLink("FAQ", "")
                         </li>
                         <li>
-                            <a href="invoice.html">Invoice</a>
+                            @Html.ActionLink("Invoice", "")
                         </li>
                         <li>
-                            <a href="blank-page.html">Coming Soon</a>
+                            @Html.ActionLink("Others", "")
                         </li>
                     </ul>
                 </li>
@@ -160,12 +164,12 @@
             <div class="nav-help animated fadeIn">
                 <h5><span class="ti-comments"></span> Need Help</h5>
                 <h6>
-                    <span class="ti-mobile"></span> +1 1234 567 890
+                    <span class="ti-mobile"></span> +234 704 567 8090
                 </h6>
                 <h6>
-                    <span class="ti-email"></span> email@site.com
+                    <span class="ti-email"></span> admin@proclinic.com
                 </h6>
-                <p class="copyright-text">Copy rights &copy; 2018</p>
+                <p class="copyright-text">Copy rights &copy; 2021</p>
             </div>
         </nav>
         <!-- /Sidebar -->
@@ -174,7 +178,7 @@
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
                     <div class="responsive-logo">
-                        <a href="index.html"><img src="images/logo-dark.png" class="logo" alt="logo"></a>
+                        <a href="#"><img src="~/Content/assets/images/logo-dark.png" class="logo" alt="logo"></a>
                     </div>
                     <ul class="nav">
                         <li class="nav-item">
@@ -260,7 +264,7 @@
                 <div class="col-md-6">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="index.html">
+                            <a href="#">
                                 <span class="ti-home"></span>
                             </a>
                         </li>
@@ -270,16 +274,20 @@
             </div>
             <!-- /Page Title -->
             <!-- /Breadcrumb -->
+            <!-- Back to Top -->
+            <a id="back-to-top" href="#" class="back-to-top">
+                <span class="ti-angle-up"></span>
+            </a>
+            <!-- /Back to Top -->
+            <!-- Jquery Library-->
+
 
             <div class="container body-content">
                 @RenderBody()
-                <hr />
             </div>
         </div>
-    </div>  
-
-        @Scripts.Render("~/bundles/js")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
+    </div>
+    @Scripts.Render("~/bundles/js")
+    @RenderSection("scripts", required: false)
 </body>
 </html>
