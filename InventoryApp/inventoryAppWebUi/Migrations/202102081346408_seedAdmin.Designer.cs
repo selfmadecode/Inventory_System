@@ -7,9 +7,9 @@ namespace inventoryAppWebUi.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class seedAdmin : IMigrationMetadata
+    public sealed partial class SeedAdmin : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(seedAdmin));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(SeedAdmin));
         
         string IMigrationMetadata.Id
         {
