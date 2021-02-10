@@ -98,15 +98,6 @@ namespace inventoryAppWebUi.Controllers
         }
 
         //
-        // GET: /Account/Sign up
-        [AllowAnonymous]
-        public ActionResult SignUp()
-        {
-            
-            return View();
-        }
-
-        //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
