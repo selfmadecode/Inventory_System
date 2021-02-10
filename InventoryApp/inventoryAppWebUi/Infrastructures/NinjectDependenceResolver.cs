@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using inventoryAppDomain.IdentityEntities;
+using inventoryAppDomain.Repository;
+using inventoryAppDomain.Services;
 
 namespace inventoryAppWebUi.Infrastructures
 {
@@ -31,6 +33,7 @@ namespace inventoryAppWebUi.Infrastructures
         private void AddBindings()
         {
             kernel.Bind(typeof(ApplicationDbContext)).ToSelf();
+            kernel.Bind<IRoleService>().To<RoleService>();
         }
     }
 }

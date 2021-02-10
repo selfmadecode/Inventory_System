@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+﻿@model List<String>
 
 @{
     ViewBag.Title = "Index";
@@ -7,7 +7,7 @@
 
 <h2>Available Roles For Application</h2>
 
-@Html.ActionLink("Create Role", "Create", "Roles")
+@Html.ActionLink("Create Role", "Create", "Role")
 
 <style type="text/css">
     #tbrole, .c{
@@ -25,8 +25,9 @@
     {
         <tr>
             <td class="c">
-                @item.Name
+                @item
             </td>
         </tr>
     }
 </table>
+@Html.ActionLink("Create New Role", "Create", "Role")
