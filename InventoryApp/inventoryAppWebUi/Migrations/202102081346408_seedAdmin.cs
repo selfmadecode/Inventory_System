@@ -30,7 +30,7 @@ namespace inventoryAppWebUi.Migrations
                     {
                         if (roleResult.Succeeded)
                         {
-                            userManager.AddToRoleAsync(user.Id, "Admin");
+                            userManager.AddToRole(user.Id, "Admin");
                         }
                     }
                 }
