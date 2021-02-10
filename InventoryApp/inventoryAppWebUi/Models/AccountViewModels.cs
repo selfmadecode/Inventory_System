@@ -87,6 +87,7 @@ namespace inventoryAppWebUi.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
+        [Display(Name = "Agree to Terms & Conditions")]
         public bool TermsAgree { get; set; }
     }
 
