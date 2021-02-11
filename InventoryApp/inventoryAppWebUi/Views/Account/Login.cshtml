@@ -1,146 +1,139 @@
 ﻿@using inventoryAppWebUi.Models
-@model LoginViewModel
+@model inventoryAppWebUi.Models.LoginViewModel
+
 @{
-    ViewBag.Title = "Log in";
+    Layout = null;
 }
 
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
-                    </div>
-                </div>
-                <p>
-                    @Html.ActionLink("Register as a new user", "Register")
-                </p>
-                @* Enable this once you have account confirmation enabled for password reset functionality
-                    <p>
-                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                    </p>*@
-            }
-        </section>
-    </div>
-
-
-    @*//*@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 
 
-    <body class="auth-bg">
-        <!-- Pre Loader -->
-        <div class="loading">
-            <div class="spinner">
-                <div class="double-bounce1"></div>
-                <div class="double-bounce2"></div>
-            </div>
+    <!-- Fav  Icon Link -->
+    <link rel="shortcut icon" type="image/png" href="~/Content/Assets/images/fav.png">
+
+    <link rel="stylesheet" href="~/Content/assets/css/green.css" id="style_theme">
+
+    <script src="~/Content/assets/js/modernizr.min.js"></script>
+
+    <title>@ViewBag.Title - ProClinic-Bootstrap4 Hospital </title>
+    <style>
+        #formContainer {
+            /*           background-color: #3CB371;*/
+            display: flex;
+            /*            align-content: center;*/
+            align-items: center;
+            /*            justify-content: center;*/
+            height: 600px;
+        }
+        .container-fluid {
+            background-color: #3CB371;
+            height: 60px;
+        }
+        #form {
+            border: 1px solid #3CB371;
+        }
+
+        .textbox {
+            font-size: 20px;
+            color: black;
+            font-weight: bolder;
+        }
+    </style>
+
+    @Styles.Render("~/Content/template/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+
+<body class="auth-bg">
+    <!-- Pre Loader -->
+    <div class="loading">
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
         </div>
-        <!--/Pre Loader -->
-        <div class="wrapper">
-            <!-- Page Content  -->
-            <div id="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-6 auth-box">
-                            <div class="proclinic-box-shadow">
-                                <h3 class="widget-title">Login</h3>
+    </div>
+    <!--/Pre Loader -->
+    <div class="wrapper">
+        <!-- Page Content  -->
+        <div id="content">
+            <div class="container-fluid">
+                <span>
+                    <img src="~/Content/Assets/images/logo.png" class="logo" alt="logo" style="height: 50px; padding-top: 4px">
+                </span>
+                <div class="" id="formContainer">
+                    <div class="col-sm-6 auth-box" id="formrr">
+                        <div class="proclinic-box-shadow" id="form">
 
-                                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "widget-form", role = "form" }))
-                                {
-                                    @Html.AntiForgeryToken()
-                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <h3 class="widget-title">Login</h3>
+
+                            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "widget-form", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-                                    <div class="form-group row">
-                                        <div class="col-sm-12">
-                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", name = "user"})
-                                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                                        </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control textbox", name = "user", placeholder = "Username" })
+                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                                     </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-12">
-                                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", name = "user" })
-                                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        @Html.TextBoxFor(m => m.Password, new { @class = "form-control textbox", type = "password", name = "user", placeholder = "Password" })
+                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                                     </div>
-                                    <!-- /.form-group -->
-                                    <!-- Check Box -->
-                                    <div class="form-check row">
-                                        <div class="col-sm-12 text-left">
-                                            <div class="custom-control custom-checkbox">
+                                </div>
+                                <!-- /.form-group -->
+                                <!-- Check Box -->
+                                <div class="form-check row">
+                                    <div class="col-sm-12 text-left">
+                                        <div class="custom-control custom-checkbox">
 
-                                                <div class="checkbox">
-                                                    @Html.CheckBoxFor(m => m.RememberMe, new { @class = "custom-control-input" })
-                                                    @Html.LabelFor(m => m.RememberMe, new { @class = "custom-control-label" })
-                                                </div>
+                                            <div class="checkbox">
+                                                @Html.CheckBoxFor(m => m.RememberMe, new { @class = "custom-control-input" })
+                                                @Html.LabelFor(m => m.RememberMe, new { @class = "custom-control-label" })
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- /Check Box -->
-                                    <!-- Login Button -->
-                            <div class="button-btn-block">
-                                <input type="submit" value="Log in" class="btn btn-default" />
+                                </div>
+                                <!-- /Check Box -->
+                                <!-- Login Button -->
+                                <div class="button-btn-block">
+                                    <input type="submit" value="Login" class="btn btn-primary btn-lg btn-block" />
 
-                               @* <button type="button" class="btn btn-primary btn-lg btn-block">Login</button>*@
-                            </div>
-                                    <!-- /Login Button -->
-                                    <!-- Links -->
-                                    <div class="auth-footer-text">
-                                        <small>
-                                            New User,
-                                            <a href="sign-up.html">Sign Up</a> Here
-                                        </small>
-                                    </div>
-                                    <!-- /Links -->
-                                }
-                            </div>
+                                    @* <button type="button" class="btn btn-primary btn-lg btn-block">Login</button>*@
+                                </div>
+                                <!-- /Login Button -->
+                                <!-- Links -->
+                                <div class="auth-footer-text">
+                                    <small>
+                                        New User,
+                                        <a href="sign-up.html">Sign Up</a> Here
+                                    </small>
+                                </div>
+                                <!-- /Links -->
+                            }
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- /Page Content  -->
         </div>
-        <!-- Jquery Library-->
-        <script src="js/jquery-3.2.1.min.js"></script>
-        <!-- Popper Library-->
-        <script src="js/popper.min.js"></script>
-        <!-- Bootstrap Library-->
-        <script src="js/bootstrap.min.js"></script>
-        <!-- Custom Script-->
-        <script src="js/custom.js"></script>
-    </body>
+        <!-- /Page Content  -->
+            @Scripts.Render("~/bundles/js")
+            @Scripts.Render("~/bundles/jqueryval")
+        
 
-    @*//*@
-</div>
+    </div>
+</body>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+</html>
