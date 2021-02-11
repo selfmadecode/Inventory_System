@@ -12,20 +12,27 @@ using Microsoft.Owin.Security;
 using inventoryAppWebUi.Models;
 using System.Collections.Generic;
 using System.Collections;
+using AutoMapper;
+using inventoryAppDomain.Entities;
 using inventoryAppDomain.Services;
+using Microsoft.Owin.Logging;
 
 namespace inventoryAppWebUi.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private static ILogger _logger;
         public IRoleService RoleService { get; }
+        public IProfileService ProfileService { get; }
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public AccountController(IRoleService roleService)
+        public AccountController(IRoleService roleService, IProfileService profileService, ILogger logger)
         {
+            _logger = logger;
             RoleService = roleService;
+            ProfileService = profileService;
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -181,7 +188,7 @@ namespace inventoryAppWebUi.Controllers
 
                     //send password and link to edit profile in mail
                     
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("EditProfile", "Account");
                 }
                 AddErrors(result);
             }
@@ -192,15 +199,44 @@ namespace inventoryAppWebUi.Controllers
 
         private static string PasswordGenerator()
         {
-            return Guid.NewGuid().ToString().ToUpper();
+            var genPass = Guid.NewGuid().ToString().ToUpper();
+            _logger.WriteInformation(genPass);
+            return genPass;
         }
-        
+
         //Edit Profile
-        public ActionResult EditProfile()
+         public ActionResult EditProfile()
         {
-            
+            return View();
         }
-        
+
+         [HttpPost]
+         public async Task<ActionResult> EditProfile(EditProfileViewModel model)
+         {
+             if (ModelState.IsValid)
+             {
+                 var user = UserManager.FindByEmail(model.Email);
+                 if (user != null)
+                 {
+                     var roles = RoleService.GetRolesByUser(user.Id);
+                     if (roles.Contains("Pharmacist"))
+                     {
+                         var pharmacist = Mapper.Map<EditProfileViewModel, Pharmacist>(model);
+                         ProfileService.EditProfile(user,pharmacist);
+                     }
+                     else
+                     {
+                         var storeManager = Mapper.Map<EditProfileViewModel, StoreManager>(model);
+                         ProfileService.EditProfile(user,null,storeManager);
+                     }
+
+                     await SignInManager.SignInAsync(user, true, true);
+                     
+                     //send mail that they have successfully created their profile
+                 }
+             }
+             return View();
+         }
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
