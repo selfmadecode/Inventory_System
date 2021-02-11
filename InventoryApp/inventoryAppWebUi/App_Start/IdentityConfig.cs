@@ -107,4 +107,5 @@ namespace inventoryAppWebUi
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
         }
     }
+    
 }

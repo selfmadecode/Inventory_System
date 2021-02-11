@@ -65,6 +65,13 @@ namespace inventoryAppWebUi.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
+
+        //[Display(Name = "Role")]
+        public string Name { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -79,6 +86,9 @@ namespace inventoryAppWebUi.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Agree to Terms & Conditions")]
+        public bool TermsAgree { get; set; }
     }
 
     public class ResetPasswordViewModel

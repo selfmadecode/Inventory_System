@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using inventoryAppWebUi.Models;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace inventoryAppWebUi.Controllers
 {
@@ -18,6 +20,8 @@ namespace inventoryAppWebUi.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        ApplicationDbContext _ctx;
+
 
         public AccountController()
         {
@@ -27,6 +31,7 @@ namespace inventoryAppWebUi.Controllers
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _ctx = new ApplicationDbContext();
         }
 
         public ApplicationSignInManager SignInManager
@@ -138,8 +143,20 @@ namespace inventoryAppWebUi.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult SignUp()
         {
+            //ViewBag.Roles = new SelectList(_ctx.Roles, "Name", "Name");
+           
+
+            //var items = new List<SelectListItem>();
+            //foreach (var role in _ctx.Roles)
+            //{
+            //    items.Add(new SelectListItem { Text = role.Name, Value = role.Name });
+            //}
+
+            //var result = new SelectList(items);
+            //ViewBag.Name = result;
+
             return View();
         }
 
@@ -148,14 +165,16 @@ namespace inventoryAppWebUi.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> SignUp(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, TwoFactorEnabled = true};
+                var user = new ApplicationUser { UserName = model.Username, Email = model.Email};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    await this.UserManager.AddToRoleAsync(user.Id, model.Name);
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -388,6 +407,7 @@ namespace inventoryAppWebUi.Controllers
 
         //
         // POST: /Account/LogOff
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
