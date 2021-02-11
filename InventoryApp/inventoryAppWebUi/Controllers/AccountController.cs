@@ -12,26 +12,26 @@ using Microsoft.Owin.Security;
 using inventoryAppWebUi.Models;
 using System.Collections.Generic;
 using System.Collections;
+using inventoryAppDomain.Services;
 
 namespace inventoryAppWebUi.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        public IRoleService RoleService { get; }
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        ApplicationDbContext _ctx;
 
-
-        public AccountController()
+        public AccountController(IRoleService roleService)
         {
+            RoleService = roleService;
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
-            _ctx = new ApplicationDbContext();
         }
 
         public ApplicationSignInManager SignInManager
@@ -142,56 +142,65 @@ namespace inventoryAppWebUi.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         public ActionResult SignUp()
         {
-            //ViewBag.Roles = new SelectList(_ctx.Roles, "Name", "Name");
-           
-
-            //var items = new List<SelectListItem>();
-            //foreach (var role in _ctx.Roles)
-            //{
-            //    items.Add(new SelectListItem { Text = role.Name, Value = role.Name });
-            //}
-
-            //var result = new SelectList(items);
-            //ViewBag.Name = result;
-
-            return View();
+            var registerViewModel = new RegisterViewModel
+            {
+                Roles = RoleService.GetAllRoles(),
+            };
+            return View(registerViewModel);
         }
 
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SignUp(RegisterViewModel model)
+        public ActionResult SignUp(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Username, Email = model.Email};
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email};
+                var result = UserManager.Create(user, PasswordGenerator());
                 if (result.Succeeded)
                 {
-                    await this.UserManager.AddToRoleAsync(user.Id, model.Name);
+                    var role = RoleService.FindByRoleName(model.RoleName);
 
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    if (role != null)
+                    {
+                        UserManager.AddToRole(user.Id, model.RoleName);
+                    }
                     
+                    //implement role sender later
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
+                    //send password and link to edit profile in mail
+                    
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return RedirectToAction("SignUp");
         }
 
+        private static string PasswordGenerator()
+        {
+            return Guid.NewGuid().ToString().ToUpper();
+        }
+        
+        //Edit Profile
+        public ActionResult EditProfile()
+        {
+            
+        }
+        
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
