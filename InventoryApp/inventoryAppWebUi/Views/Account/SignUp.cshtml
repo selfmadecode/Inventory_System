@@ -14,7 +14,7 @@
             <span>
                 <img src="~/Content/Assets/images/logo.png" class="logo" alt="logo" style="height: 50px; padding-top: 4px; margin-left: 10px">
             </span>
-            <div class="row" id="formContainer" >
+            <div class="row" id="formContainer">
                 <div class="col-sm-6 auth-box">
                     <div class="proclinic-box-shadow" id="form">
                         <h2 class="widget-title">@ViewBag.Title</h2>
@@ -31,7 +31,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-12">
-                                    @Html.DropDownListFor(model => model.RoleName, new SelectList(Model.Roles), "Select Gender", new {@class = "form-control textbox"})
+                                    @Html.DropDownListFor(model => model.RoleName, new SelectList(Model.Roles), "Select Role", new { @class = "form-control textbox" })
 
                                 </div>
                             </div>
@@ -49,5 +49,7 @@
             </div>
         </div>
     </div>
-
+    @Scripts.Render("~/bundles/js")
+    @Scripts.Render("~/bundles/jqueryval")
 </div>
+
