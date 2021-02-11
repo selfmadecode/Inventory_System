@@ -36,5 +36,11 @@ namespace inventoryAppDomain.Repository
         {
             return RoleManager.Roles.Select(x => x.Name).ToList();
         }
+
+        public IdentityRole FindByRoleName(string roleName)
+        {
+            var role = RoleManager.FindByName(roleName);
+            return role;
+        }
     }
 }
