@@ -34,13 +34,13 @@ Author URI: https://themeforest.net/user/konnectcode
 ----------------------------------------------------------------*/
 
 /*=======================
- 		Imported CSS
+		Imported CSS
 ====================== */
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700|Roboto:100,400,700');
 
 
 /*=======================
- 		General
+		General
 ====================== */
 
 body {
@@ -111,16 +111,16 @@ a:focus {
 	margin-bottom: 0;
 	padding: 0px;
 	float: right;
-    padding: 10px 20px;
-    border-radius: 20px;
+	padding: 10px 20px;
+	border-radius: 20px;
 }
 .breadcrumb-item {
 	color: #fff;
-    font-size: 13px;
+	font-size: 13px;
 }
 .breadcrumb-item.active {
 	color: #fff;
-    font-size: 13px;
+	font-size: 13px;
 }
 .breadcrumb-item+.breadcrumb-item::before{
 	color: #fff;
@@ -155,7 +155,7 @@ form .row>[class^=col] {
 
 .margin-l20 {
 	color: #666;
-    font-size: 0.85rem;
+	font-size: 0.85rem;
 }
 
 .back-to-top {
@@ -233,17 +233,17 @@ div[class*="col-"] div[class*="col-"]{
 	padding-left: 10px;
 }
 .badge-danger, .bg-danger {
-    background-color: #ef6e6e !important;
+	background-color: #ef6e6e !important;
 }
 .badge-success, .bg-success {
-    background-color: #3CB371 !important;
+	background-color: #3CB371 !important;
 }
 .badge-warning, .bg-warning {
-    color: #fff;
-    background-color: #FFAA2A !important;
+	color: #fff;
+	background-color: #FFAA2A !important;
 }
 /*=======================
- 	Login and sign up
+	Login and sign up
 ====================== */
 
 .auth-bg {
@@ -288,7 +288,7 @@ div[class*="col-"] div[class*="col-"]{
 
 
 /*=======================
- 	Tables
+	Tables
 ====================== */
 
 .widget-area-2 .table-div {
@@ -298,7 +298,7 @@ div[class*="col-"] div[class*="col-"]{
 	margin-bottom: 20px;
 }
 .table-striped tbody tr:nth-of-type(odd) {
-    background-color: #F9F9F9;
+	background-color: #F9F9F9;
 }
 .table .custom-control.custom-checkbox{
 	padding-left: 0;
@@ -310,13 +310,13 @@ table.dataTable th:first-child{
 	width: 20px;
 }
 .pagination .page-link [class^="ti-"], [class*=" ti-"] {
-    margin-right: 10px;
+	margin-right: 10px;
 }
 .export-pagination.pagination .page-link{
 	color: #555555;
 }
 /*=======================
- 	Icons
+	Icons
 ====================== */
 
 .font-awesome-row .icon-container {
@@ -342,7 +342,7 @@ table.dataTable th:first-child{
 
 
 /*=======================
- 	Loader
+	Loader
 ====================== */
 
 .loading {
@@ -358,9 +358,9 @@ table.dataTable th:first-child{
 	width: 40px;
 	height: 40px;
 	position: relative;
-    top: 48%;
-    margin: 0 auto;
-    display: block;
+	top: 48%;
+	margin: 0 auto;
+	display: block;
 }
 
 .double-bounce1,
@@ -383,7 +383,7 @@ table.dataTable th:first-child{
 }
 
 /*=======================
- 	Color Switcher
+	Color Switcher
 ====================== */
 
 
@@ -406,30 +406,30 @@ table.dataTable th:first-child{
 }
 #switcher p {
 	color: #fff;
-    top: 73px;
-    position: absolute;
-    left: 15px;
-    font-size: 16px;
+	top: 73px;
+	position: absolute;
+	left: 15px;
+	font-size: 16px;
 }
 #switcher .theme-click {
-    display: block;
-    position: absolute;
-    padding: 8px;
-    width: 60px;
-    height: 60px;
-    line-height: 48px;
-    color: #ffffff;
-    font-size: 24px;
-    background-color: #222;
-    text-align: center;
-    left: -60px;
-    top: 0;
-    cursor: pointer;
-    z-index: 2;
-    border-radius: 30px 0 0 30px;
+	display: block;
+	position: absolute;
+	padding: 8px;
+	width: 60px;
+	height: 60px;
+	line-height: 48px;
+	color: #ffffff;
+	font-size: 24px;
+	background-color: #222;
+	text-align: center;
+	left: -60px;
+	top: 0;
+	cursor: pointer;
+	z-index: 2;
+	border-radius: 30px 0 0 30px;
 }
 #switcher .theme-click .ti-settings{
-    color: #ddd;
+	color: #ddd;
 }
 #switcher .theme-default {
 	width: 25px;
@@ -485,45 +485,45 @@ table.dataTable th:first-child{
 }
 #switcher span.left-side-theme a{
 	width: 100px;
-    height: 21px;
+	height: 21px;
 	background: #fff;
 	color: #FF7D00;
-    margin: 0;
-    position: absolute;
-    left: 16px;
-    cursor: pointer;
-    padding-left: 8px;
-    top: 90px;
-    font-size: 13px;
+	margin: 0;
+	position: absolute;
+	left: 16px;
+	cursor: pointer;
+	padding-left: 8px;
+	top: 90px;
+	font-size: 13px;
 }
 #switcher span.rtl-side-theme a{
 	width: 100px;
-    height: 21px;
+	height: 21px;
 	background: #fff;
 	color: #E57498;
-    margin: 0;
-    position: absolute;
-    left: 16px;
-    cursor: pointer;
-    padding-left: 8px;
-    top: 120px;
-    font-size: 13px;
+	margin: 0;
+	position: absolute;
+	left: 16px;
+	cursor: pointer;
+	padding-left: 8px;
+	top: 120px;
+	font-size: 13px;
 }
 #switcher span.top-nav-theme a{
 	width: 100px;
-    height: 21px;
+	height: 21px;
 	background: #fff;
 	color: #3CB371;
-    margin: 0;
-    position: absolute;
-    left: 16px;
-    cursor: pointer;
-    padding-left: 8px;
-    top: 150px;
-    font-size: 13px;
+	margin: 0;
+	position: absolute;
+	left: 16px;
+	cursor: pointer;
+	padding-left: 8px;
+	top: 150px;
+	font-size: 13px;
 }
 /*=======================
- 	Sidebar
+	Sidebar
 ====================== */
 
 .wrapper {
@@ -665,12 +665,12 @@ table.dataTable th:first-child{
 }
 
 #sidebarCollapse {
-    padding: 10px;
-    font-size: 17px;
-    cursor: pointer;
-    background: #555;
-    color: #fff;
-    border-radius: 50%;
+	padding: 10px;
+	font-size: 17px;
+	cursor: pointer;
+	background: #555;
+	color: #fff;
+	border-radius: 50%;
 }
 
 .nav-help {
@@ -678,8 +678,8 @@ table.dataTable th:first-child{
 	background: rgba(0,0,0,.1);
 }
 .nav-help h5{
-    border-bottom: 1px solid rgba(255,255,255,.2);
-    padding-bottom: 5px;
+	border-bottom: 1px solid rgba(255,255,255,.2);
+	padding-bottom: 5px;
 }
 .nav-help h6 {
 	margin: 20px 0px;
@@ -693,7 +693,7 @@ table.dataTable th:first-child{
 
 
 /*=======================
- 	Key Frames
+	Key Frames
 ====================== */
 
 @-webkit-keyframes bounce {
@@ -720,7 +720,7 @@ table.dataTable th:first-child{
 
 
 /*=======================
- 	Maps
+	Maps
 ====================== */
 
 .map-box {
@@ -743,7 +743,7 @@ table.dataTable th:first-child{
 }
 
 /*=======================
- 	Charts
+	Charts
 ====================== */
 .chart-home{
 	height: 255px;
@@ -766,7 +766,7 @@ table.dataTable th:first-child{
 }
 
 /*=======================
- 	Top Navigation
+	Top Navigation
 ====================== */
 .navbar-default .dropdown-toggle::after {
 	display: none;
@@ -779,12 +779,12 @@ table.dataTable th:first-child{
 	border-radius: 50%;
 }
 .navbar-default .nav-item {
-    padding-left: 10px;
+	padding-left: 10px;
 }
 .navbar-default .ti-user ,.navbar-default .ti-announcement , .navbar-default .ti-search, .navbar-default .ti-fullscreen {
 	background: #f9f9f9;
-    border: 1px solid #eee;
-    color: #343A40;
+	border: 1px solid #eee;
+	color: #343A40;
 }
 .notifications .dropdown-item,
 .profile .dropdown-item {
@@ -856,12 +856,12 @@ table.dataTable th:first-child{
 }
 .fullscreen {
 	padding: 10px;
-    font-size: 17px;
-    cursor: pointer;
+	font-size: 17px;
+	cursor: pointer;
 	border-radius: 50%;
 }
 /*=======================
- 	Modal Popup
+	Modal Popup
 ====================== */
 .modal.show .modal-dialog{
 	margin-top: 70px;
@@ -924,13 +924,13 @@ table.dataTable th:first-child{
 }
 
 /*=======================
- 	Widget Boxs
+	Widget Boxs
 ====================== */
 
 h3.block-title {
 	font-size: 22px;
-    color: #fff;
-    background: transparent;
+	color: #fff;
+	background: transparent;
 }
 
 .widget-area {
@@ -953,11 +953,11 @@ h4.wiget-title {
 	border: 0px;
 }
 .alert-dismissible .close {
-    top: 10px;
-    right: 10px;
-    padding: 0px 6px;
-    border: 1px solid;
-    border-radius: 50%;
+	top: 10px;
+	right: 10px;
+	padding: 0px 6px;
+	border: 1px solid;
+	border-radius: 50%;
 }
 .alert-warning{
 	color: #F15044;
@@ -980,9 +980,9 @@ h4.wiget-title {
 }
 .widget-left [class^="ti-"], .widget-left [class*=" ti-"]{
 	padding: 17px;
-    background: #fff;
-    border-radius: 50%;
-    border: 1px solid;
+	background: #fff;
+	border-radius: 50%;
+	border: 1px solid;
 }
 .widget-right {
 	width: 62%;
@@ -1000,9 +1000,9 @@ h4.wiget-title {
 
 .widget-title {
 	font-size: 22px;
-    padding-bottom: .5rem;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #eeeeee;
+	padding-bottom: .5rem;
+	margin-bottom: 15px;
+	border-bottom: 1px solid #eeeeee;
 }
 
 .widget-morris {
@@ -1014,7 +1014,7 @@ h4.wiget-title {
 }
 
 /*=======================
- 	Cards
+	Cards
 ====================== */
 
 .card,
@@ -1034,10 +1034,10 @@ h4.wiget-title {
 	padding-top: 0px;
 }
 .card.card-no-border {
-    border: 0px;
+	border: 0px;
 }
 .card.card-no-border .card-header{
-    border-bottom: 0px;
+	border-bottom: 0px;
 }
 .card-header:first-child {
 	border-radius: 0px;
@@ -1085,10 +1085,10 @@ h4.wiget-title {
 }
 
 /*=======================
- 	Tabs
+	Tabs
 ====================== */
 .bd-example-tabs .tab-content>.active {
-    padding: 20px 10px;
+	padding: 20px 10px;
 }
 .nav-tabs .nav-link,
 .nav-pills .nav-link {
@@ -1104,32 +1104,32 @@ h4.wiget-title {
 
 
 /*=======================
- 	Buttons
+	Buttons
 ====================== */
 
 .btn {
 	margin-bottom: 5px;	
 	font-size: 15px;
-    letter-spacing: 1px;
+	letter-spacing: 1px;
 }
 .btn.focus,
 .btn:focus {
 	box-shadow: none !important;
 }
 .home .widget-title {
-    font-size: 22px;
-    padding-bottom: .5rem;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #eeeeee; 
+	font-size: 22px;
+	padding-bottom: .5rem;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #eeeeee; 
 }
 .button-btn-block {
 	margin-top: 10px;
 }
 .btn-danger {
-    background: #FF416C;
-    background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-    background: linear-gradient(to right, #FF4B2B, #FF416C);
-    border-color: #fff;
+	background: #FF416C;
+	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
+	background: linear-gradient(to right, #FF4B2B, #FF416C);
+	border-color: #fff;
 }
 
 .btn-outline-light {
@@ -1161,7 +1161,7 @@ h4.wiget-title {
 	background: #343a40;
 }
 /*=======================
- 	Progress Bar
+	Progress Bar
 ====================== */
 
 .progress-status span {
@@ -1195,10 +1195,10 @@ h4.wiget-title {
 	height: 20px;
 }
 /*=======================
- 	Form Elements
+	Form Elements
 ====================== */
 .form-row>.col, .form-row>[class*=col-] {
-    padding-left: 5px !important;
+	padding-left: 5px !important;
 }
 .form-control {
 	border-color: #E7F3ED;
@@ -1213,10 +1213,10 @@ input.form-control {
 	box-shadow: none;
 }
 select.form-control:not([size]):not([multiple]) {
-    height: 2.6rem;
+	height: 3rem;
 }
 .form-group {
-    margin-bottom: 1.5rem;
+	margin-bottom: 1.5rem;
 }
 form .form-group label{
 	font-weight: bold;
@@ -1250,7 +1250,7 @@ form .form-group label{
 }
 
 /*=======================
- 	Typography
+	Typography
 ====================== */
 .Headings-tags {
 	margin-left: 20px;
@@ -1261,14 +1261,14 @@ form .form-group label{
 }
 .form-group h4{
 	margin-bottom: 0px;
-    font-weight: bold;
-    background: #eee;
-    padding: 10px;
-    width: auto;
+	font-weight: bold;
+	background: #eee;
+	padding: 10px;
+	width: auto;
 }
 
 /*=======================
- 	Accordion
+	Accordion
 ====================== */
 #accordion .card{
 	border: 1px solid #ffffff;
@@ -1309,7 +1309,7 @@ form .form-group label{
 
 
 /*=======================
- 	Pagination
+	Pagination
 ====================== */
 
 .pagination .page-link:focus {
@@ -1327,7 +1327,7 @@ form .form-group label{
 }
 
 /*=======================
- 	FAQ
+	FAQ
 ====================== */
 .faq-block .block-content{
 	border:1px solid #eee;
@@ -1335,7 +1335,7 @@ form .form-group label{
 }
 
 #faq1 .block-header {
-    border: 1px solid #eee;
+	border: 1px solid #eee;
 }
 
 #faq1 .block-header-default{
@@ -1381,17 +1381,17 @@ form .form-group label{
 	margin-left: 0px !important;
 	margin-right: 0px !important;
 	padding: 5px 20px;
-    background: #666666;
+	background: #666666;
 }
 .no-margin-padding [class*="col-"], .no-mp [class*="col-"]{
-    padding-right: 0px;
-    padding-left: 0px;
+	padding-right: 0px;
+	padding-left: 0px;
 }
 .no-mp{
 	margin-left: 0px !important;
 	margin-right: 0px !important;
 	padding: 0px;
-    background: #ffffff;
+	background: #ffffff;
 }
 .block-title {
 	-ms-flex: 1 1 auto;
@@ -1424,7 +1424,7 @@ form .form-group label{
 }
 
 .pricing-content {
-    min-height: 280px;
+	min-height: 280px;
 }
 .block {
 	display: block;

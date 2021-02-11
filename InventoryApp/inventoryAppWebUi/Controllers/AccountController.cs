@@ -196,10 +196,10 @@ namespace inventoryAppWebUi.Controllers
         }
         
         //Edit Profile
-        public ActionResult EditProfile()
-        {
+        //public ActionResult EditProfile()
+        //{
             
-        }
+        //}
         
         //
         // GET: /Account/ConfirmEmail
