@@ -8,5 +8,9 @@ namespace inventoryAppDomain.Services
     {
         IdentityRole Create(string roleName);
         List<String> GetAllRoles();
+
+        IdentityRole FindByRoleName(string roleName);
+
+        List<string> GetRolesByUser(string userId);
     }
 }

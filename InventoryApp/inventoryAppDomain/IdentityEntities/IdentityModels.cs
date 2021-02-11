@@ -23,10 +23,9 @@ namespace inventoryAppDomain.IdentityEntities
     {
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
-        public DbSet<Drug> Drugs { get; set; }
-
+        public DbSet<Drug> Drugs { get; set; } 
         public DbSet<Pharmacist> Pharmacists { get; set; }
-        //public DbSet<Role> MyProperty { get; set; }
+        public DbSet<StoreManager> StoreManagers { get; set; }
 
 
         public ApplicationDbContext()
