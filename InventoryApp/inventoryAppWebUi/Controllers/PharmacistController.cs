@@ -8,19 +8,13 @@ namespace inventoryAppWebUi.Controllers
     public class PharmacistController : Controller
     {
         private ApplicationUserManager _userManager;
-        private readonly ApplicationDbContext _dbContext;
 
         public PharmacistController(ApplicationUserManager userManager)
         {
             UserManager = userManager;
         }
-        
-        public PharmacistController(ApplicationDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
-        
-        
+
+
         public ApplicationUserManager UserManager
         {
             get

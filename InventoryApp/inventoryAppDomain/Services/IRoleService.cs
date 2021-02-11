@@ -10,5 +10,7 @@ namespace inventoryAppDomain.Services
         List<String> GetAllRoles();
 
         IdentityRole FindByRoleName(string roleName);
+
+        List<string> GetRolesByUser(string userId);
     }
 }
