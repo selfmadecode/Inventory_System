@@ -22,15 +22,14 @@ namespace inventoryAppWebUi.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private static ILogger _logger;
+       // private static ILogger _logger;
         public IRoleService RoleService { get; }
         public IProfileService ProfileService { get; }
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public AccountController(IRoleService roleService, IProfileService profileService, ILogger logger)
+        public AccountController(IRoleService roleService, IProfileService profileService)
         {
-            _logger = logger;
             RoleService = roleService;
             ProfileService = profileService;
         }
@@ -162,14 +161,16 @@ namespace inventoryAppWebUi.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult SignUp(RegisterViewModel model)
+        public async Task<ActionResult> SignUp(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email};
-                var result = UserManager.Create(user, PasswordGenerator());
+                var generatedPassword = PasswordGenerator();
+                var result = UserManager.Create(user, generatedPassword);
+
                 if (result.Succeeded)
                 {
                     var role = RoleService.FindByRoleName(model.RoleName);
@@ -182,12 +183,15 @@ namespace inventoryAppWebUi.Controllers
                     //implement role sender later
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                     var callbackUrl = Url.Action("EditProfile", "Account", null, protocol: Request.Url.Scheme);
+                    
+                    await UserManager.SendEmailAsync(user.Id, "Edit your Profile", $"Use this as your old password {generatedPassword}, Click <a href=\"" + callbackUrl + "\">here</a> to edit your profile");
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
+
                     //send password and link to edit profile in mail
-                    
+
                     return RedirectToAction("EditProfile", "Account");
                 }
                 AddErrors(result);
@@ -197,12 +201,7 @@ namespace inventoryAppWebUi.Controllers
             return RedirectToAction("SignUp");
         }
 
-        private static string PasswordGenerator()
-        {
-            var genPass = Guid.NewGuid().ToString().ToUpper();
-            _logger.WriteInformation(genPass);
-            return genPass;
-        }
+        private static string PasswordGenerator() => Guid.NewGuid().ToString().ToUpper();
 
         //Edit Profile
          public ActionResult EditProfile()
@@ -216,27 +215,40 @@ namespace inventoryAppWebUi.Controllers
              if (ModelState.IsValid)
              {
                  var user = UserManager.FindByEmail(model.Email);
+
                  if (user != null)
                  {
-                     var roles = RoleService.GetRolesByUser(user.Id);
-                     if (roles.Contains("Pharmacist"))
-                     {
-                         var pharmacist = Mapper.Map<EditProfileViewModel, Pharmacist>(model);
-                         ProfileService.EditProfile(user,pharmacist);
-                     }
-                     else
-                     {
+                    var passwordHasher = new PasswordHasher();
+                    var result = passwordHasher.VerifyHashedPassword(user.PasswordHash, model.OldPassword);
+
+                    //IF THE OLD PASSWORD MATCHES PASSWORD IN DB
+                    if(result == PasswordVerificationResult.Success)
+                    {
+                        var roles = RoleService.GetRolesByUser(user.Id);
+                        if (roles.Contains("Pharmacist"))
+                        {
+                             var pharmacist = Mapper.Map<EditProfileViewModel, Pharmacist>(model);
+                             ProfileService.EditProfile(user,pharmacist);
+                        }
+                        else
+                        {
                          var storeManager = Mapper.Map<EditProfileViewModel, StoreManager>(model);
                          ProfileService.EditProfile(user,null,storeManager);
-                     }
+                        }
 
                      await SignInManager.SignInAsync(user, true, true);
-                     
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ViewBag.PasswordMisMatch = "Password Mismatch";
+                        return View();
+                    }
                      //send mail that they have successfully created their profile
                  }
              }
-             return View();
-         }
+            return View(model);
+        }
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
