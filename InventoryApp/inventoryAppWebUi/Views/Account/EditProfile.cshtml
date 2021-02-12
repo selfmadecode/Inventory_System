@@ -7,6 +7,12 @@
 
 <h2>EditProfile</h2>
 
+@{ 
+    if (!string.IsNullOrEmpty(ViewBag.PasswordMisMatch))
+    {
+    <p>ViewBag.PasswordMisMatch</p>
+    }
+}
 
 @using (Html.BeginForm(FormMethod.Post)) 
 {

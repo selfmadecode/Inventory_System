@@ -30,7 +30,9 @@ namespace inventoryAppDomain.Repository
         {
             get
             {
-                return _userManager ?? new UserManager<ApplicationUser>(new UserStore<ApplicationUser>());
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+                // return _userManager ?? new UserManager<ApplicationUser>(new UserStore<ApplicationUser>());
             }
             private set 
             { 
@@ -46,20 +48,9 @@ namespace inventoryAppDomain.Repository
             return result.Succeeded ? role : throw new Exception(result.Errors.ToString());
         }
 
-        public List<string> GetAllRoles()
-        {
-            return RoleManager.Roles.Select(x => x.Name).ToList();
-        }
+        public List<string> GetAllRoles() => RoleManager.Roles.Select(x => x.Name).ToList();
 
-        public IdentityRole FindByRoleName(string roleName)
-        {
-            var role = RoleManager.FindByName(roleName);
-            return role;
-        }
-
-        public List<string> GetRolesByUser(string userId)
-        {
-            return UserManager.GetRoles(userId).ToList();
-        }
+        public IdentityRole FindByRoleName(string roleName) => RoleManager.FindByName(roleName);
+        public List<string> GetRolesByUser(string userId) => UserManager.GetRoles(userId).ToList();
     }
 }
