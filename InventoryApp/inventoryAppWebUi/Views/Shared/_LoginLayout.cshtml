@@ -60,14 +60,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-<!-- Pre Loader -->
-<div class="loading">
-    <div class="spinner">
-        <div class="double-bounce1"></div>
-        <div class="double-bounce2"></div>
-    </div>
-</div>
-<!--/Pre Loader -->
+@Html.Partial("_PageLoading")
 <div>
     @RenderBody()
 </div>
