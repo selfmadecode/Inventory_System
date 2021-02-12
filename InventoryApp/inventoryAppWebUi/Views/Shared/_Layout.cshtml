@@ -26,14 +26,8 @@
 </head>
 <body>
 
-    <!-- Pre Loader -->
-    <div class="loading">
-        <div class="spinner">
-            <div class="double-bounce1"></div>
-            <div class="double-bounce2"></div>
-        </div>
-    </div>
-    <!--/Pre Loader -->
+    @Html.Partial("_PageLoading")
+
 
     <div class="wrapper">
         <!-- Sidebar -->
@@ -293,20 +287,25 @@
             </div>
             <!-- /Page Title -->
             <!-- /Breadcrumb -->
-            <!-- Back to Top -->
-            <a id="back-to-top" href="#" class="back-to-top">
-                <span class="ti-angle-up"></span>
-            </a>
-            <!-- /Back to Top -->
             <!-- Jquery Library-->
 
 
-            <div class="container body-content">
+            <div class="container-fluid home">
                 @RenderBody()
             </div>
+
         </div>
     </div>
+
+    <!-- Back to Top -->
+    <a id="back-to-top" href="#" class="back-to-top">
+        <span class="ti-angle-up"></span>
+    </a>
+    <!-- /Back to Top -->
     @Scripts.Render("~/bundles/js")
     @RenderSection("scripts", required: false)
+
+    @*Delete the scripts below*@
+
 </body>
 </html>
