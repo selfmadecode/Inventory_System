@@ -12,15 +12,35 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using inventoryAppWebUi.Models;
+using System.Configuration;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace inventoryAppWebUi
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
+            var apiKey = ConfigurationManager.AppSettings["apiKey"];
+            var user = ConfigurationManager.AppSettings["user"];
+
+            var mailClient = new SendGridClient(apiKey);
+
+            var email = new SendGridMessage()
+            {
+                From = new EmailAddress("tochukwuchinedu21@gmail.com", user),
+                Subject = message.Subject,
+                PlainTextContent = message.Body,
+                HtmlContent = message.Body
+            };
+
+            email.AddTo(new EmailAddress(message.Destination));
+            email.SetClickTracking(false, false);
+            await mailClient.SendEmailAsync(email);
+
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            //return Task.FromResult(0);
         }
     }
 
@@ -54,11 +74,11 @@ namespace inventoryAppWebUi
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
+                // RequiredLength = 6,
+                // RequireNonLetterOrDigit = true,
+                // RequireDigit = true,
+                // RequireLowercase = true,
+                // RequireUppercase = true,
             };
 
             // Configure user lockout defaults
@@ -107,4 +127,5 @@ namespace inventoryAppWebUi
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
         }
     }
+    
 }

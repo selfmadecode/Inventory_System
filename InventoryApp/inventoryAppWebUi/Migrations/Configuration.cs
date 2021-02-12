@@ -1,4 +1,3 @@
-
 using inventoryAppDomain.IdentityEntities;
 
 namespace inventoryAppWebUi.Migrations

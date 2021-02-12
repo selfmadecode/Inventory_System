@@ -19,20 +19,18 @@ namespace inventoryAppWebUi.Migrations
                 // TwoFactorEnabled = true,
             };
 
-            var result = userManager.CreateAsync(user, "Admin1234_");
+            var result = userManager.Create(user, "Admin1234_");
 
-            if (result.IsCompleted)
             {
-                if (result.Result.Succeeded)
+                if (result.Succeeded)
                 {
                     var admin = new IdentityRole("Admin");
-                    var roleResult = roleManager.CreateAsync(admin);
+                    var roleResult = roleManager.Create(admin);
 
-                    if (roleResult.IsCompleted)
                     {
-                        if (roleResult.Result.Succeeded)
+                        if (roleResult.Succeeded)
                         {
-                            userManager.AddToRoleAsync(user.Id, "Admin");
+                            userManager.AddToRole(user.Id, "Admin");
                         }
                     }
                 }

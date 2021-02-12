@@ -4,7 +4,7 @@ using inventoryAppDomain.IdentityEntities;
 
 namespace inventoryAppDomain.Entities
 {
-    public class Pharmacist
+    public class StoreManager
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -12,7 +12,7 @@ namespace inventoryAppDomain.Entities
         public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
+        
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
     }
