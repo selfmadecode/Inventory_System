@@ -1,4 +1,5 @@
-﻿using inventoryAppDomain.Entities;
+﻿using System.Data.Entity.Migrations;
+using inventoryAppDomain.Entities;
 using inventoryAppDomain.IdentityEntities;
 using inventoryAppDomain.Services;
 

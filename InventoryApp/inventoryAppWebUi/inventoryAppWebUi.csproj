@@ -190,11 +190,11 @@
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
+    <Reference Include="net45" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -327,8 +327,6 @@
     <EmbeddedResource Include="Migrations\202102081346408_seedAdmin.resx">
       <DependentUpon>202102081346408_seedAdmin.cs</DependentUpon>
     </EmbeddedResource>
-<<<<<<< HEAD
-=======
     <EmbeddedResource Include="Migrations\202102101443035_pharmacist.resx">
       <DependentUpon>202102101443035_pharmacist.cs</DependentUpon>
     </EmbeddedResource>
@@ -338,7 +336,6 @@
     <EmbeddedResource Include="Migrations\202102111116053_StoreManager.resx">
       <DependentUpon>202102111116053_StoreManager.cs</DependentUpon>
     </EmbeddedResource>
->>>>>>> 36e1eb2918c95e14ef40dfc9f1c0c131bab2987f
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

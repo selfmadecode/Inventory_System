@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using inventoryAppDomain.IdentityEntities;
 using inventoryAppDomain.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-
+using Microsoft.AspNet.Identity.Owin;
 
 namespace inventoryAppDomain.Repository
 {
@@ -30,8 +31,8 @@ namespace inventoryAppDomain.Repository
         {
             get
             {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-
+                // return _userManager ?? new ApplicationUserManager(new UserStore<ApplicationUser>());
+                return HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 // return _userManager ?? new UserManager<ApplicationUser>(new UserStore<ApplicationUser>());
             }
             private set 

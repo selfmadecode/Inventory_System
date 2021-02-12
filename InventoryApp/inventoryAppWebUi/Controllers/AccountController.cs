@@ -22,7 +22,7 @@ namespace inventoryAppWebUi.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-       // private static ILogger _logger;
+        // private static ILogger _logger;
         public IRoleService RoleService { get; }
         public IProfileService ProfileService { get; }
         private ApplicationSignInManager _signInManager;
@@ -42,26 +42,14 @@ namespace inventoryAppWebUi.Controllers
 
         public ApplicationSignInManager SignInManager
         {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set 
-            { 
-                _signInManager = value; 
-            }
+            get { return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>(); }
+            private set { _signInManager = value; }
         }
 
         public ApplicationUserManager UserManager
         {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
+            get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
+            private set { _userManager = value; }
         }
 
         //
@@ -87,7 +75,8 @@ namespace inventoryAppWebUi.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe,
+                shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -95,7 +84,7 @@ namespace inventoryAppWebUi.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    return RedirectToAction("SendCode", new {ReturnUrl = returnUrl, RememberMe = model.RememberMe});
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", @"Invalid login attempt.");
@@ -113,7 +102,8 @@ namespace inventoryAppWebUi.Controllers
             {
                 return View("Error");
             }
-            return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
+
+            return View(new VerifyCodeViewModel {Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe});
         }
 
         //
@@ -132,7 +122,8 @@ namespace inventoryAppWebUi.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code,
+                isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -167,7 +158,7 @@ namespace inventoryAppWebUi.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email};
+                var user = new ApplicationUser {UserName = model.Email, Email = model.Email};
                 var generatedPassword = PasswordGenerator();
                 var result = UserManager.Create(user, generatedPassword);
 
@@ -179,14 +170,16 @@ namespace inventoryAppWebUi.Controllers
                     {
                         UserManager.AddToRole(user.Id, model.RoleName);
                     }
-                    
+
                     //implement role sender later
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                     var callbackUrl = Url.Action("EditProfile", "Account", null, protocol: Request.Url.Scheme);
-                    
-                    await UserManager.SendEmailAsync(user.Id, "Edit your Profile", $"Use this as your old password {generatedPassword}, Click <a href=\"" + callbackUrl + "\">here</a> to edit your profile");
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("EditProfile", "Account", null, protocol: Request.Url.Scheme);
+
+                    await UserManager.SendEmailAsync(user.Id, "Edit your Profile",
+                        $"Use this as your old password {generatedPassword}, Click <a href=\"" + callbackUrl +
+                        "\">here</a> to edit your profile");
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
 
@@ -194,6 +187,7 @@ namespace inventoryAppWebUi.Controllers
 
                     return RedirectToAction("EditProfile", "Account");
                 }
+
                 AddErrors(result);
             }
 
@@ -204,51 +198,58 @@ namespace inventoryAppWebUi.Controllers
         private static string PasswordGenerator() => Guid.NewGuid().ToString().ToUpper();
 
         //Edit Profile
-         public ActionResult EditProfile()
+        public ActionResult EditProfile()
         {
             return View();
         }
 
-         [HttpPost]
-         public async Task<ActionResult> EditProfile(EditProfileViewModel model)
-         {
-             if (ModelState.IsValid)
-             {
-                 var user = UserManager.FindByEmail(model.Email);
+        [HttpPost]
+        public async Task<ActionResult> EditProfile(EditProfileViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = UserManager.FindByEmail(model.Email);
 
-                 if (user != null)
-                 {
+                if (user != null)
+                {
                     var passwordHasher = new PasswordHasher();
                     var result = passwordHasher.VerifyHashedPassword(user.PasswordHash, model.OldPassword);
 
                     //IF THE OLD PASSWORD MATCHES PASSWORD IN DB
-                    if(result == PasswordVerificationResult.Success)
+                    if (result == PasswordVerificationResult.Success)
                     {
                         var roles = RoleService.GetRolesByUser(user.Id);
-                        if (roles.Contains("Pharmacist"))
+                        try
                         {
-                             var pharmacist = Mapper.Map<EditProfileViewModel, Pharmacist>(model);
-                             ProfileService.EditProfile(user,pharmacist);
+                            if (roles.Contains("Pharmacist"))
+                            {
+                                var pharmacist = Mapper.Map<EditProfileViewModel, Pharmacist>(model);
+                                ProfileService.EditProfile(user, pharmacist);
+                            }
+                            else
+                            {
+                                var storeManager = Mapper.Map<EditProfileViewModel, StoreManager>(model);
+                                ProfileService.EditProfile(user, null, storeManager);
+                            }
                         }
-                        else
+                        catch (Exception e)
                         {
-                         var storeManager = Mapper.Map<EditProfileViewModel, StoreManager>(model);
-                         ProfileService.EditProfile(user,null,storeManager);
+                            ViewBag.PasswordMisMatch = e.Message;
+                            return View(model);
                         }
 
-                     await SignInManager.SignInAsync(user, true, true);
+                        await SignInManager.SignInAsync(user, true, true);
                         return RedirectToAction("Index", "Home");
                     }
-                    else
-                    {
-                        ViewBag.PasswordMisMatch = "Password Mismatch";
-                        return View();
-                    }
-                     //send mail that they have successfully created their profile
-                 }
-             }
+
+                    ViewBag.PasswordMisMatch = "Password Mismatch";
+                    return View(model);
+                    //send mail that they have successfully created their profile
+                }
+            }
             return View(model);
         }
+
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
@@ -258,6 +259,7 @@ namespace inventoryAppWebUi.Controllers
             {
                 return View("Error");
             }
+
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
@@ -325,17 +327,20 @@ namespace inventoryAppWebUi.Controllers
             {
                 return View(model);
             }
+
             var user = await UserManager.FindByNameAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
+
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
+
             AddErrors(result);
             return View();
         }
@@ -356,7 +361,8 @@ namespace inventoryAppWebUi.Controllers
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
             // Request a redirect to the external login provider
-            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+            return new ChallengeResult(provider,
+                Url.Action("ExternalLoginCallback", "Account", new {ReturnUrl = returnUrl}));
         }
 
         //
@@ -369,9 +375,12 @@ namespace inventoryAppWebUi.Controllers
             {
                 return View("Error");
             }
+
             var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
-            var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
-            return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
+            var factorOptions = userFactors.Select(purpose => new SelectListItem {Text = purpose, Value = purpose})
+                .ToList();
+            return View(new SendCodeViewModel
+                {Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe});
         }
 
         //
@@ -391,7 +400,9 @@ namespace inventoryAppWebUi.Controllers
             {
                 return View("Error");
             }
-            return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
+
+            return RedirectToAction("VerifyCode",
+                new {Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe});
         }
 
         //
@@ -414,13 +425,14 @@ namespace inventoryAppWebUi.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
+                    return RedirectToAction("SendCode", new {ReturnUrl = returnUrl, RememberMe = false});
                 case SignInStatus.Failure:
                 default:
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                    return View("ExternalLoginConfirmation",
+                        new ExternalLoginConfirmationViewModel {Email = loginInfo.Email});
             }
         }
 
@@ -429,7 +441,8 @@ namespace inventoryAppWebUi.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
+        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model,
+            string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -444,7 +457,8 @@ namespace inventoryAppWebUi.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+
+                var user = new ApplicationUser {UserName = model.Email, Email = model.Email};
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -455,6 +469,7 @@ namespace inventoryAppWebUi.Controllers
                         return RedirectToLocal(returnUrl);
                     }
                 }
+
                 AddErrors(result);
             }
 
@@ -502,15 +517,13 @@ namespace inventoryAppWebUi.Controllers
         }
 
         #region Helpers
+
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
         private IAuthenticationManager AuthenticationManager
         {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
+            get { return HttpContext.GetOwinContext().Authentication; }
         }
 
         private void AddErrors(IdentityResult result)
@@ -527,6 +540,7 @@ namespace inventoryAppWebUi.Controllers
             {
                 return Redirect(returnUrl);
             }
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -550,14 +564,16 @@ namespace inventoryAppWebUi.Controllers
 
             public override void ExecuteResult(ControllerContext context)
             {
-                var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
+                var properties = new AuthenticationProperties {RedirectUri = RedirectUri};
                 if (UserId != null)
                 {
                     properties.Dictionary[XsrfKey] = UserId;
                 }
+
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
+
         #endregion
     }
 }
