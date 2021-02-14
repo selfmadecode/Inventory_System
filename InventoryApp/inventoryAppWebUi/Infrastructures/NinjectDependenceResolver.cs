@@ -5,7 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
 using inventoryAppDomain.IdentityEntities;
+using inventoryAppDomain.Repository;
+using inventoryAppDomain.Services;
+using Ninject.Web.Common;
 
 namespace inventoryAppWebUi.Infrastructures
 {
@@ -30,7 +34,8 @@ namespace inventoryAppWebUi.Infrastructures
 
         private void AddBindings()
         {
-            kernel.Bind(typeof(ApplicationDbContext)).ToSelf();
+            kernel.Bind<IRoleService>().To<RoleService>();
+            kernel.Bind<IProfileService>().To<ProfileService>();
         }
     }
 }

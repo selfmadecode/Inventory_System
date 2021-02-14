@@ -1,26 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
+using System.Configuration;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
-using inventoryAppDomain.IdentityEntities;
+using System.Web.Configuration;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using inventoryAppWebUi.Models;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
-namespace inventoryAppWebUi
+namespace inventoryAppDomain.IdentityEntities
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
+            var apiKey = WebConfigurationManager.AppSettings["apiKey"];
+            var user = WebConfigurationManager.AppSettings["user"];
+
+            var mailClient = new SendGridClient(apiKey);
+
+            var email = new SendGridMessage()
+            {
+                From = new EmailAddress("tochukwuchinedu21@gmail.com", user),
+                Subject = message.Subject,
+                PlainTextContent = message.Body,
+                HtmlContent = message.Body
+            };
+
+            email.AddTo(new EmailAddress(message.Destination));
+            email.SetClickTracking(false, false);
+            await mailClient.SendEmailAsync(email);
+
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            //return Task.FromResult(0);
         }
     }
 
@@ -34,6 +49,26 @@ namespace inventoryAppWebUi
     }
 
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
+    
+
+    // Configure the application sign-in manager which is used in this application.
+    public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
+    {
+        public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
+            : base(userManager, authenticationManager)
+        {
+        }
+
+        public override Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user)
+        {
+            return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
+        }
+
+        public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
+        {
+            return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
+        }
+    }
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
@@ -54,11 +89,11 @@ namespace inventoryAppWebUi
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
+                // RequiredLength = 6,
+                // RequireNonLetterOrDigit = true,
+                // RequireDigit = true,
+                // RequireLowercase = true,
+                // RequireUppercase = true,
             };
 
             // Configure user lockout defaults
@@ -86,25 +121,6 @@ namespace inventoryAppWebUi
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
-        }
-    }
-
-    // Configure the application sign-in manager which is used in this application.
-    public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
-    {
-        public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
-            : base(userManager, authenticationManager)
-        {
-        }
-
-        public override Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user)
-        {
-            return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
-        }
-
-        public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
-        {
-            return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
         }
     }
 }
