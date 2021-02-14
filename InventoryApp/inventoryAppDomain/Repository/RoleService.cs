@@ -14,7 +14,9 @@ namespace inventoryAppDomain.Repository
     {
         private RoleManager<IdentityRole> _roleManager;
         private UserManager<ApplicationUser> _userManager;
-
+        
+        
+        
         public RoleManager<IdentityRole> RoleManager
         {
             get

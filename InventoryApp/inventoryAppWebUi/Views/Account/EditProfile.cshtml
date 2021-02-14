@@ -19,12 +19,6 @@
                 <div class="col-sm-6 auth-box">
                     <div class="proclinic-box-shadow" id="form" style="margin-top: 70px">
                         <h2 class="widget-title">@ViewBag.Title</h2>
-                        @{
-                            if (!string.IsNullOrEmpty(ViewBag.PasswordMisMatch))
-                            {
-                                <p>ViewBag.PasswordMisMatch</p>
-                            }
-                        }
 
                         @using (Html.BeginForm("EditProfile", "Account", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
                         {

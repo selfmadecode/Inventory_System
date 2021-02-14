@@ -34,7 +34,6 @@ namespace inventoryAppWebUi.Infrastructures
 
         private void AddBindings()
         {
-            kernel.Bind(typeof(ApplicationDbContext)).ToSelf().InSingletonScope();
             kernel.Bind<IRoleService>().To<RoleService>();
             kernel.Bind<IProfileService>().To<ProfileService>();
         }

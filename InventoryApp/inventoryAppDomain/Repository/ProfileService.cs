@@ -1,7 +1,10 @@
 ﻿using System.Data.Entity.Migrations;
+using System.Web;
 using inventoryAppDomain.Entities;
 using inventoryAppDomain.IdentityEntities;
 using inventoryAppDomain.Services;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
 
 namespace inventoryAppDomain.Repository
 {
@@ -11,7 +14,7 @@ namespace inventoryAppDomain.Repository
 
         public ProfileService(ApplicationDbContext dbContext)
         {
-            _dbContext = dbContext;
+            _dbContext = HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>();
         }
         
         public void EditProfile(ApplicationUser user, Pharmacist pharmacist = null, StoreManager storeManager = null)

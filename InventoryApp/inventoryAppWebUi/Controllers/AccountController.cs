@@ -22,7 +22,6 @@ namespace inventoryAppWebUi.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        // private static ILogger _logger;
         public IRoleService RoleService { get; }
         public IProfileService ProfileService { get; }
         private ApplicationSignInManager _signInManager;
@@ -218,6 +217,9 @@ namespace inventoryAppWebUi.Controllers
                     //IF THE OLD PASSWORD MATCHES PASSWORD IN DB
                     if (result == PasswordVerificationResult.Success)
                     {
+                        user.PasswordHash = passwordHasher.HashPassword(model.NewPassword);
+                        UserManager.Update(user);
+                        
                         var roles = RoleService.GetRolesByUser(user.Id);
                         try
                         {
@@ -247,6 +249,7 @@ namespace inventoryAppWebUi.Controllers
                     //send mail that they have successfully created their profile
                 }
             }
+
             return View(model);
         }
 
