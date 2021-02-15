@@ -487,6 +487,10 @@ namespace inventoryAppWebUi.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            Session["User"] = null;
+            Session.Clear();
+            Session.Abandon();
+
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
