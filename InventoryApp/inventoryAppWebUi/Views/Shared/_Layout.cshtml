@@ -320,6 +320,17 @@
         <span class="ti-angle-up"></span>
     </a>
     <!-- /Back to Top -->
+    <script>
+        var sessionTimeoutWarning = @Session.Timeout - 1;
+
+        var sTimeout = parseInt(sessionTimeoutWarning) * 60 * 1000;
+        setTimeout('SessionEnd()', sTimeout);
+
+        function SessionEnd() {
+            window.location = "/Account/Login";
+        }
+    </script>
+
     @Scripts.Render("~/bundles/js")
     @RenderSection("scripts", required: false)
 

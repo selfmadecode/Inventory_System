@@ -51,6 +51,8 @@ namespace inventoryAppWebUi
             //    clientId: "",
             //    clientSecret: "");
 
+            
+
             //app.UseTwitterAuthentication(
             //   consumerKey: "",
             //   consumerSecret: "");
