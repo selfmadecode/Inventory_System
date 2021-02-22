@@ -83,7 +83,7 @@
 
                                 <div class="form-group row">
                                     <div class="col-sm-12">
-                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control textbox", name = "user", placeholder = "Username" })
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control textbox", name = "user", placeholder = "Email" })
                                         @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -117,8 +117,10 @@
                                 <!-- Links -->
                                 <div class="auth-footer-text">
                                     <small>
-                                        New User,
-                                        <a href="sign-up.html">Sign Up</a> Here
+                                        New User? Sign Up
+                                        @Html.ActionLink("Here", "SignUp")
+
+                                        @*<a href="sign-up.html">Sign Up</a> Here*@
                                     </small>
                                 </div>
                                 <!-- /Links -->
