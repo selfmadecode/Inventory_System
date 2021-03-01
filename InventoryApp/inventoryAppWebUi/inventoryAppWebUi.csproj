@@ -245,6 +245,7 @@
     <Compile Include="Migrations\202102281515266_NotificationsModule.cs" />
     <Compile Include="Migrations\202102281515266_NotificationsModule.Designer.cs">
       <DependentUpon>202102281515266_NotificationsModule.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\202102251555175_AddStatusToSupplier.cs" />
     <Compile Include="Migrations\202102251555175_AddStatusToSupplier.Designer.cs">
       <DependentUpon>202102251555175_AddStatusToSupplier.cs</DependentUpon>
@@ -370,6 +371,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102281515266_NotificationsModule.resx">
       <DependentUpon>202102281515266_NotificationsModule.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102251555175_AddStatusToSupplier.resx">
       <DependentUpon>202102251555175_AddStatusToSupplier.cs</DependentUpon>
     </EmbeddedResource>
