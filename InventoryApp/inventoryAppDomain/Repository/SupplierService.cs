@@ -16,7 +16,7 @@ namespace inventoryAppDomain.Repository
     {
         private readonly ApplicationDbContext _dbContext;
 
-        public SupplierService(ApplicationDbContext dbContext)
+        public SupplierService()
         {
             _dbContext = HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>();
         }

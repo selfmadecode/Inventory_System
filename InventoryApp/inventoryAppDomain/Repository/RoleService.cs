@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using inventoryAppDomain.IdentityEntities;
 using inventoryAppDomain.Services;
@@ -53,5 +54,25 @@ namespace inventoryAppDomain.Repository
 
         public IdentityRole FindByRoleName(string roleName) => RoleManager.FindByName(roleName);
         public List<string> GetRolesByUser(string userId) => UserManager.GetRoles(userId).ToList();
+        public async Task RemoveUserFromRole(string userId)
+        {
+            await UserManager.RemoveFromRolesAsync(userId);
+        }
+
+        public async void ChangeUserRole(string userId, string updatedRoleName)
+        {
+
+            await UserManager.RemoveFromRolesAsync(userId);
+
+            var role = await RoleManager.FindByNameAsync(updatedRoleName);
+
+            if (role == null)
+            {
+                throw new Exception("Role Doesn't Exist");
+            }
+
+            await UserManager.AddToRoleAsync(userId, role.Name);
+
+        }
     }
 }
