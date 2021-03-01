@@ -37,6 +37,7 @@ namespace inventoryAppWebUi.Infrastructures
             kernel.Bind<IRoleService>().To<RoleService>();
             kernel.Bind<IProfileService>().To<ProfileService>();
             kernel.Bind<INotificationService>().To<NotificationService>();
+            kernel.Bind<ISupplierService>().To<SupplierService>();
         }
     }
 }

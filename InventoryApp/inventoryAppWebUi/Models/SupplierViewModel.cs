@@ -1,30 +1,30 @@
 ﻿using inventoryAppDomain.Entities.Enums;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Web;
 
-namespace inventoryAppDomain.Entities
+namespace inventoryAppWebUi.Models
 {
-    public class Supplier
+    public class SupplierViewModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required (ErrorMessage = "Supplier Name needed")]
+        [Required(ErrorMessage = "Supplier Name needed")]
         public string SupplierName { get; set; }
 
         [Required(ErrorMessage = "Supplier Email needed")]
         public string Email { get; set; }
 
+        public SupplierStatus Status { get; set; }
+
+
         [Required(ErrorMessage = "Supplier web address needed")]
         public string Website { get; set; }
-
-        public SupplierStatus Status { get; set; } = SupplierStatus.Active;
-
-        [Required]
-        public int GrossAmountOfDrugsSupplied { get; set; }
 
         [Required]
         public string TagNumber { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
 using inventoryAppDomain.Entities;
 using inventoryAppWebUi.Models;
@@ -22,6 +23,10 @@ namespace inventoryAppWebUi.Infrastructures
                 .ForMember(tupleItem => tupleItem.Item2, act => act.MapFrom(model => model.UpdatedUserRole));
 
 
+            Mapper.CreateMap<SupplierViewModel, Supplier>()
+               .ForMember(s => s.Status, s => s.Ignore());
+
+             Mapper.CreateMap<Supplier, SupplierViewModel>();
         }
     }
 }

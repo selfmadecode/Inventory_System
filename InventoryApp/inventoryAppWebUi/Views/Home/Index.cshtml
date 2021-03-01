@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+@model inventoryAppWebUi.Models.IndexPageViewModel
 
 <!-- Main Content -->
 <div class="container-fluid home">
@@ -11,11 +12,12 @@
         <div class="col-md-4">
             <div class="widget-area proclinic-box-shadow color-red">
                 <div class="widget-left">
-                    <span class="ti-user"></span>
+                    <span class="ti-support"></span>
                 </div>
                 <div class="widget-right">
-                    <h4 class="wiget-title">Patients</h4>
-                    <span class="numeric color-red">348</span>
+                    <h4 class="wiget-title">Supplier</h4>
+                    <span class="numeric color-red">@Model.TotalNumberOfSupplier</span>
+
                     <p class="inc-dec mb-0"><span class="ti-angle-up"></span> +20% Increased</p>
                 </div>
             </div>
@@ -55,7 +57,7 @@
         <!-- Widget Item -->
         <div class="col-md-6">
             <div class="widget-area-2 proclinic-box-shadow">
-                <h3 class="widget-title">Appointments Year by Year</h3>
+                <h3 class="widget-title">Sales and loss</h3>
                 <div id="lineMorris" class="chart-home"></div>
             </div>
         </div>
@@ -63,7 +65,7 @@
         <!-- Widget Item -->
         <div class="col-md-6">
             <div class="widget-area-2 proclinic-box-shadow">
-                <h3 class="widget-title"> Patients Year by Year</h3>
+                <h3 class="widget-title"> Sales by Year</h3>
                 <div id="barMorris" class="chart-home"></div>
             </div>
         </div>

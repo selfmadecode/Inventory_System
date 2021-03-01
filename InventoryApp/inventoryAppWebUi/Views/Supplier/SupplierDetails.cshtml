@@ -1,0 +1,22 @@
+﻿@model inventoryAppWebUi.Models.SupplierViewModel
+
+    <div class="table-responsive">
+        <table class="table table-hover table-striped text-center">
+            <tr class="bg-success">
+                <th>Supplier Name</th>
+                <th>Status</th>
+                <th>Website</th>
+                <th></th>
+            </tr>
+            <tr class="info">
+                    <td>@Model.SupplierName</td>
+                    <td>@Model.Status</td>
+                    <td>@Model.Website</td>
+                    <td>
+                        @Html.ActionLink("Drugs Supplied", "", "", new { Id = Model.Id },
+                             new { @class = "btn btn-info" })
+                    </td>
+                </tr>
+        </table>
+
+    </div>
