@@ -2,11 +2,13 @@
 using inventoryAppDomain.Entities.Enums;
 using inventoryAppDomain.IdentityEntities;
 using inventoryAppDomain.Services;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace inventoryAppDomain.Repository
 {
@@ -16,7 +18,7 @@ namespace inventoryAppDomain.Repository
 
         public SupplierService(ApplicationDbContext dbContext)
         {
-            _dbContext = dbContext;
+            _dbContext = HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>();
         }
         public void AddSupplier(Supplier supplier)
         {
@@ -24,7 +26,10 @@ namespace inventoryAppDomain.Repository
             _dbContext.SaveChanges();
         }
 
-        public IEnumerable<Supplier> GetAllSuppliers() => _dbContext.Suppliers.ToList();
+        public IEnumerable<Supplier> GetAllSuppliers() => 
+            _dbContext.Suppliers
+            .OrderBy(s =>s.Status)
+            .ToList();
 
         public bool ProcessSupplier(int id, SupplierStatus condition)
         {
