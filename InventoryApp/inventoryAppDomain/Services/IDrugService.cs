@@ -9,7 +9,7 @@ namespace inventoryAppDomain.Services
     {
         List<Drug> GetAllDrugs();
         List<Drug> GetAllExpiringDrugs(TimeFrame timeFrame);
-        
+        List<Drug> GetAllExpiredDrugs();
         List<Drug> GetDrugsOutOfStock();
     }
 }
