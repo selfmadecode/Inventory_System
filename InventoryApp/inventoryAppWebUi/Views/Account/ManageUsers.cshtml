@@ -1,0 +1,39 @@
+﻿@model List<inventoryAppDomain.IdentityEntities.ApplicationUser>
+
+@{
+    ViewBag.Title = "title";
+}
+
+
+@* @using (Html.BeginForm("ManageUsers", "Account", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "widget-form", role = "form"})) *@
+@* { *@
+@*     @Html.AntiForgeryToken() *@
+@*     @Html.ValidationSummary(true, "", new { @class = "text-danger" }) *@
+@* } *@
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>@user.UserName</td>
+            <td>@user.Email</td>
+            <td>
+                @user.Roles.FirstOrDefault().RoleId
+            </td>
+            <td>
+                @Html.ActionLink("Change User Role", "ManageUsers", "Account", null, null)
+                @Html.ActionLink("Remove User", "RemoveUser", "Account", new {user.Id}, null)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

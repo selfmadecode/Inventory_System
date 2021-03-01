@@ -16,6 +16,12 @@ namespace inventoryAppWebUi.Infrastructures
             Mapper.CreateMap<EditProfileViewModel, StoreManager>()
                 .ForMember(pharmacist => pharmacist.ApplicationUser, act => act.Ignore())
                 .ForMember(pharmacist => pharmacist.ApplicationUserId, act => act.Ignore());
+
+            Mapper.CreateMap<UpdateUserRoleViewModel, Tuple<string, string>>()
+                .ForMember(tupleItem => tupleItem.Item1, act => act.MapFrom(model => model.UserId))
+                .ForMember(tupleItem => tupleItem.Item2, act => act.MapFrom(model => model.UpdatedUserRole));
+
+
         }
     }
 }
