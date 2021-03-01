@@ -21,7 +21,6 @@ namespace inventoryAppDomain.IdentityEntities
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Brand> Brands { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Drug> Drugs { get; set; } 
         public DbSet<Pharmacist> Pharmacists { get; set; }

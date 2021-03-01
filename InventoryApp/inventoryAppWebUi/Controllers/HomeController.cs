@@ -1,4 +1,6 @@
-﻿using System;
+﻿using inventoryAppDomain.Services;
+using inventoryAppWebUi.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,9 +12,20 @@ namespace inventoryAppWebUi.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+        public ISupplierService _supplierService { get; }
+
+        public HomeController( ISupplierService supplierService)
+        {
+            _supplierService = supplierService;
+        }
+
         public ActionResult Index()
         {
-            return View();
+            var totalNumberOfSupplier = new IndexPageViewModel
+            {
+                TotalNumberOfSupplier = _supplierService.TotalNumberOfSupplier()
+            };
+            return View("Index", totalNumberOfSupplier);
         }
 
         public ActionResult About()

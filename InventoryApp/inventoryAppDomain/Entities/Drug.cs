@@ -16,10 +16,6 @@ namespace inventoryAppDomain.Entities
         public DateTime ExpiryDate { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DrugStatus CurrentDrugStatus { get; set; } = DrugStatus.NOT_EXPIRED;
-
-        public int BrandId { get; set; }
-        public Brand Brand { get; set; }
-
         public int SupplierId { get; set; }
         public Supplier Supplier { get; set; }
     }

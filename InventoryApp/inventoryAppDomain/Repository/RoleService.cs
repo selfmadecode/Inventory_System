@@ -33,9 +33,7 @@ namespace inventoryAppDomain.Repository
         {
             get
             {
-                // return _userManager ?? new ApplicationUserManager(new UserStore<ApplicationUser>());
                 return HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-                // return _userManager ?? new UserManager<ApplicationUser>(new UserStore<ApplicationUser>());
             }
             private set 
             { 
