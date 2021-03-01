@@ -36,6 +36,8 @@ namespace inventoryAppWebUi.Infrastructures
         {
             kernel.Bind<IRoleService>().To<RoleService>();
             kernel.Bind<IProfileService>().To<ProfileService>();
+            kernel.Bind<ISupplierService>().To<SupplierService>();
+            kernel.Bind<ApplicationDbContext>().ToSelf();
         }
     }
 }

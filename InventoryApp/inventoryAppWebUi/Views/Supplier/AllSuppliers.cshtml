@@ -1,0 +1,78 @@
+﻿
+@model IEnumerable<inventoryAppWebUi.Models.SupplierViewModel>
+
+<style>
+    .InActive {
+        color: #dc3545;
+        font-weight: bolder;
+    }
+
+    .Active {
+        color: #157347;
+        font-weight: bolder;
+    }
+</style>
+
+<div class="card">
+    <div class="card-body col-lg-12">
+
+        @if (!Model.Any())
+        {
+            <p>No Available Supplier</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered text-left">
+                    <thead>
+                        <tr class="table-success">
+                            <th>Supplier Name</th>
+                            <th>Status</th>
+                            <th>Website</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    @foreach (var supplier in Model)
+                    {
+                <tbody>
+                    <tr class="info" style="cursor: pointer">
+                        <td class="font-weight-bold">@supplier.SupplierName</td>
+                        <td class="@supplier.Status">@supplier.Status</td>
+                        <td>@supplier.Website</td>
+                        <td>
+                            @Html.ActionLink("Details", "SupplierDetails", "Supplier", new { Id = supplier.Id },
+                                 new { @class = "btn btn-outline-primary" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "EditSupplier", "Supplier", new { Id = supplier.Id },
+                                 new { @class = "btn btn-outline-info" })
+                        </td>
+                        @if (supplier.Status == inventoryAppDomain.Entities.Enums.SupplierStatus.InActive)
+                        {
+                            <td>
+                                @Html.ActionLink("Activate", "ProcessSupplier", "Supplier", new { Id = supplier.Id },
+                                 new { @class = "btn btn-outline-success" })
+
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.ActionLink("Deactivate", "ProcessSupplier", "Supplier", new { Id = supplier.Id },
+                                 new { @class = "btn btn-outline-danger" })
+
+                            </td>
+                        }
+                    </tr>
+                </tbody>
+                    }
+                </table>
+
+            </div>
+        }
+    </div>
+</div>
+
+
