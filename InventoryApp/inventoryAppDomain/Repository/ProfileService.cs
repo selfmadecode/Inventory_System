@@ -12,10 +12,8 @@ namespace inventoryAppDomain.Repository
     {
         private readonly ApplicationDbContext _dbContext;
 
-        public ProfileService(ApplicationDbContext dbContext)
-        {
-            _dbContext = HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>();
-        }
+        public ProfileService() => _dbContext = HttpContext.Current
+            .GetOwinContext().Get<ApplicationDbContext>();
         
         public void EditProfile(ApplicationUser user, Pharmacist pharmacist = null, StoreManager storeManager = null)
         {
