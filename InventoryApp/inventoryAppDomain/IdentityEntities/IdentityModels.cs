@@ -19,6 +19,14 @@ namespace inventoryAppDomain.IdentityEntities
         }
     }
 
+    public class CategoryDBInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
+    {
+        protected override void Seed(ApplicationDbContext context)
+        {
+            base.Seed(context);
+        }
+    }
+
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Supplier> Suppliers { get; set; }

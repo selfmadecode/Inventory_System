@@ -255,6 +255,10 @@
     <Compile Include="Migrations\202103031104170_NotificationsUpdate.Designer.cs">
       <DependentUpon>202103031104170_NotificationsUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103031155475_seedCategory.cs" />
+    <Compile Include="Migrations\202103031155475_seedCategory.Designer.cs">
+      <DependentUpon>202103031155475_seedCategory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EditProfileViewModel.cs" />
@@ -379,6 +383,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103031104170_NotificationsUpdate.resx">
       <DependentUpon>202103031104170_NotificationsUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103031155475_seedCategory.resx">
+      <DependentUpon>202103031155475_seedCategory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
