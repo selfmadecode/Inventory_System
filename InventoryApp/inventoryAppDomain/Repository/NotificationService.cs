@@ -11,7 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace inventoryAppDomain.Repository
 {
-    public class NotificationService: INotificationService
+    public class NotificationService : INotificationService
     {
         private ApplicationDbContext _dbContext;
 
@@ -19,16 +19,40 @@ namespace inventoryAppDomain.Repository
         {
             _dbContext = HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>();
         }
-        
+
         public async Task<Notification> CreateNotification(string details, NotificationType notificationType)
         {
-            var notification = new Notification()
+            Notification notification = null;
+            switch (notificationType)
             {
-                NotificationDetails = details,
-                NotificationType = notificationType
-            };
+                case NotificationType.NONREOCCURRING:
+                {
+                    notification = new Notification()
+                    {
+                        NotificationDetails = details,
+                        NotificationType = notificationType
+                    };
+                    _dbContext.Notifications.Add(notification);
+                    break;
+                }
+                case NotificationType.REOCCURRING:
+                {
+                    notification = await _dbContext.Notifications.FirstOrDefaultAsync(notification1 =>
+                        notification1.NotificationDetails.Equals(details));
 
-            _dbContext.Notifications.Add(notification);
+                    if (notification == null)
+                    {
+                        notification = new Notification()
+                        {
+                            NotificationDetails = details,
+                            NotificationType = notificationType
+                        };
+                        _dbContext.Notifications.Add(notification);
+                    }
+                    break;
+                }
+            }
+
             await _dbContext.SaveChangesAsync();
             return notification;
         }

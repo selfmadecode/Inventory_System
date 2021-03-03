@@ -7,6 +7,8 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using AutoMapper;
 using Hangfire;
+using inventoryAppDomain.Entities.Enums;
+using inventoryAppDomain.Jobs;
 using inventoryAppWebUi.Infrastructures;
 
 namespace inventoryAppWebUi
@@ -33,6 +35,10 @@ namespace inventoryAppWebUi
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             Mapper.Initialize(configuration => configuration.AddProfile<MappingProfile>());
             HangfireAspNet.Use(GetHangfireServers);
+            
+            RecurringJob.AddOrUpdate(() => NotificationReminderJob.RunReminder(TimeFrame.WEEKLY), Cron.Daily);
+            RecurringJob.AddOrUpdate(() => NotificationReminderJob.RunReminder(TimeFrame.MONTHLY), Cron.Daily);
+            RecurringJob.AddOrUpdate(() => NotificationReminderJob.ExpireDrugs(), Cron.Daily);
         }
     }
 }

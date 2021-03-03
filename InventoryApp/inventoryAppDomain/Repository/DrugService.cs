@@ -59,7 +59,21 @@ namespace inventoryAppDomain.Repository
 
             return expiringDrugs;
         }
-        
+
+        public List<Drug> GetAllExpiredDrugs()
+        {
+            var drugs = GetAllDrugs();
+            var expiredDrugs = new List<Drug>();
+            drugs.ForEach(drug =>
+            {
+                if (drug.ExpiryDate.CompareTo(DateTime.Today) == 1)
+                {
+                    expiredDrugs.Add(drug);
+                }
+            });
+            return expiredDrugs;
+        }
+
         public List<Drug> GetDrugsOutOfStock()
         {
             var drugs = GetAllDrugs();
