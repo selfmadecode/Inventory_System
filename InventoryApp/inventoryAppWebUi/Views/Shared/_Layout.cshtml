@@ -59,11 +59,11 @@
         </li>
         <li>
             <a href="#nav-patients" data-toggle="collapse" aria-expanded="false">
-                <span class="ti-wheelchair"></span> Request Drugs
+                <span class="ti-wheelchair"></span>Drugs
             </a>
             <ul class="collapse list-unstyled" id="nav-patients">
                 <li>
-                    @Html.ActionLink("Request Drugs", "About", "Home")
+                    @Html.ActionLink("All Drugs", "AllDrugs", "Drug")
                 </li>
                 <li>
                     @Html.ActionLink("Request Drugs", "")
@@ -76,25 +76,7 @@
                 </li>
             </ul>
         </li>
-        <li>
-            <a href="#nav-doctors" data-toggle="collapse" aria-expanded="false">
-                <span class="ti-user"></span> Drugs
-            </a>
-            <ul class="collapse list-unstyled" id="nav-doctors">
-                <li>
-                    @Html.ActionLink("Add Drugs", "")
-                </li>
-                <li>
-                    @Html.ActionLink("All Drugs", "")
-                </li>
-                <li>
-                    @Html.ActionLink("Drug Details", "")
-                </li>
-                <li>
-                    @Html.ActionLink("Edit Drugs", "")
-                </li>
-            </ul>
-        </li>
+        
         <li>
             <a href="#nav-appointment" data-toggle="collapse" aria-expanded="false">
                 <span class="ti-id-badge"></span> Suppliers

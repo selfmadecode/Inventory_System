@@ -20,10 +20,7 @@ namespace inventoryAppDomain.Repository
         }
         
         
-        public List<Drug> GetAllDrugs()
-        {
-            return _dbContext.Drugs.ToList();
-        }
+        public List<Drug> GetAllDrugs() => _dbContext.Drugs.ToList();
 
         public List<Drug> GetAllExpiringDrugs(TimeFrame timeFrame)
         {

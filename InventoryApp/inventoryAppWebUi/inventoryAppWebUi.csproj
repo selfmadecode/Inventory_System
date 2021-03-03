@@ -211,6 +211,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DrugController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -330,6 +331,7 @@
     <Content Include="Views\Supplier\AllSuppliers.cshtml" />
     <Content Include="Views\Supplier\AddSupplier.cshtml" />
     <Content Include="Views\Supplier\SupplierDetails.cshtml" />
+    <Content Include="Views\Drug\AllDrugs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
