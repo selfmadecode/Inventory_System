@@ -255,8 +255,17 @@
     <Compile Include="Migrations\202103031104170_NotificationsUpdate.Designer.cs">
       <DependentUpon>202103031104170_NotificationsUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103031352374_SeedCategory.cs" />
+    <Compile Include="Migrations\202103031352374_SeedCategory.Designer.cs">
+      <DependentUpon>202103031352374_SeedCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103031503361_RemovedSupplierIdInDrug.cs" />
+    <Compile Include="Migrations\202103031503361_RemovedSupplierIdInDrug.Designer.cs">
+      <DependentUpon>202103031503361_RemovedSupplierIdInDrug.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DrugViewModel.cs" />
     <Compile Include="Models\EditProfileViewModel.cs" />
     <Compile Include="Models\IndexPageViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -332,6 +341,7 @@
     <Content Include="Views\Supplier\AddSupplier.cshtml" />
     <Content Include="Views\Supplier\SupplierDetails.cshtml" />
     <Content Include="Views\Drug\AllDrugs.cshtml" />
+    <Content Include="Views\Drug\AddDrugForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -379,6 +389,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103031104170_NotificationsUpdate.resx">
       <DependentUpon>202103031104170_NotificationsUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103031352374_SeedCategory.resx">
+      <DependentUpon>202103031352374_SeedCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103031503361_RemovedSupplierIdInDrug.resx">
+      <DependentUpon>202103031503361_RemovedSupplierIdInDrug.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
