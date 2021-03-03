@@ -7,7 +7,7 @@ namespace inventoryAppWebUi.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class seedCategory : DbMigration
+    public partial class SeedCategory : DbMigration
     {
         public override void Up()
         {

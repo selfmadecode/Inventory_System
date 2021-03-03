@@ -87,5 +87,24 @@ namespace inventoryAppDomain.Repository
             });
             return drugsRunningOutOfStock;
         }
+
+        public List<DrugCategory> AllCategories() => _dbContext.DrugCategories.ToList();
+
+
+        public void AddDrug(Drug drug)
+        {
+            _dbContext.Drugs.Add(drug);
+            _dbContext.SaveChanges();
+        }
+
+        public void RemoveDrug(int id)
+        {
+            _dbContext.Drugs.Remove(_dbContext.Drugs.Single(d => d.Id == id));
+            _dbContext.SaveChanges();
+        }
+
+        public Drug EditDrug(int id) => _dbContext.Drugs.SingleOrDefault(d => d.Id == id);
+
+
     }
 }
