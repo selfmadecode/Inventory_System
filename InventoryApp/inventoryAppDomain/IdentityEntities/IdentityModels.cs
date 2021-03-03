@@ -19,6 +19,8 @@ namespace inventoryAppDomain.IdentityEntities
         }
     }
 
+
+
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Supplier> Suppliers { get; set; }
@@ -27,6 +29,7 @@ namespace inventoryAppDomain.IdentityEntities
         public DbSet<StoreManager> StoreManagers { get; set; }
 
         public DbSet<Notification> Notifications { get; set; }
+        public DbSet<DrugCategory> DrugCategories { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

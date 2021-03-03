@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using inventoryAppDomain.Entities;
@@ -20,7 +21,7 @@ namespace inventoryAppDomain.Repository
         }
         
         
-        public List<Drug> GetAllDrugs() => _dbContext.Drugs.ToList();
+        public List<Drug> GetAllDrugs() => _dbContext.Drugs.Include(d => d.DrugCategory).ToList();
 
         public List<Drug> GetAllExpiringDrugs(TimeFrame timeFrame)
         {
@@ -87,5 +88,24 @@ namespace inventoryAppDomain.Repository
             });
             return drugsRunningOutOfStock;
         }
+
+        public List<DrugCategory> AllCategories() => _dbContext.DrugCategories.ToList();
+
+
+        public void AddDrug(Drug drug)
+        {
+            _dbContext.Drugs.Add(drug);
+            _dbContext.SaveChanges();
+        }
+
+        public void RemoveDrug(int id)
+        {
+            _dbContext.Drugs.Remove(_dbContext.Drugs.Single(d => d.Id == id));
+            _dbContext.SaveChanges();
+        }
+
+        public Drug EditDrug(int id) => _dbContext.Drugs.SingleOrDefault(d => d.Id == id);
+
+
     }
 }
