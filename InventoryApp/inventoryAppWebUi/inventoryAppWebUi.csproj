@@ -251,15 +251,9 @@
     <Compile Include="Migrations\202102260827501_RemovedBrand.Designer.cs">
       <DependentUpon>202102260827501_RemovedBrand.cs</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-    <Compile Include="Migrations\202103031108231_test.cs" />
-    <Compile Include="Migrations\202103031108231_test.Designer.cs">
-      <DependentUpon>202103031108231_test.cs</DependentUpon>
-=======
     <Compile Include="Migrations\202103031104170_NotificationsUpdate.cs" />
     <Compile Include="Migrations\202103031104170_NotificationsUpdate.Designer.cs">
       <DependentUpon>202103031104170_NotificationsUpdate.cs</DependentUpon>
->>>>>>> 7b35249ae9df875eb06a711c0e87c12c02595e78
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
