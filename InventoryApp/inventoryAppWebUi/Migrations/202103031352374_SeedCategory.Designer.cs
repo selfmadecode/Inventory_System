@@ -7,13 +7,13 @@ namespace inventoryAppWebUi.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class seedCategory : IMigrationMetadata
+    public sealed partial class SeedCategory : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(seedCategory));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(SeedCategory));
         
         string IMigrationMetadata.Id
         {
-            get { return "202103031155475_seedCategory"; }
+            get { return "202103031352374_SeedCategory"; }
         }
         
         string IMigrationMetadata.Source

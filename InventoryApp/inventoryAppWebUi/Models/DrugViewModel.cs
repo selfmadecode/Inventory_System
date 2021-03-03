@@ -1,11 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Web;
+using inventoryAppDomain.Entities;
 using inventoryAppDomain.Entities.Enums;
 
-namespace inventoryAppDomain.Entities
+
+namespace inventoryAppWebUi.Models
 {
-    public class Drug
+    public class DrugViewModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -18,8 +23,7 @@ namespace inventoryAppDomain.Entities
         public DrugStatus CurrentDrugStatus { get; set; } = DrugStatus.NOT_EXPIRED;
         public int SupplierId { get; set; }
         public Supplier Supplier { get; set; }
-        public int DrugCategoryId { get; set; }
-        public DrugCategory DrugCategory { get; set; }
-        
+        public DrugCategory DrugCategoryName { get; set; }
+        public List<DrugCategory> DrugCategory { get; set; }
     }
 }
