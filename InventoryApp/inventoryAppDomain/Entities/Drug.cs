@@ -18,5 +18,7 @@ namespace inventoryAppDomain.Entities
         public DrugStatus CurrentDrugStatus { get; set; } = DrugStatus.NOT_EXPIRED;
         public int SupplierId { get; set; }
         public Supplier Supplier { get; set; }
+        public int DrugCategoryId { get; set; }
+        public DrugCategory DrugCategory { get; set; }
     }
 }
