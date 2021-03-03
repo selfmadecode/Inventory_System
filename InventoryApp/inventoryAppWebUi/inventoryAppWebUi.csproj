@@ -255,6 +255,10 @@
     <Compile Include="Migrations\202102260827501_RemovedBrand.Designer.cs">
       <DependentUpon>202102260827501_RemovedBrand.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103031108231_test.cs" />
+    <Compile Include="Migrations\202103031108231_test.Designer.cs">
+      <DependentUpon>202103031108231_test.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EditProfileViewModel.cs" />
@@ -379,6 +383,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102260827501_RemovedBrand.resx">
       <DependentUpon>202102260827501_RemovedBrand.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103031108231_test.resx">
+      <DependentUpon>202103031108231_test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
