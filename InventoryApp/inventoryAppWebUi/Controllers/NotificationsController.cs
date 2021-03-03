@@ -17,17 +17,10 @@ namespace inventoryAppWebUi.Controllers
         }
         
         // GET
-        public List<Notification> Index()
+        public ActionResult Index()
         {
-            return NotificationService.GetAllNotifications();
+            return Json(NotificationService.GetAllNotifications());
         }
-        
-        [HttpPost]
-        public async Task<Notification> CreateNotification()
-        {
-            var notification = await NotificationService.CreateNotification("Test Notification", NotificationType.NONREOCCURRING);
-            return notification;    
-        }
-        
+
     }
 }

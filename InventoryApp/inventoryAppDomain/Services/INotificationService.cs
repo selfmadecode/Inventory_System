@@ -7,7 +7,7 @@ namespace inventoryAppDomain.Services
 {
     public interface INotificationService
     {
-        Task<Notification> CreateNotification(string details, NotificationType notificationType);
+        Task<Notification> CreateNotification(string title, string details, NotificationType notificationType);
         List<Notification> GetAllNotifications();
         List<Notification> GetAllReOccurringNotifications();
     }
