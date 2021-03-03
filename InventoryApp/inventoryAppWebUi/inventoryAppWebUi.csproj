@@ -259,6 +259,10 @@
     <Compile Include="Migrations\202103031352374_SeedCategory.Designer.cs">
       <DependentUpon>202103031352374_SeedCategory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103031503361_RemovedSupplierIdInDrug.cs" />
+    <Compile Include="Migrations\202103031503361_RemovedSupplierIdInDrug.Designer.cs">
+      <DependentUpon>202103031503361_RemovedSupplierIdInDrug.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DrugViewModel.cs" />
@@ -388,6 +392,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103031352374_SeedCategory.resx">
       <DependentUpon>202103031352374_SeedCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103031503361_RemovedSupplierIdInDrug.resx">
+      <DependentUpon>202103031503361_RemovedSupplierIdInDrug.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

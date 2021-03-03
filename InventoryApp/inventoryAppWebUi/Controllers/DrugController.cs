@@ -2,10 +2,12 @@
 using inventoryAppDomain.Services;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using inventoryAppDomain.Entities;
+using inventoryAppDomain.IdentityEntities;
 using inventoryAppWebUi.Models;
 
 namespace inventoryAppWebUi.Controllers
@@ -14,10 +16,13 @@ namespace inventoryAppWebUi.Controllers
     public class DrugController : Controller
     {
         private readonly IDrugService _drugService;
-
-        public DrugController(IDrugService drugService)
+        private readonly ApplicationDbContext _dbContext;
+        
+        public DrugController(IDrugService drugService, ApplicationDbContext dbContext)
         {
             _drugService = drugService;
+            _dbContext = dbContext;
+
         }
         // GET: Drug
         public ActionResult AllDrugs()
@@ -52,8 +57,10 @@ namespace inventoryAppWebUi.Controllers
                 newDrug.DrugCategory = _drugService.AllCategories();
                 return View("AddDrug", newDrug);
             }
-           // _drugService.AddDrug(newDrug);
-            return View();
+
+            _drugService.AddDrug(Mapper.Map<DrugViewModel, Drug>(newDrug));
+
+            return View("AddDrugForm");
         }
     }
 }

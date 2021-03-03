@@ -19,11 +19,8 @@ namespace inventoryAppWebUi.Models
         public int Quantity { get; set; }
         public decimal Price { get; set; }
         public DateTime ExpiryDate { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DrugStatus CurrentDrugStatus { get; set; } = DrugStatus.NOT_EXPIRED;
-        public int SupplierId { get; set; }
-        public Supplier Supplier { get; set; }
-        public DrugCategory DrugCategoryName { get; set; }
+        public string SupplierTag { get; set; }
         public List<DrugCategory> DrugCategory { get; set; }
+        public int DrugCategoryId { get; set; }
     }
 }

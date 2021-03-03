@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using inventoryAppDomain.Entities;
@@ -20,7 +21,7 @@ namespace inventoryAppDomain.Repository
         }
         
         
-        public List<Drug> GetAllDrugs() => _dbContext.Drugs.ToList();
+        public List<Drug> GetAllDrugs() => _dbContext.Drugs.Include(d => d.DrugCategory).ToList();
 
         public List<Drug> GetAllExpiringDrugs(TimeFrame timeFrame)
         {
