@@ -5,7 +5,7 @@ using Microsoft.Owin.Security;
 
 namespace inventoryAppWebUi.Models
 {
-    public class gggg
+    public class IndexViewModel
     {
         public bool HasPassword { get; set; }
         public IList<UserLoginInfo> Logins { get; set; }

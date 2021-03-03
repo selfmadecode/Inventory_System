@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -10,12 +8,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using inventoryAppWebUi.Models;
-using System.Collections.Generic;
-using System.Collections;
 using AutoMapper;
 using inventoryAppDomain.Entities;
+using inventoryAppDomain.Entities.Enums;
 using inventoryAppDomain.Services;
-using Microsoft.Owin.Logging;
 
 namespace inventoryAppWebUi.Controllers
 {
@@ -24,13 +20,15 @@ namespace inventoryAppWebUi.Controllers
     {
         public IRoleService RoleService { get; }
         public IProfileService ProfileService { get; }
+        public INotificationService NotificationService { get; }
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public AccountController(IRoleService roleService, IProfileService profileService)
+        public AccountController(IRoleService roleService, IProfileService profileService, INotificationService notificationService)
         {
             RoleService = roleService;
             ProfileService = profileService;
+            NotificationService = notificationService;
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -89,6 +87,18 @@ namespace inventoryAppWebUi.Controllers
                     ModelState.AddModelError("", @"Invalid login attempt.");
                     return View(model);
             }
+        }
+
+        public ActionResult ManageUsers()
+        {
+            return View(ProfileService.GetAllUsers());
+        }
+
+        
+        public async Task<RedirectToRouteResult> RemoveUser(string id)
+        {
+            await ProfileService.RemoveUser(id);
+            return RedirectToAction("ManageUsers");
         }
 
         //
@@ -179,12 +189,13 @@ namespace inventoryAppWebUi.Controllers
                     await UserManager.SendEmailAsync(user.Id, "Edit your Profile",
                         $"Use this as your old password {generatedPassword}, Click <a href=\"" + callbackUrl +
                         "\">here</a> to edit your profile");
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
 
-                    //send password and link to edit profile in mail
-
-                    return RedirectToAction("EditProfile", "Account");
+                    //Popup Toast here, User Created
+                    var notification = await NotificationService.CreateNotification("User Created Successfully",
+                        NotificationType.NONREOCCURRING);
+                    ViewBag.Notification = notification;
+                    return RedirectToAction("Index", "Home");
                 }
 
                 AddErrors(result);
@@ -211,6 +222,7 @@ namespace inventoryAppWebUi.Controllers
 
                 if (user != null)
                 {
+                    user.EmailConfirmed = true;
                     var passwordHasher = new PasswordHasher();
                     var result = passwordHasher.VerifyHashedPassword(user.PasswordHash, model.OldPassword);
 
@@ -219,7 +231,7 @@ namespace inventoryAppWebUi.Controllers
                     {
                         user.PasswordHash = passwordHasher.HashPassword(model.NewPassword);
                         UserManager.Update(user);
-                        
+
                         var roles = RoleService.GetRolesByUser(user.Id);
                         try
                         {

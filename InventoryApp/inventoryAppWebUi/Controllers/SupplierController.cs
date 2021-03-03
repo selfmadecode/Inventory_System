@@ -59,7 +59,7 @@ namespace inventoryAppWebUi.Controllers
 
             _dbContext.SaveChanges();
 
-            return RedirectToAction("AddSupplier");
+            return RedirectToAction("AllSuppliers");
         }
 
         public ActionResult ProcessSupplier(int id)

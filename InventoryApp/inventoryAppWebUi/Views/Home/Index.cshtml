@@ -1,7 +1,7 @@
-﻿@{
+﻿@model inventoryAppWebUi.Models.IndexPageViewModel
+@{
     ViewBag.Title = "Home Page";
 }
-@model inventoryAppWebUi.Models.IndexPageViewModel
 
 <!-- Main Content -->
 <div class="container-fluid home">
@@ -15,7 +15,7 @@
                     <span class="ti-support"></span>
                 </div>
                 <div class="widget-right">
-                    <h4 class="wiget-title">Supplier</h4>
+                    <h4 class="widget-title">Supplier</h4>
                     <span class="numeric color-red">@Model.TotalNumberOfSupplier</span>
 
                     <p class="inc-dec mb-0"><span class="ti-angle-up"></span> +20% Increased</p>
@@ -30,7 +30,7 @@
                     <span class="ti-bar-chart"></span>
                 </div>
                 <div class="widget-right">
-                    <h4 class="wiget-title">Appointments</h4>
+                    <h4 class="widget-title">Appointments</h4>
                     <span class="numeric color-green">1585</span>
                     <p class="inc-dec mb-0"><span class="ti-angle-down"></span> -15% Decreased</p>
                 </div>
@@ -44,7 +44,7 @@
                     <span class="ti-money"></span>
                 </div>
                 <div class="widget-right">
-                    <h4 class="wiget-title">Total Revenue</h4>
+                    <h4 class="widget-title">Total Revenue</h4>
                     <span class="numeric color-yellow">$7300</span>
                     <p class="inc-dec mb-0"><span class="ti-angle-up"></span> +10% Increased</p>
                 </div>
