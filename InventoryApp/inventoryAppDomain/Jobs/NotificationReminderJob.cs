@@ -40,7 +40,7 @@ namespace inventoryAppDomain.Jobs
                     var drugs = DrugService.GetAllExpiringDrugs(timeFrame);
                     drugs.ForEach(drug =>
                     {
-                        NotificationService.CreateNotification($"{drug.DrugName} is Expiring this Week.",
+                        NotificationService.CreateNotification("Drug Expiration",$"{drug.DrugName} is Expiring this Week.",
                             NotificationType.REOCCURRING);
                     });
                     break;
@@ -50,7 +50,7 @@ namespace inventoryAppDomain.Jobs
                     var drugs = DrugService.GetAllExpiringDrugs(timeFrame);
                     drugs.ForEach(drug =>
                     {
-                        NotificationService.CreateNotification($"{drug.DrugName} is Expiring this Month.",
+                        NotificationService.CreateNotification("Drug Expiration", $"{drug.DrugName} is Expiring this Month.",
                             NotificationType.REOCCURRING);
                     });
                     break;
