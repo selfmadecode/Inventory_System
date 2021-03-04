@@ -23,6 +23,22 @@ namespace inventoryAppDomain.Repository
         
         public List<Drug> GetAllDrugs() => _dbContext.Drugs.Include(d => d.DrugCategory).ToList();
 
+        public List<Drug> GetAvailableDrugs()
+        {
+
+            var drugs = GetAllDrugs();
+            var availableDrugs = new List<Drug>();
+            drugs.ForEach(drug =>
+           {
+               if (drug.Quantity > 0)
+               {
+                   availableDrugs.Add(drug);
+               }
+           }
+            );
+            return availableDrugs;
+        }
+
         public List<Drug> GetAllExpiringDrugs(TimeFrame timeFrame)
         {
             var drugs = GetAllDrugs();

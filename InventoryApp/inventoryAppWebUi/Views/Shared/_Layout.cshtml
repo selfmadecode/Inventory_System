@@ -72,10 +72,10 @@
                     @Html.ActionLink("Add Drug", "AddDrugForm", "Drug")
                 </li>
                 <li>
-                    @Html.ActionLink("Request Details", "")
+                    @Html.ActionLink("Requested Drugs", "Index", "DrugCart")
                 </li>
                 <li>
-                    @Html.ActionLink("Request Drugs", "")
+                    @Html.ActionLink("Request Drugs", "AvailableDrugs", "Drug")
                 </li>
             </ul>
         </li>
@@ -99,7 +99,7 @@
             </a>
             <ul class="collapse list-unstyled" id="nav-payment">
                 <li>
-                    @Html.ActionLink("Generate Invoice", "")
+                    @Html.ActionLink("Generate Invoice", "Checkout", "Order")
                 </li>
                 <li>
                     @Html.ActionLink("Invoice", "")
