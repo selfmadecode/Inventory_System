@@ -57,8 +57,9 @@ namespace inventoryAppWebUi.Controllers
                 return View("AddDrugForm", newDrug);
             }
 
-            var today = DateTime.Today;
-            var expiryDate = DateTime.Compare(today, newDrug.ExpiryDate);
+            //var today = DateTime.Today;
+            //var expiryDate = DateTime.Compare(today, newDrug.ExpiryDate);
+            var expiryDate = _drugService.DateComparison(DateTime.Today, newDrug.ExpiryDate);
 
             if (expiryDate >= 0)
             {

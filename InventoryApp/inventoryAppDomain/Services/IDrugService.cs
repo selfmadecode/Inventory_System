@@ -16,5 +16,6 @@ namespace inventoryAppDomain.Services
         void AddDrug(Drug drug);
         void RemoveDrug(int id);
         Drug EditDrug(int id);
+        int DateComparison(DateTime FirstDate, DateTime SecondDate);
     }
 }
