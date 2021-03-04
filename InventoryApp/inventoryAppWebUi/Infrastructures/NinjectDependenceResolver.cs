@@ -11,6 +11,8 @@ using inventoryAppDomain.Jobs;
 using inventoryAppDomain.Repository;
 using inventoryAppDomain.Services;
 using Ninject.Web.Common;
+using Microsoft.AspNetCore.Http;
+using inventoryAppDomain.Entities;
 
 namespace inventoryAppWebUi.Infrastructures
 {
@@ -40,6 +42,9 @@ namespace inventoryAppWebUi.Infrastructures
             kernel.Bind<INotificationService>().To<NotificationService>();
             kernel.Bind<ISupplierService>().To<SupplierService>();
             kernel.Bind<IDrugService>().To<DrugService>();
+            kernel.Bind<IOrderService>().To<OrderService>();
+            kernel.Bind<IDrugCart>().To<DrugCart>();
+            kernel.Bind<IHttpContextAccessor>().To<HttpContextAccessor>();
             kernel.Bind<NotificationReminderJob>().ToSelf();
         }
     }
