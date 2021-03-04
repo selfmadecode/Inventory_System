@@ -29,6 +29,21 @@
                                     @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control textbox", PlaceHolder = "First Name" } })
+                                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control textbox", PlaceHolder = "Last Name" } })
+                                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     @Html.DropDownListFor(model => model.RoleName, new SelectList(Model.Roles), "Select Role", new { @class = "form-control textbox" })
@@ -46,7 +61,7 @@
                                     Already signed up? Login @Html.ActionLink("here", "Login")
                                 </small>
                             </div>
-                           
+
                         }
                     </div>
                 </div>

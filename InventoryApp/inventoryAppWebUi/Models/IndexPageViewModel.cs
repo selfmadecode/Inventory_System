@@ -8,5 +8,7 @@ namespace inventoryAppWebUi.Models
     public class IndexPageViewModel
     {
         public int TotalNumberOfSupplier { get; set; }
+
+        public int TotalRevenue { get; set; }
     }
 }

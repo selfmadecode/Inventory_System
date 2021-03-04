@@ -36,8 +36,12 @@ namespace inventoryAppWebUi.Controllers
 
         //    return View(new DrugViewModel());
         //}
+        public ActionResult AvailableDrugs()
+        {
+            return View(_drugService.GetAvailableDrugs());
+        }
 
-        
+
 
         public ActionResult AddDrugForm()
         {

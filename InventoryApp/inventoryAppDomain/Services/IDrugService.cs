@@ -11,6 +11,8 @@ namespace inventoryAppDomain.Services
         List<Drug> GetAllExpiringDrugs(TimeFrame timeFrame);
         List<Drug> GetAllExpiredDrugs();
         List<Drug> GetDrugsOutOfStock();
+        
+
 
         List<DrugCategory> AllCategories();
         void AddDrug(Drug drug);
@@ -21,5 +23,8 @@ namespace inventoryAppDomain.Services
         string FormatDate(Drug drug);
 
         void AddDrugCategory(DrugCategory category);
+
+        List<Drug> GetAvailableDrugs();
+
     }
 }

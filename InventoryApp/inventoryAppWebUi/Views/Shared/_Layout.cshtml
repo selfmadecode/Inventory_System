@@ -1,4 +1,7 @@
-﻿@using Microsoft.AspNet.Identity
+﻿@using inventoryAppDomain.Entities
+@using Microsoft.AspNet.Identity
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Linq
 
 <!DOCTYPE html>
 <html>
@@ -70,14 +73,14 @@
                     @Html.ActionLink("Add Drug", "AddDrugForm", "Drug")
                 </li>
                 <li>
-                    @Html.ActionLink("Request Details", "")
+                    @Html.ActionLink("Requested Drugs", "Index", "DrugCart")
                 </li>
                 <li>
-                    @Html.ActionLink("Request Drugs", "")
+                    @Html.ActionLink("Request Drugs", "AvailableDrugs", "Drug")
                 </li>
             </ul>
         </li>
-        
+
         <li>
             <a href="#nav-appointment" data-toggle="collapse" aria-expanded="false">
                 <span class="ti-id-badge"></span> Suppliers
@@ -97,7 +100,7 @@
             </a>
             <ul class="collapse list-unstyled" id="nav-payment">
                 <li>
-                    @Html.ActionLink("Generate Invoice", "")
+                    @Html.ActionLink("Generate Invoice", "Checkout", "Order")
                 </li>
                 <li>
                     @Html.ActionLink("Invoice", "")
@@ -188,18 +191,19 @@
                     </a>
                     <div class="dropdown-menu proclinic-box-shadow2 notifications animated flipInY">
                         <h5>Notifications</h5>
-                        <a class="dropdown-item" href="#">
-                            <span class="ti-wheelchair"></span> New Patient Added
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            <span class="ti-money"></span> Patient payment done
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            <span class="ti-time"></span>Patient Appointment booked
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            <span class="ti-wheelchair"></span> New Patient Added
-                        </a>
+                        @{
+                            var webClient = new WebClient();
+                            string url = "https://localhost:44324/Notifications/";
+                            string jsonString = webClient.DownloadString(new Uri(url));
+                            var json = JsonConvert.DeserializeObject<List<Notification>>(jsonString);
+                        }
+                        @foreach (var notification in json)
+                        {
+                            <a class="dropdown-item" href="#">
+                                <span class="ti-wheelchair"></span> @notification.Title
+                            </a>
+                        }
+
                     </div>
                 </li>
                 <li class="nav-item">
@@ -271,7 +275,7 @@
                         <span class="ti-home"></span>
                     </a>
                 </li>
-                <li class="breadcrumb-item active">Dashboard</li>
+                <li class="breadcrumb-item active">Dashboard / @ViewBag.CurrentPage</li>
             </ol>
         </div>
     </div>
@@ -309,6 +313,26 @@
 
 @Scripts.Render("~/bundles/js")
 @RenderSection("scripts", required: false)
+
+
+@section scripts{
+    <script>
+        function getNotifications(){
+            $.ajax({
+                url: "https://localhost:44324/Notifications/",
+                type: 'GET',
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (response) {
+                    return response;
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+    </script>
+}
 
 @*Delete the scripts below*@
 

@@ -1,5 +1,9 @@
 ﻿@model List<inventoryAppDomain.Entities.Drug>
 
+@{
+    ViewBag.CurrentPage = "All Drugs";
+}
+
     <div class="card-body col-lg-12">
 
         @if (!Model.Any())
@@ -37,7 +41,6 @@
                             @Html.ActionLink("Remove", "RemoveDrug", "Drug", new { Id = drug.Id },
                                 new { @class = "btn btn-outline-danger" })
                         </td>
-
 
                     </tr>
                 </tbody>
