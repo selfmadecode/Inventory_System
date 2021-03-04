@@ -192,7 +192,7 @@ namespace inventoryAppWebUi.Controllers
 
 
                     //Popup Toast here, User Created
-                    var notification = await NotificationService.CreateNotification("User Created Successfully",
+                    var notification = await NotificationService.CreateNotification("User Added","User Created Successfully",
                         NotificationType.NONREOCCURRING);
                     ViewBag.Notification = notification;
                     return RedirectToAction("Index", "Home");

@@ -20,7 +20,7 @@ namespace inventoryAppDomain.Repository
             _dbContext = HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>();
         }
 
-        public async Task<Notification> CreateNotification(string details, NotificationType notificationType)
+        public async Task<Notification> CreateNotification(string title, string details, NotificationType notificationType)
         {
             Notification notification = null;
             switch (notificationType)
@@ -29,6 +29,7 @@ namespace inventoryAppDomain.Repository
                 {
                     notification = new Notification()
                     {
+                        Title = title,
                         NotificationDetails = details,
                         NotificationType = notificationType
                     };
@@ -44,6 +45,7 @@ namespace inventoryAppDomain.Repository
                     {
                         notification = new Notification()
                         {
+                            Title = title,
                             NotificationDetails = details,
                             NotificationType = notificationType
                         };
