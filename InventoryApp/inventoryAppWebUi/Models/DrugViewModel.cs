@@ -18,6 +18,7 @@ namespace inventoryAppWebUi.Models
         public string DrugName { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
+        [Required]
         public DateTime ExpiryDate { get; set; }
         public string SupplierTag { get; set; }
         public List<DrugCategory> DrugCategory { get; set; }

@@ -33,42 +33,12 @@ namespace inventoryAppDomain.Jobs
 
         public static void RunReminder(TimeFrame timeFrame)
         {
-            switch (timeFrame)
-            {
-                case TimeFrame.WEEKLY:
-                {
-                    var drugs = DrugService.GetAllExpiringDrugs(timeFrame);
-                    drugs.ForEach(drug =>
-                    {
-                        NotificationService.CreateNotification("Drug Expiration",$"{drug.DrugName} is Expiring this Week.",
-                            NotificationType.REOCCURRING);
-                    });
-                    break;
-                }
-                case TimeFrame.MONTHLY:
-                {
-                    var drugs = DrugService.GetAllExpiringDrugs(timeFrame);
-                    drugs.ForEach(drug =>
-                    {
-                        NotificationService.CreateNotification("Drug Expiration", $"{drug.DrugName} is Expiring this Month.",
-                            NotificationType.REOCCURRING);
-                    });
-                    break;
-                }
-            }
+            
         }
 
         public static async Task ExpireDrugs()
         {
-            var drugs = DrugService.GetAllExpiredDrugs();
             
-            drugs.ForEach(drug =>
-            {
-                drug.CurrentDrugStatus = DrugStatus.EXPIRED;
-                _dbContext.Entry(drug).State = EntityState.Modified;
-            });
-
-            await _dbContext.SaveChangesAsync();
         }
         
     }

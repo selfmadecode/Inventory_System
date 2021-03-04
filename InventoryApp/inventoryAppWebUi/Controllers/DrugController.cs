@@ -53,14 +53,22 @@ namespace inventoryAppWebUi.Controllers
         {
             if (!ModelState.IsValid)
             {
-
                 newDrug.DrugCategory = _drugService.AllCategories();
-                return View("AddDrug", newDrug);
+                return View("AddDrugForm", newDrug);
             }
 
-            _drugService.AddDrug(Mapper.Map<DrugViewModel, Drug>(newDrug));
+            var today = DateTime.Today;
+            var expiryDate = DateTime.Compare(today, newDrug.ExpiryDate);
 
-            return View("AddDrugForm");
+            if (expiryDate >= 0)
+            {
+                ModelState.AddModelError("ExpiryDate", "Must be later than today");
+                newDrug.DrugCategory = _drugService.AllCategories();
+                return View("AddDrugForm", newDrug);
+            }
+                _drugService.AddDrug(Mapper.Map<DrugViewModel, Drug>(newDrug));
+
+            return RedirectToAction("AddDrugForm");
         }
     }
 }
