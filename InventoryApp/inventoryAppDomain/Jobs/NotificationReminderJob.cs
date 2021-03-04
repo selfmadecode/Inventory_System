@@ -1,9 +1,14 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.ModelBinding;
+using inventoryAppDomain.Entities;
 using inventoryAppDomain.Entities.Enums;
+using inventoryAppDomain.ExtensionMethods;
 using inventoryAppDomain.IdentityEntities;
+using inventoryAppDomain.Repository;
 using inventoryAppDomain.Services;
 using Microsoft.AspNet.Identity.Owin;
 
@@ -12,18 +17,11 @@ namespace inventoryAppDomain.Jobs
     public class NotificationReminderJob
     {
         private static ApplicationDbContext _dbContext;
-        public static INotificationService NotificationService { get; set; }
-        public static IDrugService DrugService { get; set; }
-
-        public NotificationReminderJob(INotificationService notificationService, IDrugService drugService)
-        {
-            NotificationService = notificationService;
-            DrugService = drugService;
-        }
+        
 
         public NotificationReminderJob()
         {
-            _dbContext = HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>();
+            _dbContext = new ApplicationDbContext();
         }
         
         //Weekly Notification
@@ -31,36 +29,71 @@ namespace inventoryAppDomain.Jobs
         //Purge Notifications When they have expired
         
 
-        public static void RunReminder(TimeFrame timeFrame)
+        public void RunReminder(TimeFrame timeFrame)
         {
             switch (timeFrame)
             {
                 case TimeFrame.WEEKLY:
                 {
-                    var drugs = DrugService.GetAllExpiringDrugs(timeFrame);
+                    var beginningOfWeek = DateTime.Now.FirstDayOfWeek();
+                    var endOfWeek = DateTime.Now.LastDayOfWeek();
+
+                    var drugs = _dbContext.Drugs.Where(drug => DateTime.Now.Month == drug.ExpiryDate.Month
+                                                               && DateTime.Now.Year == drug.ExpiryDate.Year)
+                        .Where(drug => drug.ExpiryDate >= beginningOfWeek && drug.ExpiryDate < endOfWeek).ToList();
                     drugs.ForEach(drug =>
                     {
-                        NotificationService.CreateNotification("Drug Expiration",$"{drug.DrugName} is Expiring this Week.",
-                            NotificationType.REOCCURRING);
-                    });
+                        var notification = new Notification()
+                        {
+                            Title = "Drug Expiration",
+                            NotificationDetails = $"{drug.DrugName} is Expiring this Week.",
+                            NotificationType = NotificationType.REOCCURRING
+                        };
+                        _dbContext.Notifications.Add(notification);
+                    }); 
+                    _dbContext.SaveChanges();
                     break;
                 }
                 case TimeFrame.MONTHLY:
                 {
-                    var drugs = DrugService.GetAllExpiringDrugs(timeFrame);
+                    var drugs = _dbContext.Drugs.Where(drug => DateTime.Now.Month.Equals(drug.ExpiryDate.Month) 
+                                                               && DateTime.Now.Year.Equals(drug.ExpiryDate.Year)).ToList();
                     drugs.ForEach(drug =>
                     {
-                        NotificationService.CreateNotification("Drug Expiration", $"{drug.DrugName} is Expiring this Month.",
-                            NotificationType.REOCCURRING);
+                        var notification = new Notification()
+                        {
+                            Title = "Drug Expiration",
+                            NotificationDetails = $"{drug.DrugName} is Expiring this Month.",
+                            NotificationType = NotificationType.REOCCURRING
+                        };
+                        _dbContext.Notifications.Add(notification);
                     });
+                    _dbContext.SaveChanges();
                     break;
                 }
             }
         }
 
-        public static async Task ExpireDrugs()
+        public void OutOfStockReminders()
         {
-            var drugs = DrugService.GetAllExpiredDrugs();
+            var drugs = _dbContext.Drugs.Where(drug => drug.Quantity <= 20).ToList();
+            
+            drugs.ForEach(drug =>
+            {
+                var notification = new Notification()
+                {
+                    Title = "Running Out Stock",
+                    NotificationDetails = $"{drug.DrugName} is Running Out.",
+                    NotificationType = NotificationType.REOCCURRING
+                };
+                _dbContext.Notifications.Add(notification);
+            });
+            _dbContext.SaveChanges();
+        }
+
+        public async Task ExpireDrugs()
+        {
+            var drugs = _dbContext.Drugs.Where(drug => drug.ExpiryDate.Equals(DateTime.Today)).ToList();
             
             drugs.ForEach(drug =>
             {

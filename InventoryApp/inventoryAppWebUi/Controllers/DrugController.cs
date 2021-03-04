@@ -57,9 +57,8 @@ namespace inventoryAppWebUi.Controllers
         {
             if (!ModelState.IsValid)
             {
-
                 newDrug.DrugCategory = _drugService.AllCategories();
-                return View("AddDrug", newDrug);
+                return View("AddDrugForm", newDrug);
             }
 
             _drugService.AddDrug(Mapper.Map<DrugViewModel, Drug>(newDrug));
