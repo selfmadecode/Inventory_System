@@ -94,6 +94,7 @@ namespace inventoryAppDomain.Repository
 
         public void AddDrug(Drug drug)
         {
+            //drug.ExpiryDate.ToShortDateString();
             _dbContext.Drugs.Add(drug);
             _dbContext.SaveChanges();
         }
@@ -110,6 +111,17 @@ namespace inventoryAppDomain.Repository
             var today = DateTime.Today;
             var expiryDate = DateTime.Compare(FirstDate, SecondDate);
             return expiryDate;
+        }
+
+        public string FormatDate(Drug drug)
+        {
+            return drug.ExpiryDate.ToShortDateString();
+        }
+
+        public void AddDrugCategory(DrugCategory category)
+        {
+            _dbContext.DrugCategories.Add(category);
+            _dbContext.SaveChanges();
         }
 
     }

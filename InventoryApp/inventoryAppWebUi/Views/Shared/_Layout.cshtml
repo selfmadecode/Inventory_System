@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="~/Content/assets/css/green.css" id="style_theme">
 
     <script src="~/Content/assets/js/modernizr.min.js"></script>
-    <script src="~/Content/assets/js/CustomScript.js"></script>
+    @*<script src="~/Content/assets/js/CustomScript.js"></script>*@
 
     <title>@ViewBag.Title - ProClinic-Bootstrap4 Hospital </title>
 
@@ -281,6 +281,10 @@
 
 
     <div class="container-fluid home">
+        @if (TempData["Category"] != null)
+        {
+        <p>@TempData["Category"] </p>
+        }
         @RenderBody()
     </div>
 

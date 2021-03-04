@@ -343,6 +343,7 @@
     <Content Include="Views\Supplier\SupplierDetails.cshtml" />
     <Content Include="Views\Drug\AllDrugs.cshtml" />
     <Content Include="Views\Drug\AddDrugForm.cshtml" />
+    <Content Include="Views\Drug\AddDrugCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

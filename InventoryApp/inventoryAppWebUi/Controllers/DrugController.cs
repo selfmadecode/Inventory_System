@@ -71,5 +71,32 @@ namespace inventoryAppWebUi.Controllers
 
             return RedirectToAction("AddDrugForm");
         }
+
+        //Get
+        [HttpGet]
+        public ActionResult AddDrugCategory()
+        {
+            return View();
+        }
+
+        //Post
+        [HttpPost]
+        public ActionResult SaveDrugCategory(DrugCategory category)
+        {
+            if (ModelState.IsValid)
+            {
+                _drugService.AddDrugCategory(category);
+                TempData["Category"] = "Category successfully added";
+                return View("AddDrugCategory");
+            }
+            return View("AddDrugCategory");
+        }
+
+        public ActionResult RemoveDrug(int id)
+        {
+            _drugService.RemoveDrug(id);
+
+            return RedirectToAction("AllDrugs");
+        }
     }
 }
