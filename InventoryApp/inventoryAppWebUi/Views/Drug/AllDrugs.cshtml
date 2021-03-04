@@ -1,5 +1,9 @@
 ﻿@model List<inventoryAppDomain.Entities.Drug>
 
+@{
+    ViewBag.CurrentPage = "All Drugs";
+}
+
     <div class="card-body col-lg-12">
 
         @if (!Model.Any())
