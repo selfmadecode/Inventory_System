@@ -1,6 +1,11 @@
 ﻿
 @model IEnumerable<inventoryAppWebUi.Models.SupplierViewModel>
 
+
+@{
+    ViewBag.CurrentPage = "All Suppliers";
+}
+
 <style>
     .InActive {
         color: #dc3545;
@@ -36,37 +41,37 @@
                     </thead>
                     @foreach (var supplier in Model)
                     {
-                <tbody>
-                    <tr class="info" style="cursor: pointer">
-                        <td class="font-weight-bold">@supplier.SupplierName</td>
-                        <td class="@supplier.Status">@supplier.Status</td>
-                        <td>@supplier.Website</td>
-                        <td>
-                            @Html.ActionLink("Details", "SupplierDetails", "Supplier", new { Id = supplier.Id },
-                                 new { @class = "btn btn-outline-primary" })
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "EditSupplier", "Supplier", new { Id = supplier.Id },
-                                 new { @class = "btn btn-outline-info" })
-                        </td>
-                        @if (supplier.Status == inventoryAppDomain.Entities.Enums.SupplierStatus.InActive)
-                        {
-                            <td>
-                                @Html.ActionLink("Activate", "ProcessSupplier", "Supplier", new { Id = supplier.Id },
-                                 new { @class = "btn btn-outline-success" })
+                        <tbody>
+                            <tr class="info" style="cursor: pointer">
+                                <td class="font-weight-bold">@supplier.SupplierName</td>
+                                <td class="@supplier.Status">@supplier.Status</td>
+                                <td>@supplier.Website</td>
+                                <td>
+                                    @Html.ActionLink("Details", "SupplierDetails", "Supplier", new { Id = supplier.Id },
+                                         new { @class = "btn btn-outline-primary" })
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "EditSupplier", "Supplier", new { Id = supplier.Id },
+                                         new { @class = "btn btn-outline-info" })
+                                </td>
+                                @if (supplier.Status == inventoryAppDomain.Entities.Enums.SupplierStatus.InActive)
+                                {
+                                    <td>
+                                        @Html.ActionLink("Activate", "ProcessSupplier", "Supplier", new { Id = supplier.Id },
+                                         new { @class = "btn btn-outline-success" })
 
-                            </td>
-                        }
-                        else
-                        {
-                            <td>
-                                @Html.ActionLink("Deactivate", "ProcessSupplier", "Supplier", new { Id = supplier.Id },
-                                 new { @class = "btn btn-outline-danger" })
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @Html.ActionLink("Deactivate", "ProcessSupplier", "Supplier", new { Id = supplier.Id },
+                                         new { @class = "btn btn-outline-danger" })
 
-                            </td>
-                        }
-                    </tr>
-                </tbody>
+                                    </td>
+                                }
+                            </tr>
+                        </tbody>
                     }
                 </table>
 
