@@ -222,6 +222,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructures\MappingProfile.cs" />
+    <Compile Include="Infrastructures\MyAuthorizationFilter.cs" />
     <Compile Include="Infrastructures\NinjectDependenceResolver.cs" />
     <Compile Include="Migrations\202102051326166_initialBuild.cs" />
     <Compile Include="Migrations\202102051326166_initialBuild.Designer.cs">
