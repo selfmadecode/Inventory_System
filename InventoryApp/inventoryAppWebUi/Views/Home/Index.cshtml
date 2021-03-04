@@ -2,13 +2,9 @@
 @{
     ViewBag.Title = "Home Page";
     ViewBag.CurrentPage = "Home";
-    
 }
-
 <!-- Main Content -->
 <div class="container-fluid home">
-
-
     <div class="row">
         <!-- Widget Item -->
         <div class="col-md-4">
@@ -19,27 +15,40 @@
                 <div class="widget-right">
                     <h4 class="widget-title">Suppliers</h4>
                     <span class="numeric color-red">@Model.TotalNumberOfSupplier</span>
-
                     <p class="inc-dec mb-0"><span class="ti-angle-up"></span> +20% Increased</p>
                 </div>
             </div>
         </div>
-    <!-- /Widget Item -->
-    <!-- Widget Item -->
-    <div class="col-md-4">
-        <div class="widget-area proclinic-box-shadow color-green">
-            <div class="widget-left">
-                <span class="ti-bar-chart"></span>
+        <!-- /Widget Item -->
+        <!-- Widget Item -->
+        <div class="col-md-4">
+            <div class="widget-area proclinic-box-shadow color-green">
+                <div class="widget-left">
+                    <span class="ti-bar-chart"></span>
+                </div>
+                <div class="widget-right">
+                    <h4 class="widget-title">Total Drugs</h4>
+                    <span class="numeric color-green">@Model.TotalNumberOfDrugs</span>
+                    <p class="inc-dec mb-0"><span class="ti-angle-down"></span> -15% Decreased</p>
+                </div>
             </div>
-            <div class="widget-right">
-                <h4 class="widget-title">Total Drugs</h4>
-                <span class="numeric color-green">@Model.TotalNumberOfDrugs</span>
-                <p class="inc-dec mb-0"><span class="ti-angle-down"></span> -15% Decreased</p>
+        </div>
+        <!-- /Widget Item -->
+        <!-- Widget Item -->
+        <div class="col-md-4">
+            <div class="widget-area proclinic-box-shadow color-yellow">
+                <div class="widget-left">
+                    <span class="ti-money"></span>
+                </div>
+                <div class="widget-right">
+                    <h4 class="widget-title">Total Revenue</h4>
+                    <span class="numeric color-yellow">$7300</span>
+                    <p class="inc-dec mb-0"><span class="ti-angle-up"></span> +10% Increased</p>
+                </div>
             </div>
         </div>
         <!-- /Widget Item -->
     </div>
-
     <div class="row">
         <!-- Widget Item -->
         <div class="col-md-6">
@@ -58,7 +67,6 @@
         </div>
         <!-- /Widget Item -->
     </div>
-
     <div class="row">
         <!-- Widget Item -->
         <div class="col-md-12">
@@ -144,7 +152,6 @@
         </div>
         <!-- /Widget Item -->
     </div>
-
     <div class="row">
         <!-- Widget Item -->
         <div class="col-sm-6">
@@ -199,13 +206,10 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
         <!-- /Widget Item -->
-
     </div>
-
 </div>
 <!-- /Main Content -->
 @*Delete libraries*@
