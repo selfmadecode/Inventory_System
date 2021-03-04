@@ -1,6 +1,7 @@
 ﻿using inventoryAppDomain.Services;
 using inventoryAppWebUi.Models;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace inventoryAppWebUi.Controllers
 {
@@ -9,15 +10,26 @@ namespace inventoryAppWebUi.Controllers
     {
         public ISupplierService _supplierService { get; }
         public IDrugService DrugService { get; }
+        public IDrugCartService DrugCartService { get; }
 
-        public HomeController( ISupplierService supplierService, IDrugService drugService)
+        public HomeController( ISupplierService supplierService, IDrugService drugService, IDrugCartService drugCartService)
         {
             _supplierService = supplierService;
             DrugService = drugService;
+            DrugCartService = drugCartService;
         }
 
         public ActionResult Index()
         {
+            //check if user already has as cart
+            if (Request.IsAuthenticated)
+            {
+                var cart = DrugCartService.GetCart(User.Identity.GetUserId());
+                if (cart == null)
+                {
+                    cart = DrugCartService.CreateCart(User.Identity.GetUserId());   
+                }
+            }
             var totalNumberOfSupplier = new IndexPageViewModel
             {
                 TotalNumberOfSupplier = _supplierService.TotalNumberOfSupplier(),

@@ -6,7 +6,6 @@
 }
 
 
-
 <div class="card-body col-lg-12">
     @if (Model.DrugCartItemsTotal > 0)
     {
@@ -33,7 +32,7 @@
                             <td>@drug.Drug.Price</td>
                             @*<td>@drug.DrugCategory.CategoryName</td>*@
                             <td>
-                                @Html.ActionLink("Remove From Cart", "RemoveFromCart", "DrugCart", new { Id = drug.Id },
+                                @Html.ActionLink("Remove From Cart", "RemoveFromShoppingCart", "DrugCart", new { Id = drug.Id },
                                      new { @class = "btn btn-outline-primary" })
                             </td>
 
@@ -43,10 +42,10 @@
                 <tfoot>
                     <tr>
                         <td>
-                            @Html.ActionLink("Clear Cart", "ClearCart", "DrugCart", null,
+                            @Html.ActionLink("Clear Cart", "RemoveAllCart", "DrugCart", null,
                                                          new { @class = "btn btn-default" })
                         </td>
-                        <td colspan="3" class="text-right">Total:</td>
+                        <td class="text-right">Total:</td>
                         <td class="text-right">
                             @Model.DrugCartItemsTotal.ToString()
                         </td>

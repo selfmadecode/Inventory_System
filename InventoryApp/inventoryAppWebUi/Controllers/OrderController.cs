@@ -6,30 +6,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace inventoryAppWebUi.Controllers
 {
     public class OrderController : Controller
     {
+        public IDrugCartService DrugCartService { get; }
         // GET: Order
 
         private readonly IOrderService _orderService;
-        private readonly ApplicationDbContext _ctx;
-        private readonly IDrugCart _drugCart;
-        public OrderController(IOrderService orderService, IDrugCart drugCart, ApplicationDbContext ctx)
+        public OrderController(IOrderService orderService, IDrugCartService drugCartService)
         {
+            DrugCartService = drugCartService;
             _orderService = orderService;
-            _drugCart = drugCart;
-            _ctx = ctx;
         }
-
-        public OrderController()
-        {
-
-        }
+        
 
         //[Authorize]
-        public ActionResult Checkout()
+        public ActionResult Invoice()
         {
             return View();
         }
@@ -37,10 +32,11 @@ namespace inventoryAppWebUi.Controllers
         //[Authorize]
         public ActionResult Checkout(Order order)
         {
-            var items = _drugCart.GetDrugCartItems();
+            var cart = DrugCartService.GetCart(User.Identity.GetUserId());
+            var items = DrugCartService.GetDrugCartItems(cart.Id);
 
 
-            if (_ctx.DrugCartItems.Count() == 0)
+            if (!items.Any())
             {
                 //ModelState.AddModelError("", "");
                 ModelState.AddModelError("", "Your cart is empty, add some food first");
@@ -48,11 +44,11 @@ namespace inventoryAppWebUi.Controllers
 
             if (ModelState.IsValid)
             {
-                _orderService.CreateOrder(order);
-                _drugCart.ClearCart();
+                _orderService.CreateOrder(order, cart.Id);
+                DrugCartService.ClearCart(cart.Id);
                 return RedirectToAction("CheckoutComplete");
             }
-            return View(order);
+            return View("Invoice",order);
 
         }
 
@@ -60,7 +56,7 @@ namespace inventoryAppWebUi.Controllers
         {
             ViewBag.CheckoutCompleteMessage = HttpContext.User.Identity.Name +
                                       " thanks for your order. You'll soon enjoy our delicious burgers!";
-            return View();
+            return View("Invoice");
         }
     }
 }

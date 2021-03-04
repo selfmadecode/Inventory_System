@@ -11,21 +11,20 @@ namespace inventoryAppDomain.Repository
 {
     public class OrderService : IOrderService
     {
-        private readonly IDrugCart _drugCart;
+        public IDrugCartService DrugCartService { get; }
         private readonly ApplicationDbContext _ctx;
-        public OrderService(IDrugCart drugCart, ApplicationDbContext ctx)
+        public OrderService(IDrugCartService drugCartService, ApplicationDbContext ctx)
         {
+            DrugCartService = drugCartService;
             _ctx = ctx;
-            _drugCart = drugCart;
         }
 
-        public void CreateOrder(Order order)
+        public void CreateOrder(Order order, string cartId)
         {
             order.OrderPlaced = DateTime.Now;
 
             _ctx.Order.Add(order);
-
-            var drugCartItems = _drugCart.GetDrugCartItems();
+            var drugCartItems = DrugCartService.GetDrugCartItems(cartId);
 
             foreach (var drugCartItem in drugCartItems)
             {

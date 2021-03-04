@@ -304,10 +304,6 @@
     <Compile Include="Migrations\202103031503361_RemovedSupplierIdInDrug.Designer.cs">
       <DependentUpon>202103031503361_RemovedSupplierIdInDrug.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202103041337278_cart.cs" />
-    <Compile Include="Migrations\202103041337278_cart.Designer.cs">
-      <DependentUpon>202103041337278_cart.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DrugCartViewModel.cs" />
@@ -442,9 +438,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103031503361_RemovedSupplierIdInDrug.resx">
       <DependentUpon>202103031503361_RemovedSupplierIdInDrug.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202103041337278_cart.resx">
-      <DependentUpon>202103041337278_cart.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
