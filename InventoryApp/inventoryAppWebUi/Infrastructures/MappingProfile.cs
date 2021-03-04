@@ -27,6 +27,9 @@ namespace inventoryAppWebUi.Infrastructures
                .ForMember(s => s.Status, s => s.Ignore());
 
              Mapper.CreateMap<Supplier, SupplierViewModel>();
+
+             Mapper.CreateMap<DrugViewModel, Drug>();
+
         }
     }
 }

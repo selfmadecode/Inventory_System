@@ -3,44 +3,47 @@
 @{
     ViewBag.CurrentPage = "All Drugs";
 }
-<div class="card-body col-lg-12">
 
-    @if (!Model.Any())
-    {
-        <p>No Drug</p>
-    }
-    else
-    {
-        <div class="table-responsive">
-            <table class="table table-hover table-bordered text-left">
-                <thead>
-                    <tr class="table-success">
-                        <th>Drug Name</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Expiry date</th>
-                        <th></th>
+    <div class="card-body col-lg-12">
+
+        @if (!Model.Any())
+        {
+            <p>No Drug</p>
+        }
+        else
+        {
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered text-left">
+            <thead>
+                <tr class="table-success">
+                    <th>Drug Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Expiry date</th>
+                    <th>Category</th>
+                    <th></th>
+                </tr>
+            </thead>
+            @foreach (var drug in Model)
+            {
+                <tbody>
+                    <tr class="info" style="cursor: pointer">
+                        <td class="font-weight-bold">@drug.DrugName</td>
+                        <td>@drug.Quantity</td>
+                        <td>@drug.Price</td>
+                        <td>@drug.ExpiryDate</td>
+                        <td>@drug.DrugCategory.CategoryName</td>
+                        <td>
+                            @Html.ActionLink("Details", "", "", new { Id = drug.Id },
+                                 new { @class = "btn btn-outline-primary" })
+                        </td>
+
+
                     </tr>
-                </thead>
-                @foreach (var drug in Model)
-                {
-                    <tbody>
-                        <tr class="info" style="cursor: pointer">
-                            <td class="font-weight-bold">@drug.DrugName</td>
-                            <td>@drug.Quantity</td>
-                            <td>@drug.Price</td>
-                            <td>@drug.ExpiryDate</td>
-                            <td>
-                                @Html.ActionLink("Details", "", "", new { Id = drug.Id },
-                                     new { @class = "btn btn-outline-primary" })
-                            </td>
+                </tbody>
+            }
+        </table>
 
-
-                        </tr>
-                    </tbody>
-                }
-            </table>
-
-        </div>
-    }
-</div>
+    </div>
+        }
+    </div>

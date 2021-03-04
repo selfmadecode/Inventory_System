@@ -19,8 +19,14 @@ namespace inventoryAppWebUi.Controllers
         // GET
         public ActionResult Index()
         {
-            return Json(NotificationService.GetAllNotifications());
+            return Json( NotificationService.GetAllNotifications(), JsonRequestBehavior.AllowGet);
         }
+
+        // [HttpPost]
+        // public async Task<ActionResult> CreateNotification()
+        // {
+        //     return Json(await NotificationService.CreateNotification("Test Notification", "This is a test", NotificationType.NONREOCCURRING));
+        // }
 
     }
 }
