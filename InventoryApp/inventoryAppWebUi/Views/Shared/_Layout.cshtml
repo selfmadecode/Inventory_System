@@ -196,12 +196,21 @@
                             string jsonString = webClient.DownloadString(new Uri(url));
                             var json = JsonConvert.DeserializeObject<List<Notification>>(jsonString);
                         }
-                        @foreach (var notification in json)
+                        @if(json.Any()){
+                            foreach (var notification in json)
+                            {
+                                <a class="dropdown-item" href="#">
+                                    <span class="ti-wheelchair"></span> @notification.Title
+                                </a>
+                            }
+                        }
+                        else
                         {
                             <a class="dropdown-item" href="#">
-                                <span class="ti-wheelchair"></span> @notification.Title
+                                <span class="ti-wheelchair"></span> No New Notificaions
                             </a>
                         }
+                        
 
                     </div>
                 </li>

@@ -8,17 +8,20 @@ namespace inventoryAppWebUi.Controllers
     public class HomeController : Controller
     {
         public ISupplierService _supplierService { get; }
+        public IDrugService DrugService { get; }
 
-        public HomeController( ISupplierService supplierService)
+        public HomeController( ISupplierService supplierService, IDrugService drugService)
         {
             _supplierService = supplierService;
+            DrugService = drugService;
         }
 
         public ActionResult Index()
         {
             var totalNumberOfSupplier = new IndexPageViewModel
             {
-                TotalNumberOfSupplier = _supplierService.TotalNumberOfSupplier()
+                TotalNumberOfSupplier = _supplierService.TotalNumberOfSupplier(),
+                TotalNumberOfDrugs = DrugService.GetAllDrugs().Count
             };
             return View(totalNumberOfSupplier);
         }
