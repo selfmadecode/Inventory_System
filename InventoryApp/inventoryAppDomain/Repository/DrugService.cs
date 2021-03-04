@@ -129,10 +129,6 @@ namespace inventoryAppDomain.Repository
             return expiryDate;
         }
 
-        public string FormatDate(Drug drug)
-        {
-            return drug.ExpiryDate.ToShortDateString();
-        }
 
         public void AddDrugCategory(DrugCategory category)
         {

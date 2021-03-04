@@ -25,7 +25,6 @@ namespace inventoryAppWebUi.Models
         public DateTime ExpiryDate { get; set; }
         [Required]
         public string SupplierTag { get; set; }
-        [Required]
         public List<DrugCategory> DrugCategory { get; set; }
         [Required]
         public int DrugCategoryId { get; set; }

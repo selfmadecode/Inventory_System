@@ -20,8 +20,6 @@ namespace inventoryAppDomain.Services
         Drug EditDrug(int id);
         int DateComparison(DateTime FirstDate, DateTime SecondDate);
 
-        string FormatDate(Drug drug);
-
         void AddDrugCategory(DrugCategory category);
 
         List<Drug> GetAvailableDrugs();
