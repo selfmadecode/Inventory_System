@@ -35,10 +35,13 @@ namespace inventoryAppWebUi
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             Mapper.Initialize(configuration => configuration.AddProfile<MappingProfile>());
             HangfireAspNet.Use(GetHangfireServers);
-            
-            RecurringJob.AddOrUpdate(() => NotificationReminderJob.RunReminder(TimeFrame.WEEKLY), Cron.Daily);
-            RecurringJob.AddOrUpdate(() => NotificationReminderJob.RunReminder(TimeFrame.MONTHLY), Cron.Daily);
-            RecurringJob.AddOrUpdate(() => NotificationReminderJob.ExpireDrugs(), Cron.Daily);
+
+            NotificationReminderJob notificationReminder = new NotificationReminderJob();
+
+            RecurringJob.AddOrUpdate(() => notificationReminder.RunReminder(TimeFrame.WEEKLY), Cron.Daily);
+            RecurringJob.AddOrUpdate(() => notificationReminder.RunReminder(TimeFrame.MONTHLY), Cron.Daily);
+            RecurringJob.AddOrUpdate(() => notificationReminder.OutOfStockReminders(), Cron.Hourly);
+            RecurringJob.AddOrUpdate(() => notificationReminder.ExpireDrugs(), Cron.Daily);
         }
     }
 }
