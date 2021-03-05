@@ -28,7 +28,7 @@ namespace inventoryAppWebUi.Infrastructures
 
              Mapper.CreateMap<Supplier, SupplierViewModel>();
 
-             Mapper.CreateMap<DrugViewModel, Drug>();
+            Mapper.CreateMap<DrugViewModel, Drug>().ReverseMap();
 
              Mapper.CreateMap<OrderViewModel, Order>()
                  .ForMember(order => order.OrderItems, act => act.Ignore())

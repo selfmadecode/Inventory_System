@@ -5,6 +5,7 @@ using inventoryAppDomain.Services;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,16 @@ namespace inventoryAppDomain.Repository
 
         public void AddSupplier(Supplier supplier)
         {
-            _dbContext.Suppliers.Add(supplier);
+            var newSupplier = _dbContext.Suppliers.Add(supplier);
+            _dbContext.Entry(newSupplier).State = EntityState.Added;
+            _dbContext.SaveChanges();
+        }
+
+        public void UpdateSupplier(Supplier supplier)
+        {
+            var updateSupplier = _dbContext.Suppliers.Add(supplier);
+            _dbContext.Entry(updateSupplier).State = EntityState.Modified;
+
             _dbContext.SaveChanges();
         }
 
@@ -59,5 +69,8 @@ namespace inventoryAppDomain.Repository
         }
 
         public int TotalNumberOfSupplier() => _dbContext.Suppliers.Count();
+
+        public Supplier GetSupplierWithTag(string tag) => _dbContext.Suppliers.SingleOrDefault(s => s.TagNumber == tag);
+
     }
 }

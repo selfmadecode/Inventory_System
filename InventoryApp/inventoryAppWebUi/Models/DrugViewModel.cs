@@ -21,6 +21,9 @@ namespace inventoryAppWebUi.Models
         public int Quantity { get; set; }
         [Required]
         public decimal Price { get; set; }
+
+        [DataType(DataType.Date, ErrorMessage = "Date only")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Required]
         public DateTime ExpiryDate { get; set; }
         [Required]

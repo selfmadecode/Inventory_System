@@ -14,12 +14,10 @@ namespace inventoryAppWebUi.Controllers
     public class SupplierController : Controller
     {
         private readonly ISupplierService _supplierService;
-        private readonly ApplicationDbContext _dbContext;
 
-        public SupplierController(ISupplierService supplierService, ApplicationDbContext dbContext)
+        public SupplierController(ISupplierService supplierService)
         {
             _supplierService = supplierService;
-            _dbContext = dbContext;
         }
         public ActionResult AllSuppliers()
         {
@@ -43,21 +41,16 @@ namespace inventoryAppWebUi.Controllers
             //Add new supplier
             if (supplier.Id == 0)
             {
-                var update = Mapper.Map<SupplierViewModel, Supplier>(supplier);
-                _dbContext.Entry(update).State = EntityState.Added;
+                var newSupplier = Mapper.Map<SupplierViewModel, Supplier>(supplier);
+                _supplierService.AddSupplier(Mapper.Map<SupplierViewModel, Supplier>(supplier));
 
             }
             else
             {
                 //Update the existing supplier in DB
                 var supplierInDb = _supplierService.FindSupplier(supplier.Id);
-
-                var update = Mapper.Map(supplier, supplierInDb);
-
-                _dbContext.Entry(update).State = EntityState.Modified;
+                _supplierService.UpdateSupplier(Mapper.Map(supplier, supplierInDb));
             }
-
-            _dbContext.SaveChanges();
 
             return RedirectToAction("AllSuppliers");
         }

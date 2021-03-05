@@ -20,5 +20,9 @@ namespace inventoryAppDomain.Services
 
         int TotalNumberOfSupplier();
 
+        Supplier GetSupplierWithTag(string tag);
+
+        void UpdateSupplier(Supplier supplier);
+
     }
 }
