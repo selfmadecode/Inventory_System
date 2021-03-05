@@ -7,6 +7,7 @@
     {
         public override void Up()
         {
+            // status error
             AddColumn("dbo.Suppliers", "Status", c => c.Int(nullable: false));
         }
         
