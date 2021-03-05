@@ -109,8 +109,14 @@ namespace inventoryAppDomain.Repository
 
         public void AddDrug(Drug drug)
         {
-            //drug.ExpiryDate.ToShortDateString();
             _dbContext.Drugs.Add(drug);
+            _dbContext.SaveChanges();
+        }
+        public void UpdateDrug(Drug drug)
+        {
+            var update = _dbContext.Drugs.Add(drug);
+            _dbContext.Entry(update).State = EntityState.Modified;
+
             _dbContext.SaveChanges();
         }
 
