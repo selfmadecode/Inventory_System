@@ -12,13 +12,10 @@
 <div class="row">
     <div id="content">
         <div class="container-fluid">
-            @*<span>
-                <img src="~/Content/Assets/images/logo.png" class="logo" alt="logo" style="height: 50px; padding-top: 4px; margin-left: 10px">
-            </span>*@
             <div class="row" id="formContainer">
                 <div class="col-sm-6 auth-box">
                     <div class="proclinic-box-shadow text-left" id="form" style="margin-top: 70px;">
-                        <h2 class="widget-title text-center">@ViewBag.Title</h2>
+                        <h2 class="widget-title text-center">Add Drug</h2>
 
                         @using (Html.BeginForm("SaveDrug", "Drug", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                         {
@@ -63,13 +60,6 @@
                                     @Html.ValidationMessageFor(model => model.SupplierTag, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-
-                            @*<div class="form-group">
-                                    <div class="col-sm-12">
-                                        @Html.EditorFor(model => model.CategoryId, new { htmlAttributes = new { @class = "form-control textbox", PlaceHolder = "Category Id" } })
-                                        @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>*@
 
                             <div class="form-group">
                                 <div class="col-sm-12">
