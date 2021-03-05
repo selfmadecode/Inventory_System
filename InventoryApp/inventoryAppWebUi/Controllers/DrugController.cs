@@ -17,13 +17,11 @@ namespace inventoryAppWebUi.Controllers
     {
         private readonly IDrugService _drugService;
         private readonly ISupplierService _supplierService;
-        private readonly ApplicationDbContext _dbContext;
         
-        public DrugController(IDrugService drugService, ISupplierService supplierService, ApplicationDbContext dbContext)
+        public DrugController(IDrugService drugService, ISupplierService supplierService)
         {
             _drugService = drugService;
             _supplierService = supplierService;
-            _dbContext = dbContext;
 
         }
         // GET: Drug
@@ -101,10 +99,8 @@ namespace inventoryAppWebUi.Controllers
                         //NOTE
                         // check expiry date for drugs
                         var getDrugInDb = _drugService.EditDrug(drug.Id);
-                        var updateDrugInDb = Mapper.Map(drug, getDrugInDb);
-                        _dbContext.Entry(updateDrugInDb).State = EntityState.Modified;
+                        _drugService.UpdateDrug(Mapper.Map(drug, getDrugInDb));
                     }
-                    _dbContext.SaveChanges();
                 }
             }
             catch (Exception)
