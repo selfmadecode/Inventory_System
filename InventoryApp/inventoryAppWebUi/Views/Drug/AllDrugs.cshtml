@@ -22,6 +22,8 @@
                     <th>Expiry date</th>
                     <th>Category</th>
                     <th></th>
+                    <th></th>
+
                 </tr>
             </thead>
             @foreach (var drug in Model)
@@ -35,7 +37,11 @@
                         <td>@drug.DrugCategory.CategoryName</td>
                         <td>
                             @Html.ActionLink("Details", "", "", new { Id = drug.Id },
-                                 new { @class = "btn btn-outline-primary" })
+                                new { @class = "btn btn-outline-primary" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Remove", "RemoveDrug", "Drug", new { Id = drug.Id },
+                                new { @class = "btn btn-outline-danger" })
                         </td>
 
                     </tr>

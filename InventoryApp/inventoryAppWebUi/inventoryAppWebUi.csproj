@@ -321,6 +321,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Assets\js\CustomScript.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -388,6 +389,7 @@
     <Content Include="Views\Supplier\SupplierDetails.cshtml" />
     <Content Include="Views\Drug\AllDrugs.cshtml" />
     <Content Include="Views\Drug\AddDrugForm.cshtml" />
+    <Content Include="Views\Drug\AddDrugCategory.cshtml" />
     <Content Include="Views\Drug\DispenseDrugs.cshtml" />
     <Content Include="Views\Drug\AvailableDrugs.cshtml" />
     <Content Include="Views\DrugCart\Index.cshtml" />

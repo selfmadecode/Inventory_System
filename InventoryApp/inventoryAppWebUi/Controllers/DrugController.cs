@@ -61,9 +61,46 @@ namespace inventoryAppWebUi.Controllers
                 return View("AddDrugForm", newDrug);
             }
 
-            _drugService.AddDrug(Mapper.Map<DrugViewModel, Drug>(newDrug));
+            //var today = DateTime.Today;
+            //var expiryDate = DateTime.Compare(today, newDrug.ExpiryDate);
+            var expiryDate = _drugService.DateComparison(DateTime.Today, newDrug.ExpiryDate);
 
-            return View("AddDrugForm");
+            if (expiryDate >= 0)
+            {
+                ModelState.AddModelError("ExpiryDate", "Must be later than today");
+                newDrug.DrugCategory = _drugService.AllCategories();
+                return View("AddDrugForm", newDrug);
+            }
+                _drugService.AddDrug(Mapper.Map<DrugViewModel, Drug>(newDrug));
+
+            return RedirectToAction("AddDrugForm");
+        }
+
+        //Get
+        [HttpGet]
+        public ActionResult AddDrugCategory()
+        {
+            return View();
+        }
+
+        //Post
+        [HttpPost]
+        public ActionResult SaveDrugCategory(DrugCategory category)
+        {
+            if (ModelState.IsValid)
+            {
+                _drugService.AddDrugCategory(category);
+                TempData["Category"] = "Category successfully added";
+                return View("AddDrugCategory");
+            }
+            return View("AddDrugCategory");
+        }
+
+        public ActionResult RemoveDrug(int id)
+        {
+            _drugService.RemoveDrug(id);
+
+            return RedirectToAction("AllDrugs");
         }
     }
 }
