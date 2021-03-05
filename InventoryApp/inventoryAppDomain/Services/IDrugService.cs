@@ -22,6 +22,7 @@ namespace inventoryAppDomain.Services
         int DateComparison(DateTime FirstDate, DateTime SecondDate);
 
         void AddDrugCategory(DrugCategory category);
+        void RemoveDrugCategory(int id);
 
         List<Drug> GetAvailableDrugs();
 

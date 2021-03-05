@@ -1,0 +1,37 @@
+﻿@model List<inventoryAppDomain.Entities.DrugCategory>
+@{
+    ViewBag.CurrentPage = "All Categories";
+}
+
+<div class="card-body col-lg-12">
+    @if (!Model.Any())
+    {
+        <p>No Category yet</p>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered text-left">
+                <thead>
+                <tr>
+                    <th colspan="2">Drug Categories</th>
+                    
+                </tr>
+                </thead>
+                @foreach (var category in Model)
+                {
+                    <tbody>
+                    <tr class="info" style="cursor: pointer">
+                        <td>@category.CategoryName</td>
+                        <td>
+                            @Html.ActionLink("Remove", "RemoveDrugCategory", "Drug", new{Id = category.Id}, new { @class = "btn btn-outline-danger" })
+                        </td>
+                    </tr>
+                    </tbody>
+                }
+            </table>
+            @Html.ActionLink("Add Category", "AddDrugCategory", "Drug", new { @class = "btn btn-outline-primary" })
+
+        </div>
+    }
+</div>
