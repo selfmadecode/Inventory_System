@@ -21,15 +21,17 @@
                 @foreach (var category in Model)
                 {
                     <tbody>
-                        <tr class="info" style="cursor: pointer">
-                            <td>@category.CategoryName</td>
-                            <td>
-                                @Html.ActionLink("Remove", "RemoveDrugCategory", "Drug", new{Id = category.Id}, new { @class = "btn btn-outline-danger" })
-                            </td>
-                        </tr>
+                    <tr class="info" style="cursor: pointer">
+                        <td>@category.CategoryName</td>
+                        <td>
+                            @Html.ActionLink("Remove", "RemoveDrugCategory", "Drug", new{Id = category.Id}, new { @class = "btn btn-outline-danger" })
+                        </td>
+                    </tr>
                     </tbody>
                 }
             </table>
+            @Html.ActionLink("Add Category", "AddDrugCategory", "Drug", new { @class = "btn btn-outline-primary" })
+
         </div>
     }
 </div>
