@@ -15,12 +15,18 @@ namespace inventoryAppWebUi.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [Required]
         public string DrugName { get; set; }
+        [Required]
         public int Quantity { get; set; }
+        [Required]
         public decimal Price { get; set; }
+        [Required]
         public DateTime ExpiryDate { get; set; }
+        [Required]
         public string SupplierTag { get; set; }
         public List<DrugCategory> DrugCategory { get; set; }
+        [Required]
         public int DrugCategoryId { get; set; }
     }
 }
