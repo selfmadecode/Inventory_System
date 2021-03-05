@@ -9,7 +9,6 @@ namespace inventoryAppDomain.Entities
 {
    public class Order
     {
-
         //[BindNever]
         public int OrderId { get; set; }
 

@@ -43,7 +43,7 @@ namespace inventoryAppWebUi.Infrastructures
             kernel.Bind<ISupplierService>().To<SupplierService>();
             kernel.Bind<IDrugService>().To<DrugService>();
             kernel.Bind<IOrderService>().To<OrderService>();
-            kernel.Bind<IDrugCart>().To<DrugCart>();
+            kernel.Bind<IDrugCartService>().To<DrugCartService>();
             kernel.Bind<IHttpContextAccessor>().To<HttpContextAccessor>();
             kernel.Bind<NotificationReminderJob>().ToSelf();
         }
