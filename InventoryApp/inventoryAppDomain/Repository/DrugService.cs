@@ -19,8 +19,7 @@ namespace inventoryAppDomain.Repository
         {
            _dbContext =  HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>();
         }
-        
-        
+
         public List<Drug> GetAllDrugs() => _dbContext.Drugs.Include(d => d.DrugCategory).ToList();
 
         public List<Drug> GetAvailableDrugs()

@@ -31,6 +31,8 @@ namespace inventoryAppDomain.IdentityEntities
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<DrugCategory> DrugCategories { get; set; }
         public DbSet<DrugCartItem> DrugCartItems { get; set; }
+
+        public DbSet<DrugCart> DrugCarts { get; set; }
         public DbSet<Order> Order { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; internal set; }
 

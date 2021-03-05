@@ -36,7 +36,7 @@
                             <td>@drug.Price</td>
                             <td>@drug.DrugCategory.CategoryName</td>
                             <td>
-                                @Html.ActionLink("Add to cart", "AddToCart", "DrugCart", new { Id = drug.Id },
+                                @Html.ActionLink("Add to cart", "AddToShoppingCart", "DrugCart", new {drug.Id},
                                      new { @class = "btn btn-outline-primary" })
                             </td>
 

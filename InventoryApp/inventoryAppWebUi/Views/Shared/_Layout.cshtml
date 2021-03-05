@@ -115,7 +115,7 @@
             </a>
             <ul class="collapse list-unstyled" id="nav-payment">
                 <li>
-                    @Html.ActionLink("Generate Invoice", "Checkout", "Order")
+                    @Html.ActionLink("Generate Invoice", "Invoice", "Order")
                 </li>
                 <li>
                     @Html.ActionLink("Invoice", "")
@@ -212,12 +212,24 @@
                             string jsonString = webClient.DownloadString(new Uri(url));
                             var json = JsonConvert.DeserializeObject<List<Notification>>(jsonString);
                         }
-                        @foreach (var notification in json)
-                        {
-                            <a class="dropdown-item" href="#">
-                                <span class="ti-wheelchair"></span> @notification.Title
+                        @if(json.Any()){
+                            foreach (var notification in json)
+                            {
+                                <a class="dropdown-item" href="#">
+                                    <span class="ti-wheelchair"></span> @notification.Title
+                                </a>
+                            }
+                            <a class="dropdown-item" onclick="getNotifications()" href="#">
+                                <span class="ti-wheelchair"></span> See More
                             </a>
                         }
+                        else
+                        {
+                            <a class="dropdown-item" href="#">
+                                <span class="ti-wheelchair"></span> No New Notificaions
+                            </a>
+                        }
+                        
 
                     </div>
                 </li>
@@ -346,6 +358,7 @@
                 }
             });
         }
+            
     </script>
 }
 

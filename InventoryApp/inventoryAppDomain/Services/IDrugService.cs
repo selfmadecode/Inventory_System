@@ -7,6 +7,7 @@ namespace inventoryAppDomain.Services
 {
     public interface IDrugService
     {
+
         List<Drug> GetAllDrugs();
         List<Drug> GetAllExpiringDrugs(TimeFrame timeFrame);
         List<Drug> GetAllExpiredDrugs();
