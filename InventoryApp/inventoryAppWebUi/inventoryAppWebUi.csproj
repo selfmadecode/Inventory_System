@@ -308,6 +308,10 @@
     <Compile Include="Migrations\202103041933463_Changes.Designer.cs">
       <DependentUpon>202103041933463_Changes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103051125514_OrderChanges.cs" />
+    <Compile Include="Migrations\202103051125514_OrderChanges.Designer.cs">
+      <DependentUpon>202103051125514_OrderChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DrugCartViewModel.cs" />
@@ -315,6 +319,7 @@
     <Compile Include="Models\EditProfileViewModel.cs" />
     <Compile Include="Models\IndexPageViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\UpdateUserRoleViewModel.cs" />
     <Compile Include="Models\SupplierViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -448,6 +453,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103041933463_Changes.resx">
       <DependentUpon>202103041933463_Changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103051125514_OrderChanges.resx">
+      <DependentUpon>202103051125514_OrderChanges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

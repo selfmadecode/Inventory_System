@@ -30,6 +30,10 @@ namespace inventoryAppWebUi.Infrastructures
 
              Mapper.CreateMap<DrugViewModel, Drug>();
 
+             Mapper.CreateMap<OrderViewModel, Order>()
+                 .ForMember(order => order.OrderItems, act => act.Ignore())
+                 .ForMember(order => order.Price, act => act.Ignore());
+
         }
     }
 }

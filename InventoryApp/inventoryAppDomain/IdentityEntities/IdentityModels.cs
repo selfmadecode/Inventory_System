@@ -34,7 +34,6 @@ namespace inventoryAppDomain.IdentityEntities
 
         public DbSet<DrugCart> DrugCarts { get; set; }
         public DbSet<Order> Order { get; set; }
-        public DbSet<OrderDetail> OrderDetails { get; internal set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

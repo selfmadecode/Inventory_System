@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace inventoryAppDomain.Repository
 {
@@ -13,32 +15,22 @@ namespace inventoryAppDomain.Repository
     {
         public IDrugCartService DrugCartService { get; }
         private readonly ApplicationDbContext _ctx;
-        public OrderService(IDrugCartService drugCartService, ApplicationDbContext ctx)
+        
+        public OrderService(IDrugCartService drugCartService)
         {
             DrugCartService = drugCartService;
-            _ctx = ctx;
+        }
+
+        public OrderService()
+        {
+            _ctx = HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>();
         }
 
         public void CreateOrder(Order order, string userId)
         {
-            order.OrderPlaced = DateTime.Now;
-
+            var cart = DrugCartService.GetCart(userId);
+            order.OrderItems = cart.DrugCartItems;
             _ctx.Order.Add(order);
-            var drugCartItems = DrugCartService.GetDrugCartItems(userId);
-
-            foreach (var drugCartItem in drugCartItems)
-            {
-                var orderDetail = new OrderDetail()
-                {
-                    Amount = drugCartItem.Amount,
-                    DrugId = drugCartItem.Drug.Id,
-                    OrderId = order.OrderId,
-                    Price = drugCartItem.Drug.Price
-                };
-
-                _ctx.OrderDetails.Add(orderDetail);
-            }
-
             _ctx.SaveChanges();
         }
     }

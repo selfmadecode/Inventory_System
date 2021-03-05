@@ -6,15 +6,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
+using inventoryAppWebUi.Models;
 using Microsoft.AspNet.Identity;
 
 namespace inventoryAppWebUi.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
-        public IDrugCartService DrugCartService { get; }
-        // GET: Order
-
+        private IDrugCartService DrugCartService { get; }
         private readonly IOrderService _orderService;
         public OrderController(IOrderService orderService, IDrugCartService drugCartService)
         {
@@ -22,15 +23,14 @@ namespace inventoryAppWebUi.Controllers
             _orderService = orderService;
         }
         
-
-        //[Authorize]
         public ActionResult Invoice()
         {
             return View();
         }
+        
+        
         [HttpPost]
-        //[Authorize]
-        public ActionResult Checkout(Order order)
+        public ActionResult Checkout(OrderViewModel viewModel)
         {
             var userId = User.Identity.GetUserId();
             var items = DrugCartService.GetDrugCartItems(userId);
@@ -44,18 +44,17 @@ namespace inventoryAppWebUi.Controllers
 
             if (ModelState.IsValid)
             {
-                _orderService.CreateOrder(order, userId);
+                _orderService.CreateOrder(Mapper.Map<OrderViewModel, Order>(viewModel), userId);
                 DrugCartService.ClearCart(userId);
                 return RedirectToAction("CheckoutComplete");
             }
-            return View("Invoice",order);
+            return View("Invoice",viewModel);
 
         }
 
         public ActionResult CheckoutComplete()
         {
-            ViewBag.CheckoutCompleteMessage = HttpContext.User.Identity.Name +
-                                      " thanks for your order. You'll soon enjoy our delicious burgers!";
+            ViewBag.CheckoutCompleteMessage = "Drug Dispensed";
             return View("Invoice");
         }
     }
