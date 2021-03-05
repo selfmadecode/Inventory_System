@@ -102,5 +102,16 @@ namespace inventoryAppWebUi.Controllers
 
             return RedirectToAction("AllDrugs");
         }
+
+        public ActionResult ListDrugCategories()
+        {
+            return View(_drugService.AllCategories());
+        }
+
+        public ActionResult RemoveDrugCategory(int id)
+        {
+            _drugService.RemoveDrugCategory(id);
+            return RedirectToAction("ListDrugCategories");
+        }
     }
 }

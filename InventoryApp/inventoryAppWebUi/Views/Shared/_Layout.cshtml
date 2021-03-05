@@ -30,6 +30,16 @@
         .dropdown-text {
             margin-left: 10px;
         }
+
+        th {
+            text-align: center;
+        }
+
+        label {
+            display: flex;
+            justify-content: flex-start;
+            
+        }
     </style>
 
 </head>
@@ -77,6 +87,12 @@
                 </li>
                 <li>
                     @Html.ActionLink("Request Drugs", "AvailableDrugs", "Drug")
+                </li>
+                <li>
+                    @Html.ActionLink("Add Category", "AddDrugCategory", "Drug")
+                </li>
+                <li>
+                    @Html.ActionLink("All Categories", "ListDrugCategories", "Drug")
                 </li>
             </ul>
         </li>
