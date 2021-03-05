@@ -131,5 +131,11 @@ namespace inventoryAppDomain.Repository
             _dbContext.SaveChanges();
         }
 
+        public void RemoveDrugCategory(int id)
+        {
+            _dbContext.DrugCategories.Remove(_dbContext.DrugCategories.Single(c => c.Id == id));
+            _dbContext.SaveChanges();
+        }
+
     }
 }
