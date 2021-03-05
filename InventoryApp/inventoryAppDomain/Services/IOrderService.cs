@@ -9,6 +9,6 @@ namespace inventoryAppDomain.Services
 {
     public interface IOrderService
     {
-        void CreateOrder(Order order, string cartId);
+        void CreateOrder(Order order, string userId);
     }
 }

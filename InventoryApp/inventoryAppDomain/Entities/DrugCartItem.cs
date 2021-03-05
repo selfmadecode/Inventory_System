@@ -19,10 +19,8 @@ namespace inventoryAppDomain.Entities
         public int DrugId { get; set; }
         public Drug Drug { get; set; }
 
-
-        [Required]
-        [StringLength(255)]
-        public string DrugCartId { get; set; }
+        
+        public int DrugCartId { get; set; }
 
         public DrugCart DrugCart { get; set; }
     }

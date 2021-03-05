@@ -19,12 +19,12 @@ namespace inventoryAppDomain.Repository
             _ctx = ctx;
         }
 
-        public void CreateOrder(Order order, string cartId)
+        public void CreateOrder(Order order, string userId)
         {
             order.OrderPlaced = DateTime.Now;
 
             _ctx.Order.Add(order);
-            var drugCartItems = DrugCartService.GetDrugCartItems(cartId);
+            var drugCartItems = DrugCartService.GetDrugCartItems(userId);
 
             foreach (var drugCartItem in drugCartItems)
             {

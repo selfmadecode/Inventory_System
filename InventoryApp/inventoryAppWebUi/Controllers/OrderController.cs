@@ -32,20 +32,20 @@ namespace inventoryAppWebUi.Controllers
         //[Authorize]
         public ActionResult Checkout(Order order)
         {
-            var cart = DrugCartService.GetCart(User.Identity.GetUserId());
-            var items = DrugCartService.GetDrugCartItems(cart.Id);
+            var userId = User.Identity.GetUserId();
+            var items = DrugCartService.GetDrugCartItems(userId);
 
 
             if (!items.Any())
             {
                 //ModelState.AddModelError("", "");
-                ModelState.AddModelError("", "Your cart is empty, add some food first");
+                ModelState.AddModelError("", @"Your cart is empty");
             }
 
             if (ModelState.IsValid)
             {
-                _orderService.CreateOrder(order, cart.Id);
-                DrugCartService.ClearCart(cart.Id);
+                _orderService.CreateOrder(order, userId);
+                DrugCartService.ClearCart(userId);
                 return RedirectToAction("CheckoutComplete");
             }
             return View("Invoice",order);

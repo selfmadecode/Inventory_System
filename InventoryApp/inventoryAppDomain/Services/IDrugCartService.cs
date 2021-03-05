@@ -11,13 +11,13 @@ namespace inventoryAppDomain.Services
     {
         DrugCart CreateCart(string userId);
         DrugCart GetCart(string userId);
-        void AddToCart(Drug drug, string cartId, int amount);
+        void AddToCart(Drug drug, string userId, int amount);
         void ClearCart(string cartId);
-        List<DrugCartItem> GetDrugCartItems(string cartId);
-        int RemoveFromCart(Drug drug, string cartId);
+        List<DrugCartItem> GetDrugCartItems(string userId);
+        int RemoveFromCart(Drug drug, string userId);
         //Task<(int ItemCount, decimal TotalAmmount)> GetCartCountAndTotalAmmountAsync();
-        decimal GetDrugCartTotal(string cartId);
-        int GetDrugCartTotalCount(string cartId);
+        decimal GetDrugCartTotal(string userId);
+        int GetDrugCartTotalCount(string userId);
         Drug GetDrugById(int id);
         DrugCartItem GetDrugCartItemById(int id);
 

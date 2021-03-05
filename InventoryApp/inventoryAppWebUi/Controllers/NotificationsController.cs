@@ -24,11 +24,11 @@ namespace inventoryAppWebUi.Controllers
             return Json( NotificationService.GetAllNotifications().Skip(Math.Max(0, NotificationService.GetAllNotifications().Count - 5)).Take(5).ToList(), JsonRequestBehavior.AllowGet);
         }
 
-        // [HttpPost]
-        // public async Task<ActionResult> CreateNotification()
-        // {
-        //     return Json(await NotificationService.CreateNotification("Test Notification", "This is a test", NotificationType.NONREOCCURRING));
-        // }
+        [HttpPost]
+        public async Task<ActionResult> CreateNotification()
+        {
+            return Json(await NotificationService.CreateNotification("Test Notification", "This is a test", NotificationType.NONREOCCURRING));
+        }
 
     }
 }

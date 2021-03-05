@@ -23,16 +23,16 @@
                         <th></th>
                     </tr>
                 </thead>
-                @foreach (var drug in Model.DrugCart.DrugCartItems)
+                @foreach (var drug in Model.CartItems)
                 {
                     <tbody>
                         <tr class="info" style="cursor: pointer">
                             <td class="font-weight-bold">@drug.Drug.DrugName</td>
-                            <td>@drug.Drug.Quantity</td>
+                            <td>@drug.Amount</td>
                             <td>@drug.Drug.Price</td>
                             @*<td>@drug.DrugCategory.CategoryName</td>*@
                             <td>
-                                @Html.ActionLink("Remove From Cart", "RemoveFromShoppingCart", "DrugCart", new { Id = drug.Id },
+                                @Html.ActionLink("Remove From Cart", "RemoveFromShoppingCart", "DrugCart", new { drug.Id },
                                      new { @class = "btn btn-outline-primary" })
                             </td>
 
@@ -55,7 +55,7 @@
                     </tr>
                 </tfoot>
             </table>
-            @Html.ActionLink("Checkout", "Checkout", "Order", null,
+            @Html.ActionLink("Checkout", "Invoice", "Order", null,
                                                         new { @class = "btn btn-default" })
         </div>
 

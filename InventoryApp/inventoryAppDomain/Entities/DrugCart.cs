@@ -18,7 +18,7 @@ namespace inventoryAppDomain.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string Id { get; set; }
+        public int Id { get; set; }
         public List<DrugCartItem> DrugCartItems { get; set; }
 
         public string ApplicationUserId { get; set; }

@@ -18,41 +18,42 @@ namespace inventoryAppWebUi.Controllers
 
         public ActionResult Index()
         {
-            var cart = DrugCartService.GetCart(User.Identity.GetUserId());
+            var userId = User.Identity.GetUserId();
             
-            DrugCartService.GetDrugCartItems(cart.Id);
-            var drugCartCountTotal = DrugCartService.GetDrugCartTotalCount(cart.Id);
+            DrugCartService.GetDrugCartItems(userId);
+            var drugCartCountTotal = DrugCartService.GetDrugCartTotalCount(userId);
             var drugCartViewModel = new DrugCartViewModel
             {
-                DrugCart = cart,
+                CartItems = DrugCartService.GetDrugCartItems(userId),
                 DrugCartItemsTotal = drugCartCountTotal,
-                DrugCartTotal = DrugCartService.GetDrugCartTotal(cart.Id),
+                DrugCartTotal = DrugCartService.GetDrugCartTotal(userId),
             };
             return View(drugCartViewModel);
         }
 
-        public ActionResult AddToShoppingCart(int drugId, int amount)
+        public ActionResult AddToShoppingCart(int id)
         {
-            var cart = DrugCartService.GetCart(User.Identity.GetUserId());
-            var selectedDrug = DrugCartService.GetDrugById(drugId);
+            var userId = User.Identity.GetUserId();
+            var selectedDrug = DrugCartService.GetDrugById(id);
             if (selectedDrug == null)
             {
                 return HttpNotFound();
             }
 
-            DrugCartService.AddToCart(selectedDrug, cart.Id, amount);
+            DrugCartService.AddToCart(selectedDrug, userId, selectedDrug.Quantity);
             return RedirectToAction("Index");
         }
 
 
-        public ActionResult RemoveFromShoppingCart(int DrugId)
+        public ActionResult RemoveFromShoppingCart(int id)
         {
-            var cart = DrugCartService.GetCart(User.Identity.GetUserId());
-            var selectedItem = DrugCartService.GetDrugById(DrugId);
+            var userId = User.Identity.GetUserId();
+            var cartItem = DrugCartService.GetDrugCartItemById(id);
+            var selectedItem = DrugCartService.GetDrugById(cartItem.Drug.Id);
 
             if (selectedItem != null)
             {
-                DrugCartService.RemoveFromCart(selectedItem, cart.Id);
+                DrugCartService.RemoveFromCart(selectedItem, userId);
             }
 
             return RedirectToAction("Index");
@@ -60,8 +61,8 @@ namespace inventoryAppWebUi.Controllers
 
         public ActionResult RemoveAllCart()
         {
-            var cart = DrugCartService.GetCart(User.Identity.GetUserId());
-            DrugCartService.ClearCart(cart.Id);
+            var userId = User.Identity.GetUserId();
+            DrugCartService.ClearCart(userId);
             return RedirectToAction("Index");
         }
 
