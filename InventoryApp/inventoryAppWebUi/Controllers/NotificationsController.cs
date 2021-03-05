@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using inventoryAppDomain.Entities;
@@ -19,14 +21,14 @@ namespace inventoryAppWebUi.Controllers
         // GET
         public ActionResult Index()
         {
-            return Json( NotificationService.GetAllNotifications(), JsonRequestBehavior.AllowGet);
+            return Json( NotificationService.GetAllNotifications().Skip(Math.Max(0, NotificationService.GetAllNotifications().Count - 5)).Take(5).ToList(), JsonRequestBehavior.AllowGet);
         }
 
-        // [HttpPost]
-        // public async Task<ActionResult> CreateNotification()
-        // {
-        //     return Json(await NotificationService.CreateNotification("Test Notification", "This is a test", NotificationType.NONREOCCURRING));
-        // }
+        [HttpPost]
+        public async Task<ActionResult> CreateNotification()
+        {
+            return Json(await NotificationService.CreateNotification("Test Notification", "This is a test", NotificationType.NONREOCCURRING));
+        }
 
     }
 }

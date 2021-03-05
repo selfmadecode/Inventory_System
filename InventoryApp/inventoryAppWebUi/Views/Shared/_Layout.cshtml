@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="~/Content/assets/css/green.css" id="style_theme">
 
     <script src="~/Content/assets/js/modernizr.min.js"></script>
+    @*<script src="~/Content/assets/js/CustomScript.js"></script>*@
 
     <title>@ViewBag.Title - ProClinic-Bootstrap4 Hospital </title>
 
@@ -72,10 +73,10 @@
                     @Html.ActionLink("Add Drug", "AddDrugForm", "Drug")
                 </li>
                 <li>
-                    @Html.ActionLink("Request Details", "")
+                    @Html.ActionLink("Requested Drugs", "Index", "DrugCart")
                 </li>
                 <li>
-                    @Html.ActionLink("Request Drugs", "")
+                    @Html.ActionLink("Request Drugs", "AvailableDrugs", "Drug")
                 </li>
             </ul>
         </li>
@@ -99,7 +100,7 @@
             </a>
             <ul class="collapse list-unstyled" id="nav-payment">
                 <li>
-                    @Html.ActionLink("Generate Invoice", "")
+                    @Html.ActionLink("Generate Invoice", "Invoice", "Order")
                 </li>
                 <li>
                     @Html.ActionLink("Invoice", "")
@@ -196,10 +197,21 @@
                             string jsonString = webClient.DownloadString(new Uri(url));
                             var json = JsonConvert.DeserializeObject<List<Notification>>(jsonString);
                         }
-                        @foreach (var notification in json)
+                        @if(json.Any()){
+                            foreach (var notification in json)
+                            {
+                                <a class="dropdown-item" href="#">
+                                    <span class="ti-wheelchair"></span> @notification.Title
+                                </a>
+                            }
+                            <a class="dropdown-item" onclick="getNotifications()" href="#">
+                                <span class="ti-wheelchair"></span> See More
+                            </a>
+                        }
+                        else
                         {
                             <a class="dropdown-item" href="#">
-                                <span class="ti-wheelchair"></span> @notification.Title
+                                <span class="ti-wheelchair"></span> No New Notificaions
                             </a>
                         }*@
 
@@ -284,6 +296,10 @@
 
 
     <div class="container-fluid home">
+        @if (TempData["Category"] != null)
+        {
+        <p>@TempData["Category"] </p>
+        }
         @RenderBody()
     </div>
 
@@ -326,6 +342,7 @@
                 }
             });
         }
+            
     </script>
 }
 

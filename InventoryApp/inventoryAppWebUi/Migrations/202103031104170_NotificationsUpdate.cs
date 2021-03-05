@@ -7,11 +7,12 @@
     {
         public override void Up()
         {
+            // status error
+            AddColumn("dbo.Suppliers", "Status", c => c.Int(nullable: false));
         }
         
         public override void Down()
         {
-            DropColumn("dbo.Notifications", "Title");
             DropColumn("dbo.Suppliers", "Status");
         }
     }

@@ -19,9 +19,24 @@ namespace inventoryAppDomain.Repository
         {
            _dbContext =  HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>();
         }
-        
-        
+
         public List<Drug> GetAllDrugs() => _dbContext.Drugs.Include(d => d.DrugCategory).ToList();
+
+        public List<Drug> GetAvailableDrugs()
+        {
+
+            var drugs = GetAllDrugs();
+            var availableDrugs = new List<Drug>();
+            drugs.ForEach(drug =>
+           {
+               if (drug.Quantity > 0)
+               {
+                   availableDrugs.Add(drug);
+               }
+           }
+            );
+            return availableDrugs;
+        }
 
         public List<Drug> GetAllExpiringDrugs(TimeFrame timeFrame)
         {
@@ -94,6 +109,7 @@ namespace inventoryAppDomain.Repository
 
         public void AddDrug(Drug drug)
         {
+            //drug.ExpiryDate.ToShortDateString();
             _dbContext.Drugs.Add(drug);
             _dbContext.SaveChanges();
         }
@@ -103,35 +119,17 @@ namespace inventoryAppDomain.Repository
             _dbContext.Drugs.Remove(_dbContext.Drugs.Single(d => d.Id == id));
             _dbContext.SaveChanges();
         }
-
         public Drug EditDrug(int id) => _dbContext.Drugs.SingleOrDefault(d => d.Id == id);
+      
+        public int DateComparison(DateTime FirstDate, DateTime SecondDate) => 
+            DateTime.Compare(FirstDate, SecondDate);
 
-        public IEnumerable<Drug> DispensedDrugs(string time)
+
+        public void AddDrugCategory(DrugCategory category)
         {
-            var today = DateTime.Today.ToShortDateString();
-
-            var thisWeek = DateTime.Now.AddDays(7).AddSeconds(-1);
-
-            var thisMonth = DateTime.Now.AddMonths(1);
-
-            var drug = GetAllDrugs();
-
-            switch (time)
-            {
-                case "weekly":
-                    return drug.Where(d => d.ExpiryDate <= thisWeek && );
-
-                case "monthly":\
-                    return drug.Where(d => d.ExpiryDate == thisMonth);
-
-                default:
-                    return drug.Where(d => d.ExpiryDate == thisWeek);
-            }
-
+            _dbContext.DrugCategories.Add(category);
+            _dbContext.SaveChanges();
         }
-
-
-       
 
     }
 }

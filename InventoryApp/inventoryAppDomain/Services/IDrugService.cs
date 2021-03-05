@@ -7,14 +7,23 @@ namespace inventoryAppDomain.Services
 {
     public interface IDrugService
     {
+
         List<Drug> GetAllDrugs();
         List<Drug> GetAllExpiringDrugs(TimeFrame timeFrame);
         List<Drug> GetAllExpiredDrugs();
         List<Drug> GetDrugsOutOfStock();
+        
+
 
         List<DrugCategory> AllCategories();
         void AddDrug(Drug drug);
         void RemoveDrug(int id);
         Drug EditDrug(int id);
+        int DateComparison(DateTime FirstDate, DateTime SecondDate);
+
+        void AddDrugCategory(DrugCategory category);
+
+        List<Drug> GetAvailableDrugs();
+
     }
 }

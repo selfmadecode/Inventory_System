@@ -30,7 +30,13 @@ namespace inventoryAppWebUi.Controllers
         public ActionResult AllDrugs()
         {
             return View(_drugService.GetAllDrugs());
-        }        
+        }
+        public ActionResult AvailableDrugs()
+        {
+            return View(_drugService.GetAvailableDrugs());
+        }
+
+
 
         public ActionResult AddDrugForm()
         {
@@ -78,11 +84,22 @@ namespace inventoryAppWebUi.Controllers
                 {
                     //Add a new drug
                     if (drug.Id == 0)
-                        _drugService.AddDrug(Mapper.Map<DrugViewModel, Drug>(drug));
+                    {
+                        var expiryDate = _drugService.DateComparison(DateTime.Today, drug.ExpiryDate);
 
+                        if (expiryDate >= 0)
+                        {
+                            ModelState.AddModelError("ExpiryDate", "Must be later than today");
+                            drug.DrugCategory = _drugService.AllCategories();
+                            return View("AddDrugForm", drug);
+                        }
+                         _drugService.AddDrug(Mapper.Map<DrugViewModel, Drug>(drug));
+                    }
                     else
                     {
                         // update existing drug
+                        //NOTE
+                        // check expiry date for drugs
                         var getDrugInDb = _drugService.EditDrug(drug.Id);
                         var updateDrugInDb = Mapper.Map(drug, getDrugInDb);
                         _dbContext.Entry(updateDrugInDb).State = EntityState.Modified;
@@ -97,6 +114,33 @@ namespace inventoryAppWebUi.Controllers
             }
             
             return RedirectToAction("AddDrugForm");
+        }
+
+        //Get
+        [HttpGet]
+        public ActionResult AddDrugCategory()
+        {
+            return View();
+        }
+
+        //Post
+        [HttpPost]
+        public ActionResult SaveDrugCategory(DrugCategory category)
+        {
+            if (ModelState.IsValid)
+            {
+                _drugService.AddDrugCategory(category);
+                TempData["Category"] = "Category successfully added";
+                return View("AddDrugCategory");
+            }
+            return View("AddDrugCategory");
+        }
+
+        public ActionResult RemoveDrug(int id)
+        {
+            _drugService.RemoveDrug(id);
+
+            return RedirectToAction("AllDrugs");
         }
 
     }

@@ -8,7 +8,8 @@
 
 <h2>Available Roles For Application</h2>
 
-@Html.ActionLink("Create Role", "Create", "Role")
+@*@Html.ActionLink("Create Role", "Create", "Role", null,
+                        new { @class = "btn btn-primary" })*@
 
 <style type="text/css">
     #tbrole, .c {
@@ -16,19 +17,27 @@
     }
 </style>
 
-<table id="tbrole">
-    <tr>
-        <td class="c">
-            Role Name
-        </td>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td class="c">
-                @item
-            </td>
-        </tr>
-    }
-</table>
-@Html.ActionLink("Create New Role", "Create", "Role")
+<div class="table-responsive">
+
+    <table id="tbrole" class="table table-hover table-bordered">
+        <thead>
+            <tr class="success">
+                <td class="c">
+                    Role Name
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="c">
+                        @item
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@Html.ActionLink("Create New Role", "Create", "Role", null,
+                        new { @class = "btn btn-primary" })
