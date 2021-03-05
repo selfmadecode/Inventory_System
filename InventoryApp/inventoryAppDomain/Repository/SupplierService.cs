@@ -59,5 +59,8 @@ namespace inventoryAppDomain.Repository
         }
 
         public int TotalNumberOfSupplier() => _dbContext.Suppliers.Count();
+
+        public Supplier GetSupplierWithTag(string tag) => _dbContext.Suppliers.SingleOrDefault(s => s.TagNumber == tag);
+
     }
 }

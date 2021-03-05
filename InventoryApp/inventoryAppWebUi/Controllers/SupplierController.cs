@@ -43,8 +43,8 @@ namespace inventoryAppWebUi.Controllers
             //Add new supplier
             if (supplier.Id == 0)
             {
-                var update = Mapper.Map<SupplierViewModel, Supplier>(supplier);
-                _dbContext.Entry(update).State = EntityState.Added;
+                var newSupplier = Mapper.Map<SupplierViewModel, Supplier>(supplier);
+                _dbContext.Entry(newSupplier).State = EntityState.Added;
 
             }
             else

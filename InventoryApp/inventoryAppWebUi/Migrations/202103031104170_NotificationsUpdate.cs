@@ -7,8 +7,6 @@
     {
         public override void Up()
         {
-            AddColumn("dbo.Suppliers", "Status", c => c.Int(nullable: false));
-            AddColumn("dbo.Notifications", "Title", c => c.String());
         }
         
         public override void Down()

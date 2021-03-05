@@ -16,11 +16,13 @@ namespace inventoryAppWebUi.Controllers
     public class DrugController : Controller
     {
         private readonly IDrugService _drugService;
+        private readonly ISupplierService _supplierService;
         private readonly ApplicationDbContext _dbContext;
         
-        public DrugController(IDrugService drugService, ApplicationDbContext dbContext)
+        public DrugController(IDrugService drugService, ISupplierService supplierService, ApplicationDbContext dbContext)
         {
             _drugService = drugService;
+            _supplierService = supplierService;
             _dbContext = dbContext;
 
         }
@@ -28,16 +30,7 @@ namespace inventoryAppWebUi.Controllers
         public ActionResult AllDrugs()
         {
             return View(_drugService.GetAllDrugs());
-        }
-
-        //public ActionResult AddDrug()
-        //{
-
-
-        //    return View(new DrugViewModel());
-        //}
-
-        
+        }        
 
         public ActionResult AddDrugForm()
         {
@@ -49,17 +42,62 @@ namespace inventoryAppWebUi.Controllers
             return View(drugCategory);
         }
 
-        public ActionResult SaveDrug(DrugViewModel newDrug)
+        public ActionResult UpdateDrug(DrugViewModel drug)
+        {
+
+            var drugInDb = Mapper.Map<DrugViewModel>(_drugService.EditDrug(drug.Id));
+
+            if (drugInDb == null) return HttpNotFound("No drug found");
+
+            drugInDb.DrugCategory = _drugService.AllCategories();
+
+            return View("AddDrugForm", drugInDb);
+        }
+
+        public ActionResult SaveDrug(DrugViewModel drug)
         {
             if (!ModelState.IsValid)
             {
-                newDrug.DrugCategory = _drugService.AllCategories();
-                return View("AddDrugForm", newDrug);
+                drug.DrugCategory = _drugService.AllCategories();
+                return View("AddDrugForm", drug);
             }
 
-            _drugService.AddDrug(Mapper.Map<DrugViewModel, Drug>(newDrug));
 
-            return View("AddDrugForm");
+            try
+            {
+                var supplierInDb = _supplierService.GetSupplierWithTag(drug.SupplierTag);
+
+                if (supplierInDb == null)
+                {
+                    //If the supplier tag is not in the Db
+                    ModelState.AddModelError("SupplierTag", "Supplier Tag isn't registered yet");
+                    drug.DrugCategory = _drugService.AllCategories();
+                    return View("AddDrugForm", drug);
+                }
+                else
+                {
+                    //Add a new drug
+                    if (drug.Id == 0)
+                        _drugService.AddDrug(Mapper.Map<DrugViewModel, Drug>(drug));
+
+                    else
+                    {
+                        // update existing drug
+                        var getDrugInDb = _drugService.EditDrug(drug.Id);
+                        var updateDrugInDb = Mapper.Map(drug, getDrugInDb);
+                        _dbContext.Entry(updateDrugInDb).State = EntityState.Modified;
+                    }
+                    _dbContext.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw new HttpException("Something went wrong");
+            }
+            
+            return RedirectToAction("AddDrugForm");
         }
+
     }
 }

@@ -106,6 +106,32 @@ namespace inventoryAppDomain.Repository
 
         public Drug EditDrug(int id) => _dbContext.Drugs.SingleOrDefault(d => d.Id == id);
 
+        public IEnumerable<Drug> DispensedDrugs(string time)
+        {
+            var today = DateTime.Today.ToShortDateString();
+
+            var thisWeek = DateTime.Now.AddDays(7).AddSeconds(-1);
+
+            var thisMonth = DateTime.Now.AddMonths(1);
+
+            var drug = GetAllDrugs();
+
+            switch (time)
+            {
+                case "weekly":
+                    return drug.Where(d => d.ExpiryDate <= thisWeek && );
+
+                case "monthly":\
+                    return drug.Where(d => d.ExpiryDate == thisMonth);
+
+                default:
+                    return drug.Where(d => d.ExpiryDate == thisWeek);
+            }
+
+        }
+
+
+       
 
     }
 }

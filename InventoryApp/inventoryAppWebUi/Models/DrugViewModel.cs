@@ -18,6 +18,9 @@ namespace inventoryAppWebUi.Models
         public string DrugName { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
+
+        [DataType(DataType.Date, ErrorMessage = "Date only")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ExpiryDate { get; set; }
         public string SupplierTag { get; set; }
         public List<DrugCategory> DrugCategory { get; set; }
