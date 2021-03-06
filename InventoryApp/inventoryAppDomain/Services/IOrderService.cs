@@ -10,7 +10,11 @@ namespace inventoryAppDomain.Services
     public interface IOrderService
     {
         void CreateOrder(Order order, string userId);
-        
-        // List<Order> 
+
+        List<Order> GetOrdersForTheDay();
+
+        List<Order> GetOrdersForTheWeek();
+
+        List<Order> GetOrdersForTheMonth();
     }
 }

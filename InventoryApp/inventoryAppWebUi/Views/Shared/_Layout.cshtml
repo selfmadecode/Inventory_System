@@ -42,6 +42,7 @@
 @Html.Partial("_PageLoading")
 
 
+
 <div class="wrapper">
 <!-- Sidebar -->
 <nav id="sidebar" class="proclinic-bg">
@@ -200,31 +201,44 @@
                         <span class="ti-announcement"></span>
                     </a>
                     <div class="dropdown-menu proclinic-box-shadow2 notifications animated flipInY">
-                        @*<h5>Notifications</h5>
+                        <h5>Notifications</h5>
                         @{
                             var webClient = new WebClient();
                             string url = "https://localhost:44324/Notifications/";
-                            string jsonString = webClient.DownloadString(new Uri(url));
-                            var json = JsonConvert.DeserializeObject<List<Notification>>(jsonString);
-                        }
-                        @if(json.Any()){
-                            foreach (var notification in json)
+                            try
                             {
-                                <a class="dropdown-item" href="#">
-                                    <span class="ti-wheelchair"></span> @notification.Title
-                                </a>
+                                string jsonString = webClient.DownloadString(new Uri(url));
+                                var json = JsonConvert.DeserializeObject<List<Notification>>(jsonString);
+                                if(json.Any()){
+                                    foreach (var notification in json)
+                                    {
+                                        <a class="dropdown-item" href="#">
+                                            <span class="ti-wheelchair"></span> @notification.Title
+                                        </a>
+                                    }
+                                    <a class="dropdown-item" onclick="getNotifications()" href="#">
+                                        <span class="ti-wheelchair"></span> See More
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a class="dropdown-item" href="#">
+                                        <span class="ti-wheelchair"></span> No New Notificaions
+                                    </a>
+                                }
                             }
-                            <a class="dropdown-item" onclick="getNotifications()" href="#">
-                                <span class="ti-wheelchair"></span> See More
-                            </a>
+                            catch (Exception e)
+                            {
+                                ViewBag.NoNetwork = "Check your Network Settings";
+                            }
+                            
                         }
-                        else
+                        @if (ViewBag.NoNetwork != null)
                         {
-                            <a class="dropdown-item" href="#">
-                                <span class="ti-wheelchair"></span> No New Notificaions
-                            </a>
-                        }*@
-
+                            <script>
+                                alert(@ViewBag.NoNetwork);
+                            </script>
+                        }
                     </div>
                 </li>
                 <li class="nav-item">

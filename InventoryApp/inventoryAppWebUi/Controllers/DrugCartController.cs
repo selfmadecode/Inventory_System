@@ -1,6 +1,7 @@
 ﻿using inventoryAppDomain.Services;
 using inventoryAppWebUi.Models;
 using System.Web.Mvc;
+using inventoryAppDomain.Entities.Enums;
 using Microsoft.AspNet.Identity;
 
 namespace inventoryAppWebUi.Controllers
@@ -20,11 +21,10 @@ namespace inventoryAppWebUi.Controllers
         {
             var userId = User.Identity.GetUserId();
             
-            DrugCartService.GetDrugCartItems(userId);
             var drugCartCountTotal = DrugCartService.GetDrugCartTotalCount(userId);
             var drugCartViewModel = new DrugCartViewModel
             {
-                CartItems = DrugCartService.GetDrugCartItems(userId),
+                CartItems = DrugCartService.GetDrugCartItems(userId, CartStatus.ACTIVE),
                 DrugCartItemsTotal = drugCartCountTotal,
                 DrugCartTotal = DrugCartService.GetDrugCartTotal(userId),
             };

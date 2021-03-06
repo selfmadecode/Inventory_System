@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
+using inventoryAppDomain.Entities.Enums;
 using inventoryAppWebUi.Models;
 using Microsoft.AspNet.Identity;
 
@@ -33,7 +34,7 @@ namespace inventoryAppWebUi.Controllers
         public ActionResult Checkout(OrderViewModel viewModel)
         {
             var userId = User.Identity.GetUserId();
-            var items = DrugCartService.GetDrugCartItems(userId);
+            var items = DrugCartService.GetDrugCartItems(userId,CartStatus.ACTIVE);
 
 
             if (!items.Any())
@@ -45,7 +46,7 @@ namespace inventoryAppWebUi.Controllers
             if (ModelState.IsValid)
             {
                 _orderService.CreateOrder(Mapper.Map<OrderViewModel, Order>(viewModel), userId);
-                DrugCartService.ClearCart(userId);
+                DrugCartService.RefreshCart(userId);
                 return RedirectToAction("CheckoutComplete");
             }
             return View("Invoice",viewModel);

@@ -5,17 +5,21 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using inventoryAppDomain.Entities;
 using inventoryAppDomain.Entities.Enums;
+using inventoryAppDomain.Jobs;
 using inventoryAppDomain.Repository;
+using IronPdf;
 
 namespace inventoryAppWebUi.Controllers
 {
     public class NotificationsController : Controller
     {
         public NotificationService NotificationService { get; }
+        public ReportPdfGenerator ReportPdfGenerator { get; }
 
-        public NotificationsController(NotificationService notificationService)
+        public NotificationsController(NotificationService notificationService, ReportPdfGenerator reportPdfGenerator)
         {
             NotificationService = notificationService;
+            ReportPdfGenerator = reportPdfGenerator;
         }
         
         // GET
@@ -24,11 +28,17 @@ namespace inventoryAppWebUi.Controllers
             return Json( NotificationService.GetAllNotifications().Skip(Math.Max(0, NotificationService.GetAllNotifications().Count - 5)).Take(5).ToList(), JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> CreateNotification()
+        // [HttpPost]
+        // public async Task<ActionResult> CreateNotification()
+        // {
+        //     return Json(await NotificationService.CreateNotification("Test Notification", "This is a test", NotificationType.NONREOCCURRING));
+        // }
+
+        public PdfDocument GeneratePdfTest()
         {
-            return Json(await NotificationService.CreateNotification("Test Notification", "This is a test", NotificationType.NONREOCCURRING));
+            return ReportPdfGenerator.GenerateReportPdf(TimeFrame.MONTHLY);
         }
+        
 
     }
 }

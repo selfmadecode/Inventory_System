@@ -1,6 +1,7 @@
 ﻿using inventoryAppDomain.Services;
 using inventoryAppWebUi.Models;
 using System.Web.Mvc;
+using inventoryAppDomain.Entities.Enums;
 using Microsoft.AspNet.Identity;
 
 namespace inventoryAppWebUi.Controllers
@@ -24,7 +25,7 @@ namespace inventoryAppWebUi.Controllers
             //check if user already has as cart
             if (Request.IsAuthenticated)
             {
-                var cart = DrugCartService.GetCart(User.Identity.GetUserId());
+                var cart = DrugCartService.GetCart(User.Identity.GetUserId(),CartStatus.ACTIVE);
                 if (cart == null)
                 {
                     cart = DrugCartService.CreateCart(User.Identity.GetUserId());   
