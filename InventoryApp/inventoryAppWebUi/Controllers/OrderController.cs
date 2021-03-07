@@ -56,7 +56,7 @@ namespace inventoryAppWebUi.Controllers
         public ActionResult CheckoutComplete()
         {
             ViewBag.CheckoutCompleteMessage = "Drug Dispensed";
-            return View("Invoice");
+            return View("CheckoutComplete");
         }
     }
 }

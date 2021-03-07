@@ -16,5 +16,9 @@ namespace inventoryAppDomain.Services
         List<Order> GetOrdersForTheWeek();
 
         List<Order> GetOrdersForTheMonth();
+
+        decimal GetTotalRevenue();
+        int GetTotalSales();
+        
     }
 }

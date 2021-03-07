@@ -6,7 +6,7 @@
 }
 
 
-<div class="card-body col-lg-12">
+<div class="card-body col-lg-11">
     @if (Model.DrugCartItemsTotal > 0)
     {
         <h2>Selected Drugs</h2>
@@ -19,7 +19,6 @@
                         <th>Price</th>
 
                         @*<th>Category</th>*@
-                        <th></th>
                         <th></th>
                     </tr>
                 </thead>
@@ -49,16 +48,20 @@
                             @Model.DrugCartTotal.ToString("c")
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            @Html.ActionLink("Clear Cart", "RemoveAllCart", "DrugCart", null,
-                                                         new { @class = "btn btn-danger" })
-                        </td>
-                    </tr>
+                   
                 </tfoot>
             </table>
-            @Html.ActionLink("Checkout", "Invoice", "Order", null,
-                                                        new { @class = "btn btn-success" })
+            <div class="row">
+                <div class="col-sm-2">
+                    @Html.ActionLink("Clear Cart", "RemoveAllCart", "DrugCart", null,
+                   new { @class = "btn btn-danger" })
+                </div>
+                <div class="col-sm-2">
+                    @Html.ActionLink("Checkout", "Invoice", "Order", null,
+                                                           new { @class = "btn btn-success" })
+                </div>
+            </div>
+           
         </div>
 
     }

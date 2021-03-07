@@ -12,12 +12,14 @@ namespace inventoryAppWebUi.Controllers
         public ISupplierService _supplierService { get; }
         public IDrugService DrugService { get; }
         public IDrugCartService DrugCartService { get; }
+        public IOrderService _orderService { get; }
 
-        public HomeController( ISupplierService supplierService, IDrugService drugService, IDrugCartService drugCartService)
+        public HomeController( ISupplierService supplierService, IDrugService drugService, IDrugCartService drugCartService, IOrderService orderService)
         {
             _supplierService = supplierService;
             DrugService = drugService;
             DrugCartService = drugCartService;
+            _orderService = orderService;
         }
 
         public ActionResult Index()
@@ -34,7 +36,10 @@ namespace inventoryAppWebUi.Controllers
             var totalNumberOfSupplier = new IndexPageViewModel
             {
                 TotalNumberOfSupplier = _supplierService.TotalNumberOfSupplier(),
-                TotalNumberOfDrugs = DrugService.GetAllDrugs().Count
+                TotalNumberOfDrugs = DrugService.GetAllDrugs().Count,
+                TotalRevenue = _orderService.GetTotalRevenue(),
+                TotalSales = _orderService.GetTotalSales()
+
             };
             return View(totalNumberOfSupplier);
         }
