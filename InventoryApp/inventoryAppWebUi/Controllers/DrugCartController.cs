@@ -41,7 +41,7 @@ namespace inventoryAppWebUi.Controllers
             }
 
             DrugCartService.AddToCart(selectedDrug, userId, selectedDrug.Quantity);
-            return RedirectToAction("Index");
+            return RedirectToAction("AvailableDrugs", "Drug");
         }
 
 
