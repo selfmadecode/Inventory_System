@@ -28,8 +28,8 @@
                     <tbody>
                         <tr class="info" style="cursor: pointer">
                             <td class="font-weight-bold">@drug.Drug.DrugName</td>
-                            <td> <button class="badge-success"> + </button>  @drug.Amount <button class="badge-danger"> - </button></td>
-                            <td>@drug.Drug.Price</td>
+                            <td class="text-left"> <button class="badge-success"> + </button>  @drug.Amount <button class="badge-danger"> - </button></td>
+                            <td class="text-left">@drug.Drug.Price</td>
                             @*<td>@drug.DrugCategory.CategoryName</td>*@
                             <td>
                                 @Html.ActionLink("Remove From Cart", "RemoveFromShoppingCart", "DrugCart", new { drug.Id },
@@ -41,22 +41,24 @@
                 }
                 <tfoot>
                     <tr>
-                        <td>
-                            @Html.ActionLink("Clear Cart", "RemoveAllCart", "DrugCart", null,
-                                                         new { @class = "btn btn-default" })
-                        </td>
                         <td class="text-right">Total:</td>
-                        <td class="text-right">
+                        <td class="text-left">
                             @Model.DrugCartItemsTotal.ToString()
                         </td>
-                        <td class="text-right">
+                        <td class="text-left" colspan="2">
                             @Model.DrugCartTotal.ToString("c")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.ActionLink("Clear Cart", "RemoveAllCart", "DrugCart", null,
+                                                         new { @class = "btn btn-danger" })
                         </td>
                     </tr>
                 </tfoot>
             </table>
             @Html.ActionLink("Checkout", "Invoice", "Order", null,
-                                                        new { @class = "btn btn-default" })
+                                                        new { @class = "btn btn-success" })
         </div>
 
     }

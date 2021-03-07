@@ -308,6 +308,10 @@
     <Compile Include="Migrations\202103041933463_Changes.Designer.cs">
       <DependentUpon>202103041933463_Changes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103060213172_drugCartItem.cs" />
+    <Compile Include="Migrations\202103060213172_drugCartItem.Designer.cs">
+      <DependentUpon>202103060213172_drugCartItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DrugCartViewModel.cs" />
@@ -395,6 +399,7 @@
     <Content Include="Views\DrugCart\Index.cshtml" />
     <Content Include="Views\Order\Invoice.cshtml" />
     <Content Include="Views\Drug\ListDrugCategories.cshtml" />
+    <Content Include="Views\Order\CheckoutComplete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -448,6 +453,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103041933463_Changes.resx">
       <DependentUpon>202103041933463_Changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103060213172_drugCartItem.resx">
+      <DependentUpon>202103060213172_drugCartItem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

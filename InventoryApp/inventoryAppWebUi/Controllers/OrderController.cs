@@ -48,15 +48,15 @@ namespace inventoryAppWebUi.Controllers
                 DrugCartService.ClearCart(userId);
                 return RedirectToAction("CheckoutComplete");
             }
-            return View("Invoice",order);
+            return View("Invoice", order);
 
         }
 
         public ActionResult CheckoutComplete()
         {
             ViewBag.CheckoutCompleteMessage = HttpContext.User.Identity.Name +
-                                      " thanks for your order. You'll soon enjoy our delicious burgers!";
-            return View("Invoice");
+                                      " thanks for your order!";
+            return View("CheckoutComplete");
         }
     }
 }

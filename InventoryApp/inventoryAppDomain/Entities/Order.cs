@@ -60,11 +60,11 @@ namespace inventoryAppDomain.Entities
             ErrorMessage = "The email address is not entered in a correct format")]
         public string Email { get; set; }
 
-        //[BindNever]
+       
         [ScaffoldColumn(false)]
         public decimal OrderTotal { get; set; }
 
-        //[BindNever]
+       
         [ScaffoldColumn(false)]
         public DateTime OrderPlaced { get; set; }
     }
