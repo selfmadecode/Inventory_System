@@ -329,6 +329,10 @@
     <Compile Include="Migrations\202103061020403_CartStatus.Designer.cs">
       <DependentUpon>202103061020403_CartStatus.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103081202223_ReportUpdate.cs" />
+    <Compile Include="Migrations\202103081202223_ReportUpdate.Designer.cs">
+      <DependentUpon>202103081202223_ReportUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DrugCartViewModel.cs" />
@@ -482,6 +486,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103061020403_CartStatus.resx">
       <DependentUpon>202103061020403_CartStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103081202223_ReportUpdate.resx">
+      <DependentUpon>202103081202223_ReportUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
