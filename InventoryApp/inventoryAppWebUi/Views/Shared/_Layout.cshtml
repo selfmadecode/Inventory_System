@@ -81,7 +81,7 @@
                     @Html.ActionLink("Requested Drugs", "Index", "DrugCart")
                 </li>
                 <li>
-                    @Html.ActionLink("Request Drugs", "AvailableDrugs", "Drug")
+                    @Html.ActionLink("Request Drugs", "FilteredDrugsList", "Drug")
                 </li>
                 <li>
                     @Html.ActionLink("Add Category", "AddDrugCategory", "Drug")
@@ -306,11 +306,11 @@
         <div class="col-md-6">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#">
+                    <a href="@Url.Action("Index", "Home")">
                         <span class="ti-home"></span>
                     </a>
                 </li>
-                <li class="breadcrumb-item active">Dashboard / @ViewBag.CurrentPage</li>
+                <li class="breadcrumb-item active"> ProClinic / @ViewBag.CurrentPage</li>
             </ol>
         </div>
     </div>

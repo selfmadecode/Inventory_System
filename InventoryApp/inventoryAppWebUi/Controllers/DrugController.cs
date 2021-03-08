@@ -31,8 +31,49 @@ namespace inventoryAppWebUi.Controllers
         }
         public ActionResult AvailableDrugs()
         {
-            return View(_drugService.GetAvailableDrugs());
+            var drugs = _drugService.GetAvailableDrugs();
+
+            //var drugsearchVM = new DrugSearchViewModel
+            //{
+            //    Drugs = drugs,
+            //    SearchString = searchQuery
+            //};
+          
+            return View(drugs);
         }
+        //public ActionResult FilteredDrugsList(string searchQuery)
+        //{
+        //    var drugs = _drugService.GetAvailableDrugs();
+
+        //    var drugsearchVM = new DrugSearchViewModel
+        //    {
+        //        Drugs = drugs,
+        //        SearchString = searchQuery
+        //    };
+
+        //    return View(drugsearchVM);
+        //}
+        public ActionResult FilteredDrugsList(string searchString)
+        {
+            var drugs = _drugService.GetAvailableDrugs();
+            var drugFilter = _drugService.GetAvailableDrugFilter(searchString);
+            if (string.IsNullOrWhiteSpace(searchString) || string.IsNullOrEmpty(searchString))
+            {
+                var drugsVM = new DrugSearchViewModel
+                {
+                    Drugs = drugs,
+                    SearchString = searchString
+                };
+                return View(drugsVM);
+            }
+            var drugsearchVM = new DrugSearchViewModel
+            {
+                Drugs = drugFilter,
+                SearchString = searchString
+            };
+            return View(drugsearchVM);
+        }
+
 
 
 

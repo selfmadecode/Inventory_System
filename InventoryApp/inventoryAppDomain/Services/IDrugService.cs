@@ -26,6 +26,8 @@ namespace inventoryAppDomain.Services
 
         List<Drug> GetAvailableDrugs();
 
+        List<Drug> GetAvailableDrugFilter(string searchQuery);
+
         void UpdateDrug(Drug drug);
 
     }

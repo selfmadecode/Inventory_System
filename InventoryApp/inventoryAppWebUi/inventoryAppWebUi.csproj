@@ -331,6 +331,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DrugCartViewModel.cs" />
+    <Compile Include="Models\DrugSearchViewModel.cs" />
     <Compile Include="Models\DrugViewModel.cs" />
     <Compile Include="Models\EditProfileViewModel.cs" />
     <Compile Include="Models\IndexPageViewModel.cs" />
@@ -411,11 +412,12 @@
     <Content Include="Views\Drug\AllDrugs.cshtml" />
     <Content Include="Views\Drug\AddDrugForm.cshtml" />
     <Content Include="Views\Drug\AddDrugCategory.cshtml" />
-    <Content Include="Views\Drug\DispenseDrugs.cshtml" />
     <Content Include="Views\Drug\AvailableDrugs.cshtml" />
     <Content Include="Views\DrugCart\Index.cshtml" />
     <Content Include="Views\Order\Invoice.cshtml" />
     <Content Include="Views\Drug\ListDrugCategories.cshtml" />
+    <Content Include="Views\Drug\FilteredDrugsList.cshtml" />
+    <Content Include="Views\Order\CheckoutComplete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

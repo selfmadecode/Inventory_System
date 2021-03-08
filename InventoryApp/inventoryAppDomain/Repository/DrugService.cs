@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using inventoryAppDomain.Entities;
 using inventoryAppDomain.Entities.Enums;
@@ -24,18 +25,29 @@ namespace inventoryAppDomain.Repository
 
         public List<Drug> GetAvailableDrugs()
         {
-
             var drugs = GetAllDrugs();
             var availableDrugs = new List<Drug>();
             drugs.ForEach(drug =>
            {
                if (drug.Quantity > 0)
                {
-                   availableDrugs.Add(drug);
+                   if(drug.ExpiryDate.CompareTo(DateTime.Now) == 1)
+                   {
+                       availableDrugs.Add(drug);
+                   }
                }
            }
             );
             return availableDrugs;
+        }
+        public List<Drug> GetAvailableDrugFilter(string searchQuery)
+        {
+            var queries = string.IsNullOrEmpty(searchQuery) ? null : Regex.Replace(searchQuery, @"\s+", " ").Trim().ToLower();
+            if (queries == null)
+            {
+                return GetAvailableDrugs();
+            }
+            return GetAvailableDrugs().Where(item => queries.Any(query => (item.DrugName.ToLower().Contains(query)))).ToList();
         }
 
         public List<Drug> GetAllExpiringDrugs(TimeFrame timeFrame)

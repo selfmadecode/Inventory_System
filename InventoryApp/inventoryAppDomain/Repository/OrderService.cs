@@ -34,6 +34,18 @@ namespace inventoryAppDomain.Repository
             _ctx.SaveChanges();
         }
 
+        public int GetTotalSales()
+        {
+            var TotalSales = _ctx.Orders.Select(order => order.OrderItems).Count();
+            return TotalSales;
+        }
+
+        public decimal GetTotalRevenue()
+        {
+            var TotalRevenue = _ctx.Orders.Select(x => x.Price).Sum();
+            return TotalRevenue;
+        }
+
         public List<Order> GetOrdersForTheDay()
         {
             return _ctx.Orders.Include(order => order.OrderItems).Where(order => DbFunctions.TruncateTime(order.CreatedAt) == DbFunctions.TruncateTime(DateTime.Now)).ToList();

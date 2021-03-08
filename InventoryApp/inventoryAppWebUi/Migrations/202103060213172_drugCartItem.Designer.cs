@@ -7,13 +7,13 @@ namespace inventoryAppWebUi.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class CartStatus : IMigrationMetadata
+    public sealed partial class drugCartItem : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CartStatus));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(drugCartItem));
         
         string IMigrationMetadata.Id
         {
-            get { return "202103061020403_CartStatus"; }
+            get { return "202103060213172_drugCartItem"; }
         }
         
         string IMigrationMetadata.Source
