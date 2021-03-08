@@ -27,8 +27,8 @@
                 {
                     <tbody>
                         <tr class="info" style="cursor: pointer">
-                            <td class="font-weight-bold">@drug.Drug.DrugName</td>
-                            <td> <button class="badge-success"> + </button>  @drug.Amount <button class="badge-danger"> - </button></td>
+                            <td class="font-weight-bold">@drug.Drug.DrugName</td> 
+                            <td> <button class="badge-success increase" onclick="increase(@drug.DrugId)"> + </button>  @drug.Amount <button class="badge-danger"> - </button></td>
                             <td>@drug.Drug.Price</td>
                             @*<td>@drug.DrugCategory.CategoryName</td>*@
                             <td>
@@ -67,3 +67,28 @@
         <p>Sorry! No available drugs have been selected.</p>
     }
 </div>
+
+<script>
+
+    $('document').ready(function () {
+
+    });
+
+    function increase(id) {
+
+        var mvcUrl = '/DrugCart/AddToShoppingCart/' + id;
+
+        // debugger;
+            $.ajax({
+                type: "POST",
+                url: mvcUrl,
+                data: id,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: 
+                    window.location.reload()
+            });
+    }
+
+
+</script>

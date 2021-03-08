@@ -41,7 +41,9 @@ namespace inventoryAppWebUi.Controllers
             }
 
             DrugCartService.AddToCart(selectedDrug, userId, selectedDrug.Quantity);
+            // return Json("success", JsonRequestBehavior.AllowGet);
             return RedirectToAction("Index");
+
         }
 
 
