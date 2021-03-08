@@ -40,7 +40,7 @@ namespace inventoryAppWebUi.Controllers
                 return HttpNotFound();
             }
 
-            DrugCartService.AddToCart(selectedDrug, userId, selectedDrug.Quantity);
+            DrugCartService.AddToCart(selectedDrug, userId);
             return RedirectToAction("FilteredDrugsList", "Drug");
         }
 

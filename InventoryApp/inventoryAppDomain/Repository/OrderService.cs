@@ -28,6 +28,13 @@ namespace inventoryAppDomain.Repository
             var cart = DrugCartService.GetCart(userId,CartStatus.ACTIVE);
             order.OrderItems = cart.DrugCartItems;
             order.Price = DrugCartService.GetDrugCartTotal(userId);
+            
+            cart.DrugCartItems.ForEach(item =>
+            {
+                item.Drug.Quantity -= item.Amount;
+                _ctx.Entry(item.Drug).State = EntityState.Modified;
+            });
+            
             _ctx.Orders.Add(order);
             cart.CartStatus = CartStatus.MOST_RECENT;
             _ctx.Entry(cart).State = EntityState.Modified;
@@ -56,10 +63,11 @@ namespace inventoryAppDomain.Repository
             var beginningOfWeek = DateTime.Now.FirstDayOfWeek();
             var lastDayOfTheWeek = DateTime.Now.LastDayOfWeek();
 
-            return _ctx.Orders.Include(order => order.OrderItems).Where(order => DateTime.Now.Month == order.CreatedAt.Month
+            var orders = _ctx.Orders.Include(order => order.OrderItems).Where(order => DateTime.Now.Month == order.CreatedAt.Month
                     && DateTime.Now.Year == order.CreatedAt.Year)
                 .Where(order => order.CreatedAt >= beginningOfWeek && order.CreatedAt < lastDayOfTheWeek)
                 .ToList();
+            return orders;
         }
 
         public List<Order> GetOrdersForTheMonth()

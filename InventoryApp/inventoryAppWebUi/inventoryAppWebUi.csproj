@@ -264,6 +264,7 @@
     <Compile Include="Controllers\DrugCartController.cs" />
     <Compile Include="Controllers\DrugController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -337,6 +338,7 @@
     <Compile Include="Models\IndexPageViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
+    <Compile Include="Models\ReportViewModel.cs" />
     <Compile Include="Models\UpdateUserRoleViewModel.cs" />
     <Compile Include="Models\SupplierViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
