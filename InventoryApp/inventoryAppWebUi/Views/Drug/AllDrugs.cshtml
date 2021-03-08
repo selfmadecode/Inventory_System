@@ -33,7 +33,7 @@
                         <td class="font-weight-bold">@drug.DrugName</td>
                         <td>@drug.Quantity</td>
                         <td>@drug.Price</td>
-                        <td>@drug.ExpiryDate</td>
+                        <td>@drug.ExpiryDate.ToShortDateString()</td>
                         <td>@drug.DrugCategory.CategoryName</td>
                         <td>
                             @Html.ActionLink("Details", "", "", new { Id = drug.Id },
