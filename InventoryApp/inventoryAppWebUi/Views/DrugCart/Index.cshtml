@@ -25,11 +25,10 @@
                 @foreach (var drug in Model.CartItems)
                 {
                     <tbody>
-                        <tr class="info" style="cursor: pointer">
+                        <tr class="info text-left" style="cursor: pointer">
                             <td class="font-weight-bold">@drug.Drug.DrugName</td>
-                            <td class="text-left"> <button class="badge-success"> + </button>  @drug.Amount <button class="badge-danger"> - </button></td>
+                            <td> <button class="badge-success increase" onclick="increase(@drug.DrugId)"> + </button>  @drug.Amount <button class="badge-danger decrease" onclick="decrease(@drug.Id)"> - </button></td>
                             <td class="text-left">@drug.Drug.Price</td>
-                            @*<td>@drug.DrugCategory.CategoryName</td>*@
                             <td>
                                 @Html.ActionLink("Remove From Cart", "RemoveFromShoppingCart", "DrugCart", new { drug.Id },
                                      new { @class = "btn btn-outline-primary" })
@@ -72,3 +71,20 @@
         <p>Sorry! No available drugs have been selected.</p>
     }
 </div>
+
+<script>
+
+    function increase(itemId) {
+        $.post("/DrugCart/AddToShoppingCart/", { id: itemId }, function (data) {
+            window.location.reload();
+        });
+    }
+
+    function decrease(itemId) {
+        $.post("/DrugCart/RemoveFromShoppingCart/", { id: itemId }, function (data) {
+            window.location.reload();
+        });
+    }
+
+
+</script>

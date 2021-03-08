@@ -69,10 +69,12 @@ namespace inventoryAppDomain.Repository
             }
             else
             {
-                cartItem.Amount++;
+                if (cartItem.Amount < cartItem.Drug.Quantity)
+                    cartItem.Amount++;
             }
             _dbContext.SaveChanges();
         }
+
         public int RemoveFromCart(Drug drug, string userId)
         {
             var drugCart = GetCart(userId, CartStatus.ACTIVE);
