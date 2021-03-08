@@ -1,6 +1,7 @@
 ﻿using inventoryAppDomain.Services;
 using inventoryAppWebUi.Models;
 using System.Web.Mvc;
+using inventoryAppDomain.Entities.Enums;
 using Microsoft.AspNet.Identity;
 
 namespace inventoryAppWebUi.Controllers
@@ -20,11 +21,10 @@ namespace inventoryAppWebUi.Controllers
         {
             var userId = User.Identity.GetUserId();
             
-            DrugCartService.GetDrugCartItems(userId);
             var drugCartCountTotal = DrugCartService.GetDrugCartTotalCount(userId);
             var drugCartViewModel = new DrugCartViewModel
             {
-                CartItems = DrugCartService.GetDrugCartItems(userId),
+                CartItems = DrugCartService.GetDrugCartItems(userId, CartStatus.ACTIVE),
                 DrugCartItemsTotal = drugCartCountTotal,
                 DrugCartTotal = DrugCartService.GetDrugCartTotal(userId),
             };
@@ -41,9 +41,7 @@ namespace inventoryAppWebUi.Controllers
             }
 
             DrugCartService.AddToCart(selectedDrug, userId, selectedDrug.Quantity);
-            // return Json("success", JsonRequestBehavior.AllowGet);
-            return RedirectToAction("Index");
-
+            return RedirectToAction("FilteredDrugsList", "Drug");
         }
 
 
@@ -68,5 +66,24 @@ namespace inventoryAppWebUi.Controllers
             return RedirectToAction("Index");
         }
 
+        //public ActionResult IncreaseQuantity(int id)
+        //{
+        //    var userId = User.Identity.GetUserId();
+        //    var selectedDrug = DrugCartService.GetDrugById(id);
+
+        //    if (selectedDrug == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    else
+        //    {
+        //       ViewBag.CanIncreaseQuantity = DrugCartService.IncreaseQuantity(selectedDrug, userId);
+
+        //    }
+
+        //    // DrugCartService.AddToCart(selectedDrug, userId, selectedDrug.Quantity++);
+        //    return RedirectToAction("FilteredDrugsList", "Drug");
+
+        //}
     }
 }

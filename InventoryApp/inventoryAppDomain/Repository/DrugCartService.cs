@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using inventoryAppDomain.Entities;
+using inventoryAppDomain.Entities.Enums;
 using inventoryAppDomain.IdentityEntities;
 using inventoryAppDomain.Services;
 using Microsoft.AspNet.Identity;
@@ -29,7 +30,8 @@ namespace inventoryAppDomain.Repository
             {
                 ApplicationUser = user,
                 ApplicationUserId = userId,
-                DrugCartItems = new List<DrugCartItem>()
+                DrugCartItems = new List<DrugCartItem>(),
+                CartStatus = CartStatus.ACTIVE
             };
 
             _dbContext.DrugCarts.Add(cart);
@@ -38,13 +40,13 @@ namespace inventoryAppDomain.Repository
             return cart;
         }
 
-        public DrugCart GetCart(string userId)
+        public DrugCart GetCart(string userId, CartStatus cartStatus)
         {
             var user = userManager.Users.FirstOrDefault(applicationUser => applicationUser.Id == userId);
 
             if (user != null)
                 return _dbContext.DrugCarts.Include(cart => cart.DrugCartItems)
-                    .FirstOrDefault(cart => cart.ApplicationUserId == userId);
+                    .FirstOrDefault(cart => cart.ApplicationUserId == userId && cart.CartStatus == cartStatus);
             
             return null;
         }
@@ -52,8 +54,11 @@ namespace inventoryAppDomain.Repository
 
         public void AddToCart(Drug drug, string userId, int amount)
         {
-            var drugCart = GetCart(userId);
-            var cartItem = _dbContext.DrugCartItems.FirstOrDefault(item => item.DrugId == drug.Id);
+            var drugCart = GetCart(userId, CartStatus.ACTIVE);
+
+            var cartItem = _dbContext.DrugCartItems
+                .FirstOrDefault(item => item.DrugId == drug.Id);
+
             if (cartItem == null)
             {
                 cartItem = new DrugCartItem
@@ -67,13 +72,15 @@ namespace inventoryAppDomain.Repository
             }
             else
             {
-                cartItem.Amount++;
+                if (cartItem.Amount < cartItem.Drug.Quantity)
+                    cartItem.Amount++;
             }
             _dbContext.SaveChanges();
         }
+
         public int RemoveFromCart(Drug drug, string userId)
         {
-            var drugCart = GetCart(userId);
+            var drugCart = GetCart(userId, CartStatus.ACTIVE);
             var cartItem = _dbContext.DrugCartItems.FirstOrDefault(item => item.DrugId == drug.Id);
             if (cartItem != null)
             {
@@ -104,14 +111,25 @@ namespace inventoryAppDomain.Repository
             var drug = _dbContext.DrugCartItems.Include(item => item.Drug).FirstOrDefault(x => x.Id == id);
             return drug;
         }
-        public List<DrugCartItem> GetDrugCartItems(string userId)
+
+        public DrugCart RefreshCart(string userId)
         {
-            var cart = GetCart(userId);
+            var drugCart = GetCart(userId, CartStatus.MOST_RECENT);
+            var newCart = CreateCart(userId);
+            drugCart.CartStatus = CartStatus.USED;
+            _dbContext.Entry(drugCart).State = EntityState.Modified;
+            _dbContext.SaveChanges();
+            return newCart;
+        }
+
+        public List<DrugCartItem> GetDrugCartItems(string userId, CartStatus cartStatus)
+        {
+            var cart = GetCart(userId,cartStatus);
             return _dbContext.DrugCartItems.Include(item => item.Drug).Where(item => item.DrugCartId == cart.Id).ToList();
         }
         public void ClearCart(string userId)
         {
-            var cart = GetCart(userId);
+            var cart = GetCart(userId,CartStatus.ACTIVE);
             _dbContext.DrugCartItems.RemoveRange(cart.DrugCartItems);
             cart.DrugCartItems = new List<DrugCartItem>();
             _dbContext.Entry(cart).State = EntityState.Modified;
@@ -119,7 +137,7 @@ namespace inventoryAppDomain.Repository
         }
         public decimal GetDrugCartTotal(string userId)
         {
-            var cart = GetCart(userId);
+            var cart = GetCart(userId,CartStatus.ACTIVE);
             if (cart.DrugCartItems.Count == 0)
             {
                 return 0;
@@ -130,7 +148,7 @@ namespace inventoryAppDomain.Repository
         }
         public int GetDrugCartTotalCount(string userId)
         {
-            var cart = GetCart(userId);
+            var cart = GetCart(userId,CartStatus.ACTIVE);
             var total = _dbContext.DrugCartItems.Count(c => c.DrugCartId == cart.Id);
             return total;
         }

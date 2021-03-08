@@ -52,6 +52,16 @@ namespace inventoryAppDomain.Repository
 
         public List<string> GetAllRoles() => RoleManager.Roles.Select(x => x.Name).ToList();
 
+
+        public IdentityRole GetAppUserRole(string roleId) => RoleManager.FindById(roleId);
+
+
+        public async Task RemoveUserRole(string roleId)
+        {
+            var userRole = RoleManager.FindById(roleId);
+           await _roleManager.DeleteAsync(userRole);
+        }
+
         public IdentityRole FindByRoleName(string roleName) => RoleManager.FindByName(roleName);
         public List<string> GetRolesByUser(string userId) => UserManager.GetRoles(userId).ToList();
         public async Task RemoveUserFromRole(string userId)

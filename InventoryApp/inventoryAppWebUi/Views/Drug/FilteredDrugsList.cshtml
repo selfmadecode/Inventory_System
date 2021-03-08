@@ -1,19 +1,35 @@
-﻿@model List<inventoryAppDomain.Entities.Drug>
+﻿
+@model inventoryAppWebUi.Models.DrugSearchViewModel
 
 @{
-    ViewBag.Title = "AvailableDrugs";
+    ViewBag.Title = "FilteredDrugsList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
 
 @*<p>
         @Html.ActionLink("Create New", "Create")
     </p>*@
 <div class="card-body col-lg-12">
-    @if (Model.Any())
+    @if (!Model.Equals(null))
     {
         <h2>AvailableDrugs</h2>
+        <div class="container-fluid row text-center">
+            @using (Html.BeginForm("FilteredDrugsList", "Drug", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @*@Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(s => s.SearchString, new { @class = "form-control textbox", PlaceHolder = "Enter Search Query" })
+                        @Html.ValidationMessageFor(s => s.SearchString, "", new { @class = "text-danger" })
+                 </div>
+                    <div class="col-sm-6">
+                        <input type="submit" value="Search" class="btn btn-primary col-sm-12" />
+                    </div>
+                </div>
+            }
+
+        </div>
         <div class="table-responsive">
             <table class="table table-hover table-bordered text-left">
                 <thead>
@@ -27,7 +43,7 @@
                         <th></th>
                     </tr>
                 </thead>
-                @foreach (var drug in Model)
+                @foreach (var drug in Model.Drugs)
                 {
                     <tbody>
                         <tr class="info" style="cursor: pointer">
@@ -57,3 +73,4 @@
         <p>Sorry! No drugs are available at the moment.</p>
     }
 </div>
+

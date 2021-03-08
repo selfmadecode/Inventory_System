@@ -6,7 +6,7 @@
 }
 
 
-<div class="card-body col-lg-12">
+<div class="card-body col-lg-11">
     @if (Model.DrugCartItemsTotal > 0)
     {
         <h2>Selected Drugs</h2>
@@ -20,17 +20,15 @@
 
                         @*<th>Category</th>*@
                         <th></th>
-                        <th></th>
                     </tr>
                 </thead>
                 @foreach (var drug in Model.CartItems)
                 {
                     <tbody>
-                        <tr class="info" style="cursor: pointer">
+                        <tr class="info text-left" style="cursor: pointer">
                             <td class="font-weight-bold">@drug.Drug.DrugName</td> 
-                            <td> <button class="badge-success increase" onclick="increase(@drug.DrugId)"> + </button>  @drug.Amount <button class="badge-danger"> - </button></td>
+                            <td> <button class="badge-success increase" onclick="increase(@drug.DrugId)"> + </button>  @drug.Amount <button class="badge-danger decrease" onclick="decrease(@drug.Id)"> - </button></td>
                             <td>@drug.Drug.Price</td>
-                            @*<td>@drug.DrugCategory.CategoryName</td>*@
                             <td>
                                 @Html.ActionLink("Remove From Cart", "RemoveFromShoppingCart", "DrugCart", new { drug.Id },
                                      new { @class = "btn btn-outline-primary" })
@@ -41,22 +39,28 @@
                 }
                 <tfoot>
                     <tr>
-                        <td>
-                            @Html.ActionLink("Clear Cart", "RemoveAllCart", "DrugCart", null,
-                                                         new { @class = "btn btn-default" })
-                        </td>
                         <td class="text-right">Total:</td>
-                        <td class="text-right">
+                        <td class="text-left">
                             @Model.DrugCartItemsTotal.ToString()
                         </td>
-                        <td class="text-right">
+                        <td class="text-left" colspan="2">
                             @Model.DrugCartTotal.ToString("c")
                         </td>
                     </tr>
+                   
                 </tfoot>
             </table>
-            @Html.ActionLink("Checkout", "Invoice", "Order", null,
-                                                        new { @class = "btn btn-default" })
+            <div class="row">
+                <div class="col-sm-2">
+                    @Html.ActionLink("Clear Cart", "RemoveAllCart", "DrugCart", null,
+                   new { @class = "btn btn-danger" })
+                </div>
+                <div class="col-sm-2">
+                    @Html.ActionLink("Checkout", "Invoice", "Order", null,
+                                                           new { @class = "btn btn-success" })
+                </div>
+            </div>
+           
         </div>
 
     }
@@ -70,24 +74,16 @@
 
 <script>
 
-    $('document').ready(function () {
+    function increase(itemId) {
+        $.post("/DrugCart/AddToShoppingCart/", { id: itemId }, function (data) {
+            window.location.reload();
+        });
+    }
 
-    });
-
-    function increase(id) {
-
-        var mvcUrl = '/DrugCart/AddToShoppingCart/' + id;
-
-        // debugger;
-            $.ajax({
-                type: "POST",
-                url: mvcUrl,
-                data: id,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: 
-                    window.location.reload()
-            });
+    function decrease(itemId) {
+        $.post("/DrugCart/RemoveFromShoppingCart/", { id: itemId }, function (data) {
+            window.location.reload();
+        });
     }
 
 

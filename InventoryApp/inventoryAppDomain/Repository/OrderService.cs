@@ -3,9 +3,12 @@ using inventoryAppDomain.IdentityEntities;
 using inventoryAppDomain.Services;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
+using inventoryAppDomain.Entities.Enums;
+using inventoryAppDomain.ExtensionMethods;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace inventoryAppDomain.Repository
 {
@@ -13,33 +16,57 @@ namespace inventoryAppDomain.Repository
     {
         public IDrugCartService DrugCartService { get; }
         private readonly ApplicationDbContext _ctx;
-        public OrderService(IDrugCartService drugCartService, ApplicationDbContext ctx)
+        
+        public OrderService(IDrugCartService drugCartService)
         {
             DrugCartService = drugCartService;
-            _ctx = ctx;
+            _ctx = HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>();
         }
 
         public void CreateOrder(Order order, string userId)
         {
-            order.OrderPlaced = DateTime.Now;
-
-            _ctx.Order.Add(order);
-            var drugCartItems = DrugCartService.GetDrugCartItems(userId);
-
-            foreach (var drugCartItem in drugCartItems)
-            {
-                var orderDetail = new OrderDetail()
-                {
-                    Amount = drugCartItem.Amount,
-                    DrugId = drugCartItem.Drug.Id,
-                    OrderId = order.OrderId,
-                    Price = drugCartItem.Drug.Price
-                };
-
-                _ctx.OrderDetails.Add(orderDetail);
-            }
-
+            var cart = DrugCartService.GetCart(userId,CartStatus.ACTIVE);
+            order.OrderItems = cart.DrugCartItems;
+            order.Price = DrugCartService.GetDrugCartTotal(userId);
+            _ctx.Orders.Add(order);
+            cart.CartStatus = CartStatus.MOST_RECENT;
+            _ctx.Entry(cart).State = EntityState.Modified;
             _ctx.SaveChanges();
+        }
+
+        public int GetTotalSales()
+        {
+            var TotalSales = _ctx.Orders.Select(order => order.OrderItems).Count();
+            return TotalSales;
+        }
+
+        public decimal GetTotalRevenue()
+        {
+            var TotalRevenue = _ctx.Orders.Select(x => x.Price).Sum();
+            return TotalRevenue;
+        }
+
+        public List<Order> GetOrdersForTheDay()
+        {
+            return _ctx.Orders.Include(order => order.OrderItems).Where(order => DbFunctions.TruncateTime(order.CreatedAt) == DbFunctions.TruncateTime(DateTime.Now)).ToList();
+        }
+
+        public List<Order> GetOrdersForTheWeek()
+        {
+            var beginningOfWeek = DateTime.Now.FirstDayOfWeek();
+            var lastDayOfTheWeek = DateTime.Now.LastDayOfWeek();
+
+            return _ctx.Orders.Include(order => order.OrderItems).Where(order => DateTime.Now.Month == order.CreatedAt.Month
+                    && DateTime.Now.Year == order.CreatedAt.Year)
+                .Where(order => order.CreatedAt >= beginningOfWeek && order.CreatedAt < lastDayOfTheWeek)
+                .ToList();
+        }
+
+        public List<Order> GetOrdersForTheMonth()
+        {
+            return _ctx.Orders.Include(order => order.OrderItems).Where(order => order.CreatedAt.Month.Equals(DateTime.Now.Month) && 
+                                              order.CreatedAt.Year.Equals(DateTime.Now.Year))
+                .ToList();
         }
     }
 }

@@ -33,7 +33,7 @@
                         <tr class="table-success">
                             <th>Supplier Name</th>
                             <th>Status</th>
-                            <th>Website</th>
+                            <th>Tag</th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -45,7 +45,7 @@
                             <tr class="info" style="cursor: pointer">
                                 <td class="font-weight-bold">@supplier.SupplierName</td>
                                 <td class="@supplier.Status">@supplier.Status</td>
-                                <td>@supplier.Website</td>
+                                <td>@supplier.TagNumber</td>
                                 <td>
                                     @Html.ActionLink("Details", "SupplierDetails", "Supplier", new { Id = supplier.Id },
                                          new { @class = "btn btn-outline-primary" })

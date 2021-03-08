@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using inventoryAppDomain.Entities.Enums;
 using Microsoft.AspNet.Identity.Owin;
 
 namespace inventoryAppDomain.Entities
@@ -21,6 +22,7 @@ namespace inventoryAppDomain.Entities
         public int Id { get; set; }
         public List<DrugCartItem> DrugCartItems { get; set; }
 
+        public CartStatus CartStatus { get; set; } = CartStatus.ACTIVE;
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
     }

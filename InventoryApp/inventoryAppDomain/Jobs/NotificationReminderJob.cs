@@ -40,7 +40,7 @@ namespace inventoryAppDomain.Jobs
 
                     var drugs = _dbContext.Drugs.Where(drug => DateTime.Now.Month == drug.ExpiryDate.Month
                                                                && DateTime.Now.Year == drug.ExpiryDate.Year)
-                        .Where(drug => drug.ExpiryDate >= beginningOfWeek && drug.ExpiryDate < endOfWeek).ToList();
+                        .Where(drug => drug.ExpiryDate >= beginningOfWeek && drug.ExpiryDate <= endOfWeek).ToList();
                     drugs.ForEach(drug =>
                     {
                         var notification = new Notification()

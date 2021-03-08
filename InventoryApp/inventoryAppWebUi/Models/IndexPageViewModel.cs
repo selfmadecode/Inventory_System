@@ -9,6 +9,7 @@ namespace inventoryAppWebUi.Models
     {
         public int TotalNumberOfSupplier { get; set; }
         public int TotalNumberOfDrugs { get; set; }
-        public int TotalRevenue { get; set; }
+        public decimal TotalRevenue { get; set; }
+        public int TotalSales { get; set; }
     }
 }

@@ -61,6 +61,14 @@
       <HintPath>..\packages\Hangfire.SqlServer.1.7.19\lib\net45\Hangfire.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="IronPdf, Version=2021.1.29.0, Culture=neutral, PublicKeyToken=94e1c31412563c75">
+      <HintPath>..\packages\IronPdf.2021.1.29\lib\net45\IronPdf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IronPdf.Assets.Rendering.Windows, Version=21.0.0.0, Culture=neutral, PublicKeyToken=94e1c31412563c75">
+      <HintPath>..\packages\IronPdf.Assets.Rendering.Windows.21.0.0\lib\net40\IronPdf.Assets.Rendering.Windows.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AspNetCore.Http, Version=2.2.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Http.2.2.2\lib\netstandard2.0\Microsoft.AspNetCore.Http.dll</HintPath>
     </Reference>
@@ -308,13 +316,27 @@
     <Compile Include="Migrations\202103041933463_Changes.Designer.cs">
       <DependentUpon>202103041933463_Changes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103051125514_OrderChanges.cs" />
+    <Compile Include="Migrations\202103051125514_OrderChanges.Designer.cs">
+      <DependentUpon>202103051125514_OrderChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103052317088_Reports.cs" />
+    <Compile Include="Migrations\202103052317088_Reports.Designer.cs">
+      <DependentUpon>202103052317088_Reports.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103061020403_CartStatus.cs" />
+    <Compile Include="Migrations\202103061020403_CartStatus.Designer.cs">
+      <DependentUpon>202103061020403_CartStatus.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DrugCartViewModel.cs" />
+    <Compile Include="Models\DrugSearchViewModel.cs" />
     <Compile Include="Models\DrugViewModel.cs" />
     <Compile Include="Models\EditProfileViewModel.cs" />
     <Compile Include="Models\IndexPageViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\UpdateUserRoleViewModel.cs" />
     <Compile Include="Models\SupplierViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -390,11 +412,12 @@
     <Content Include="Views\Drug\AllDrugs.cshtml" />
     <Content Include="Views\Drug\AddDrugForm.cshtml" />
     <Content Include="Views\Drug\AddDrugCategory.cshtml" />
-    <Content Include="Views\Drug\DispenseDrugs.cshtml" />
     <Content Include="Views\Drug\AvailableDrugs.cshtml" />
     <Content Include="Views\DrugCart\Index.cshtml" />
     <Content Include="Views\Order\Invoice.cshtml" />
     <Content Include="Views\Drug\ListDrugCategories.cshtml" />
+    <Content Include="Views\Drug\FilteredDrugsList.cshtml" />
+    <Content Include="Views\Order\CheckoutComplete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -448,6 +471,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103041933463_Changes.resx">
       <DependentUpon>202103041933463_Changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103051125514_OrderChanges.resx">
+      <DependentUpon>202103051125514_OrderChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103052317088_Reports.resx">
+      <DependentUpon>202103052317088_Reports.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103061020403_CartStatus.resx">
+      <DependentUpon>202103061020403_CartStatus.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

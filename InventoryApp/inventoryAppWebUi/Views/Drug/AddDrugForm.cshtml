@@ -12,9 +12,9 @@
     <div id="content">
         <div class="container-fluid">
             <div class="row" id="formContainer">
-                <div class="col-sm-6 auth-box">
-                    <div class="proclinic-box-shadow text-left" id="form" style="margin-top: 70px">
-                        <h2 class="widget-title">Add Drug</h2>
+                <div class="col-sm-8 auth-box">
+                    <div class="proclinic-box-shadow text-left" id="form" style="margin-top: 70px;">
+                        <h2 class="widget-title text-center">Add Drug</h2>
 
                         @using (Html.BeginForm("SaveDrug", "Drug", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                         {
@@ -44,8 +44,8 @@
 
                             <div class="form-group">
                                 <div class="col-sm-12">
-                                    @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control datepicker", @Value = Model.ExpiryDate != null ? Model.ExpiryDate.Date.ToString("{0:d MMM yyyy}") : null } })
                                     @Html.Label("ExpiryDate", "Expiry Date")
+                                    @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control datepicker", @Value = Model.ExpiryDate != null ? Model.ExpiryDate.Date.ToString("{0:d MMM yyyy}") : null } })
                                     @Html.ValidationMessageFor(model => model.ExpiryDate, "", new { @class = "text-danger" })
                                 </div>
                             </div>

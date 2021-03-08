@@ -1,7 +1,7 @@
 ﻿namespace inventoryAppDomain.Entities.Enums
 {
-    public enum TimeFrame
+    public enum CartStatus
     {
-        DAILY, MONTHLY, WEEKLY
+        ACTIVE, MOST_RECENT, USED
     }
 }
