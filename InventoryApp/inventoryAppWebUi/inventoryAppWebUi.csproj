@@ -264,6 +264,7 @@
     <Compile Include="Controllers\DrugCartController.cs" />
     <Compile Include="Controllers\DrugController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -328,6 +329,10 @@
     <Compile Include="Migrations\202103061020403_CartStatus.Designer.cs">
       <DependentUpon>202103061020403_CartStatus.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103081202223_ReportUpdate.cs" />
+    <Compile Include="Migrations\202103081202223_ReportUpdate.Designer.cs">
+      <DependentUpon>202103081202223_ReportUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DrugCartViewModel.cs" />
@@ -337,6 +342,7 @@
     <Compile Include="Models\IndexPageViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
+    <Compile Include="Models\ReportViewModel.cs" />
     <Compile Include="Models\UpdateUserRoleViewModel.cs" />
     <Compile Include="Models\SupplierViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -480,6 +486,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103061020403_CartStatus.resx">
       <DependentUpon>202103061020403_CartStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103081202223_ReportUpdate.resx">
+      <DependentUpon>202103081202223_ReportUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

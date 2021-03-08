@@ -12,7 +12,7 @@ namespace inventoryAppDomain.Services
     {
         DrugCart CreateCart(string userId);
         DrugCart GetCart(string userId, CartStatus cartStatus);
-        void AddToCart(Drug drug, string userId, int amount);
+        void AddToCart(Drug drug, string userId);
         void ClearCart(string cartId);
         List<DrugCartItem> GetDrugCartItems(string userId, CartStatus cartStatus);
         int RemoveFromCart(Drug drug, string userId);

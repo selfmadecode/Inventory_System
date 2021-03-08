@@ -47,9 +47,10 @@
 <!-- Sidebar -->
 <nav id="sidebar" class="proclinic-bg">
     <div class="sidebar-header">
-        <a href="">
+        <a href="@Url.Action("Index", "Home")">
             <img src="~/Content/Assets/images/logo.png" class="logo" alt="logo">
         </a>
+        
     </div>
     <ul class="list-unstyled components">
         <li class="active">
@@ -59,10 +60,10 @@
 
             <ul class="collapse list-unstyled show" id="nav-dashboard">
                 <li>
-                    @Html.ActionLink("Graph Chart", "")
+                    @Html.ActionLink("Graph Chart", "Index", "Home")
                 </li>
                 <li>
-                    @Html.ActionLink("Pie Chart", "")
+                    @Html.ActionLink("Pie Chart", "Index", "Home")
                 </li>
             </ul>
         </li>

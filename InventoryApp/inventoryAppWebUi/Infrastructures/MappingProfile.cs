@@ -34,6 +34,10 @@ namespace inventoryAppWebUi.Infrastructures
                  .ForMember(order => order.OrderItems, act => act.Ignore())
                  .ForMember(order => order.Price, act => act.Ignore());
 
+             Mapper.CreateMap<Report, ReportViewModel>()
+                 .ForMember(model => model.Orders, act => act.MapFrom(report => report.Orders))
+                 .ForMember(model => model.ReportDrugs, act => act.MapFrom(report => report.ReportDrugs))
+                 .ForMember(model => model.TotalRevenueForReport, act => act.MapFrom(report => report.TotalRevenueForReport));
         }
     }
 }

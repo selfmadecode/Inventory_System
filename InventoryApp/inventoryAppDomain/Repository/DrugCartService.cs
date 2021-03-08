@@ -52,13 +52,10 @@ namespace inventoryAppDomain.Repository
         }
 
 
-        public void AddToCart(Drug drug, string userId, int amount)
+        public void AddToCart(Drug drug, string userId)
         {
             var drugCart = GetCart(userId, CartStatus.ACTIVE);
-
-            var cartItem = _dbContext.DrugCartItems
-                .FirstOrDefault(item => item.DrugId == drug.Id);
-
+            var cartItem = _dbContext.DrugCartItems.FirstOrDefault(item => item.DrugId == drug.Id && item.DrugCartId == drugCart.Id);
             if (cartItem == null)
             {
                 cartItem = new DrugCartItem
