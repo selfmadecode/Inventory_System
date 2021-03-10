@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using inventoryAppDomain.Entities.Enums;
 using inventoryAppDomain.Services;
 using IronPdf;
@@ -20,6 +21,7 @@ namespace inventoryAppDomain.Jobs
             var folderPath = Directory.GetCurrentDirectory();
             var report = ReportService.CreateReport(timeFrame);
             var renderer = new HtmlToPdf();
+            renderer.PrintOptions.CustomCssUrl = new Uri("https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.css").ToString();
             var pdf = renderer.RenderHtmlAsPdf(report.DrugSales).SaveAs($"C:\\Users\\tochu\\Documents\\C# Projects\\inventoryapp\\InventoryApp\\report.pdf");
             pdf.AddHTMLHeaders(new HtmlHeaderFooter
             {
