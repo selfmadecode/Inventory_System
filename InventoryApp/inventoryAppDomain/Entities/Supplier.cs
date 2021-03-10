@@ -15,9 +15,11 @@ namespace inventoryAppDomain.Entities
         [Required (ErrorMessage = "Supplier Name needed")]
         public string SupplierName { get; set; }
 
+        [EmailAddress]
         [Required(ErrorMessage = "Supplier Email needed")]
         public string Email { get; set; }
 
+        [Url]
         [Required(ErrorMessage = "Supplier web address needed")]
         public string Website { get; set; }
 
