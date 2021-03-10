@@ -1,5 +1,8 @@
 ﻿using System.Web.Mvc;
+using AutoMapper;
+using inventoryAppDomain.Entities.Enums;
 using inventoryAppDomain.Services;
+using inventoryAppWebUi.Models;
 
 namespace inventoryAppWebUi.Controllers
 {
@@ -14,9 +17,11 @@ namespace inventoryAppWebUi.Controllers
         }
         
         // GET
-        public ActionResult Index()
+        public ActionResult Index(TimeFrame timeFrame)
         {
-            return View();
+            ViewBag.CurrentPage = timeFrame + " Report";
+            var report = Mapper.Map<ReportViewModel>(ReportService.CreateReport(timeFrame));
+            return View(report);
         }
     }
 }

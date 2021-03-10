@@ -12,12 +12,14 @@ namespace inventoryAppWebUi.Models
         [Display(Name = "Last name")]
         public string LastName { get; set; }
 
+        [Phone]
         [Required(ErrorMessage = "Please enter your phone number")]
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Phone number")]
         public string PhoneNumber { get; set; }
 
         [Required]
+        [EmailAddress]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
     }

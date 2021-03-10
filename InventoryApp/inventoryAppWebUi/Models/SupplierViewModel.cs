@@ -17,12 +17,13 @@ namespace inventoryAppWebUi.Models
         [Required(ErrorMessage = "Supplier Name needed")]
         public string SupplierName { get; set; }
 
+        [EmailAddress]
         [Required(ErrorMessage = "Supplier Email needed")]
         public string Email { get; set; }
 
         public SupplierStatus Status { get; set; }
 
-
+        [Url]
         [Required(ErrorMessage = "Supplier web address needed")]
         public string Website { get; set; }
 

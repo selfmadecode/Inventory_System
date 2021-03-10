@@ -5,11 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@if ((string)TempData["dispensed"] == "dispensed")
+{
+    <script>
+            swal("Dispensed!", "", "success");
+    </script>
 
-
-@*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>*@
+}
 <div class="card-body col-lg-12">
     @if (Model.Any())
     {
