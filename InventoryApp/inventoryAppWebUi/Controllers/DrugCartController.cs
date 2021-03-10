@@ -40,7 +40,7 @@ namespace inventoryAppWebUi.Controllers
                 return HttpNotFound();
             }
 
-            DrugCartService.AddToCart(selectedDrug, userId, selectedDrug.Quantity);
+            DrugCartService.AddToCart(selectedDrug, userId);
             return RedirectToAction("FilteredDrugsList", "Drug");
         }
 
@@ -66,5 +66,24 @@ namespace inventoryAppWebUi.Controllers
             return RedirectToAction("Index");
         }
 
+        //public ActionResult IncreaseQuantity(int id)
+        //{
+        //    var userId = User.Identity.GetUserId();
+        //    var selectedDrug = DrugCartService.GetDrugById(id);
+
+        //    if (selectedDrug == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    else
+        //    {
+        //       ViewBag.CanIncreaseQuantity = DrugCartService.IncreaseQuantity(selectedDrug, userId);
+
+        //    }
+
+        //    // DrugCartService.AddToCart(selectedDrug, userId, selectedDrug.Quantity++);
+        //    return RedirectToAction("FilteredDrugsList", "Drug");
+
+        //}
     }
 }

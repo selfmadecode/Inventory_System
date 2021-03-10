@@ -13,12 +13,12 @@ namespace inventoryAppDomain.Entities
         public int Id { get; set; }
 
         public string DrugSales { get; set; }
-        
-        public string SuppliersReport { get; set; }
 
         public TimeFrame TimeFrame { get; set; }
 
         public decimal TotalRevenueForReport { get; set; }
+
+        public List<Drug> ReportDrugs { get; set; }
         
         public List<Order> Orders { get; set; }
 

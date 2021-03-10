@@ -60,30 +60,27 @@ namespace inventoryAppDomain.Repository
             {
                 case TimeFrame.DAILY:
                 {
-                    Func<Report, bool> dailyFunc = report1 => report1.CreatedAt.Date == DateTime.Now.Date;
-                    report =
-                        _dbContext.Reports.FirstOrDefault(dailyFunc);
-                    if (report == null)
-                    {
-                        report = new Report();
-                    }
+                    Func<Report, bool> dailyFunc = report1 => report1.CreatedAt.Date == DateTime.Now.Date && report1.TimeFrame == timeFrame;
+                    report = _dbContext.Reports.FirstOrDefault(dailyFunc) ?? new Report();
 
                     report.Orders = OrderService.GetOrdersForTheDay();
                     report.TimeFrame = timeFrame;
                     report.TotalRevenueForReport = OrderService.GetOrdersForTheDay().Select(order => order.Price).Sum();
 
                     var drugItem = new List<DrugCartItem>();
+                    var drugs = new List<Drug>();
                     var orders = OrderService.GetOrdersForTheDay();
                     foreach (var order in orders)
                     {
                         foreach (var drugCartItem in order.OrderItems)
                         {
                             drugItem.Add(_dbContext.DrugCartItems.Include(item => item.Drug).Include(item => item.DrugCart).FirstOrDefault(item => item.Id == drugCartItem.Id));
+                            drugs.Add(_dbContext.Drugs.FirstOrDefault(drug => drug.Id == drugCartItem.DrugId));
                         }
                     }
 
                     report.DrugSales = GenerateSalesTable(drugItem);
-
+                    report.ReportDrugs = drugs;
 
                     if (_dbContext.Reports.Any(dailyFunc))
                     {
@@ -103,15 +100,11 @@ namespace inventoryAppDomain.Repository
                     var lastDayOfWeek = DateTime.Now.LastDayOfWeek();
                     Func<Report, bool> weeklyFunc = report1 =>
                         report1.CreatedAt.Month.Equals(beginningOfWeek.Month) &&
-                        report1.CreatedAt.Year.Equals(beginningOfWeek.Year) && report1.CreatedAt >= beginningOfWeek &&
-                        report1.CreatedAt <= lastDayOfWeek;
+                        report1.CreatedAt.Year.Equals(beginningOfWeek.Year) && (report1.CreatedAt >= beginningOfWeek &&
+                        report1.CreatedAt <= lastDayOfWeek && report1.TimeFrame == timeFrame);
 
-                    report = _dbContext.Reports.FirstOrDefault(weeklyFunc);
-
-                    if (report == null)
-                    {
-                        report = new Report();
-                    }
+                    
+                    report = _dbContext.Reports.FirstOrDefault(weeklyFunc) ?? new Report();
 
                     report.Orders = OrderService.GetOrdersForTheWeek();
                     report.TimeFrame = timeFrame;
@@ -119,15 +112,18 @@ namespace inventoryAppDomain.Repository
                         OrderService.GetOrdersForTheWeek().Select(order => order.Price).Sum();
 
                     var drugItem = new List<DrugCartItem>();
+                    var drugs = new List<Drug>();
                     var orders = OrderService.GetOrdersForTheWeek();
                     foreach (var order in orders)
                     {
                         foreach (var drugCartItem in order.OrderItems)
                         {
                             drugItem.Add(_dbContext.DrugCartItems.Include(item => item.Drug).Include(item => item.DrugCart).FirstOrDefault(item => item.Id == drugCartItem.Id));
+                            drugs.Add(_dbContext.Drugs.FirstOrDefault(drug => drug.Id == drugCartItem.DrugId));
                         }
                     }
 
+                    report.ReportDrugs = drugs;
                     report.DrugSales = GenerateSalesTable(drugItem);
 
                     if (_dbContext.Reports.Any(weeklyFunc))
@@ -146,7 +142,7 @@ namespace inventoryAppDomain.Repository
                 {
                     Func<Report, bool> monthlyFunc = report1 =>
                         report1.CreatedAt.Month.Equals(DateTime.Now.Month) &&
-                        report1.CreatedAt.Year.Equals(DateTime.Now.Year);
+                        report1.CreatedAt.Year.Equals(DateTime.Now.Year) && report1.TimeFrame == timeFrame;
                     
                     report = _dbContext.Reports.FirstOrDefault(monthlyFunc);
                     if (report == null)
@@ -160,17 +156,19 @@ namespace inventoryAppDomain.Repository
                         OrderService.GetOrdersForTheMonth().Select(order => order.Price).Sum();
 
                     var drugItem = new List<DrugCartItem>();
+                    var drugs = new List<Drug>();
                     var orders = OrderService.GetOrdersForTheMonth();
                     foreach (var order in orders)
                     {
                         foreach (var drugCartItem in order.OrderItems)
                         {
                             drugItem.Add(_dbContext.DrugCartItems.Include(item => item.Drug).Include(item => item.DrugCart).FirstOrDefault(item => item.Id == drugCartItem.Id));
+                            drugs.Add(_dbContext.Drugs.FirstOrDefault(drug => drug.Id == drugCartItem.DrugId));
                         }
                     }
 
                     report.DrugSales = GenerateSalesTable(drugItem);
-
+                    report.ReportDrugs = drugs;
                     if (_dbContext.Reports.Any(monthlyFunc))
                     {
                         _dbContext.Entry(report).State = EntityState.Modified;

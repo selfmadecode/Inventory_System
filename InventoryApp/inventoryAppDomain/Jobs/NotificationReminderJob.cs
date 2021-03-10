@@ -91,7 +91,7 @@ namespace inventoryAppDomain.Jobs
             _dbContext.SaveChanges();
         }
 
-        public async Task ExpireDrugs()
+        public void ExpireDrugs()
         {
             var drugs = _dbContext.Drugs.Where(drug => drug.ExpiryDate.Equals(DateTime.Today)).ToList();
             
@@ -101,7 +101,7 @@ namespace inventoryAppDomain.Jobs
                 _dbContext.Entry(drug).State = EntityState.Modified;
             });
 
-            await _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
         }
         
     }

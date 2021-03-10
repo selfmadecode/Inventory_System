@@ -36,7 +36,7 @@ namespace inventoryAppWebUi.Controllers
 
         public PdfDocument GeneratePdfTest()
         {
-            return ReportPdfGenerator.GenerateReportPdf(TimeFrame.MONTHLY);
+            return ReportPdfGenerator.GenerateReportPdf(TimeFrame.DAILY);
         }
         
 
