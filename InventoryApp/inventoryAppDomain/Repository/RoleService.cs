@@ -50,7 +50,7 @@ namespace inventoryAppDomain.Repository
             return result.Succeeded ? role : throw new Exception(result.Errors.ToString());
         }
 
-        public List<string> GetAllRoles() => RoleManager.Roles.Select(x => x.Name).ToList();
+        public List<string> GetAllRoles() => RoleManager.Roles.Where(role => role.Name != "Admin").Select(x => x.Name).ToList();
 
 
         public IdentityRole GetAppUserRole(string roleId) => RoleManager.FindById(roleId);
@@ -69,18 +69,21 @@ namespace inventoryAppDomain.Repository
             await UserManager.RemoveFromRolesAsync(userId);
         }
 
-        public async void ChangeUserRole(string userId, string updatedRoleName)
+        public async Task ChangeUserRole(string userId, string updatedRoleName)
         {
-
-            await UserManager.RemoveFromRolesAsync(userId);
-
             var role = await RoleManager.FindByNameAsync(updatedRoleName);
 
             if (role == null)
             {
                 throw new Exception("Role Doesn't Exist");
             }
-
+            
+            if (await UserManager.IsInRoleAsync(userId, updatedRoleName))
+            {
+                throw new Exception("User Already in Role");
+            }
+            
+            await UserManager.RemoveFromRolesAsync(userId);
             await UserManager.AddToRoleAsync(userId, role.Name);
 
         }

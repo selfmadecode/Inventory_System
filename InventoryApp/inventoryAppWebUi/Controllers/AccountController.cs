@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -11,7 +12,9 @@ using inventoryAppWebUi.Models;
 using AutoMapper;
 using inventoryAppDomain.Entities;
 using inventoryAppDomain.Entities.Enums;
+using inventoryAppDomain.Repository;
 using inventoryAppDomain.Services;
+using Newtonsoft.Json;
 
 namespace inventoryAppWebUi.Controllers
 {
@@ -24,7 +27,8 @@ namespace inventoryAppWebUi.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public AccountController(IRoleService roleService, IProfileService profileService, INotificationService notificationService)
+        public AccountController(IRoleService roleService, IProfileService profileService,
+            INotificationService notificationService)
         {
             RoleService = roleService;
             ProfileService = profileService;
@@ -94,11 +98,50 @@ namespace inventoryAppWebUi.Controllers
             return View(ProfileService.GetAllUsers());
         }
 
-        
+
         public async Task<RedirectToRouteResult> RemoveUser(string id)
         {
             await ProfileService.RemoveUser(id);
             return RedirectToAction("ManageUsers");
+        }
+
+        public async Task<ActionResult> ChangeRole(string id)
+        {
+            var user = await UserManager.FindByIdAsync(id);
+            var viewModel = new UpdateUserRoleViewModel
+            {
+                Roles = RoleService.GetAllRoles(), 
+                Email = $"{user.Email}",
+                UserId = id
+            };
+            return View(viewModel);
+        }
+
+        
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> UpdateUserRole(UpdateUserRoleViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await ProfileService.ChangeUserRole(Mapper.Map<UpdateUserRoleViewModel, MockViewModel>(viewModel));
+                    ViewBag.RoleChangeSuccessful = "User Role Changed";
+                }
+                catch (Exception e)
+                {
+                    ViewBag.Error = e.Message;
+                    throw new Exception(e.Message);
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", @"Model has Error");
+                return RedirectToAction("ChangeRole");
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         //
@@ -192,7 +235,8 @@ namespace inventoryAppWebUi.Controllers
 
 
                     //Popup Toast here, User Created
-                    var notification = await NotificationService.CreateNotification("User Added","User Created Successfully",
+                    var notification = await NotificationService.CreateNotification("User Added",
+                        "User Created Successfully",
                         NotificationType.NONREOCCURRING);
                     ViewBag.Notification = notification;
                     return RedirectToAction("Index", "Home");

@@ -66,13 +66,16 @@ namespace inventoryAppDomain.Repository
 
         public List<ApplicationUser> GetAllUsers()
         {
-            return UserManager.Users.ToList();
+            return UserManager.Users.Where(user => user.Email != "Admin@Admin.com").ToList();
         }
 
-        public async Task<ApplicationUser> ChangeUserRole(Tuple<String, String> updateUserRoleViewModel)
+        public async Task<ApplicationUser> ChangeUserRole(MockViewModel updateUserRoleViewModel)
         {
-            var user = await ValidateUser(updateUserRoleViewModel.Item1);
-            RoleService.ChangeUserRole(user.Id, updateUserRoleViewModel.Item2);
+            var user = await ValidateUser(updateUserRoleViewModel.UserId);
+            await RoleService.ChangeUserRole(user.Id, updateUserRoleViewModel.UpdatedUserRole);
+            
+            //create the appropriate profile for him
+            
             return user;
         }
 
@@ -113,5 +116,11 @@ namespace inventoryAppDomain.Repository
 
             return user;
         }
+    }
+
+    public class MockViewModel
+    {
+        public string UserId { get; set; }
+        public string UpdatedUserRole { get; set; }
     }
 }
