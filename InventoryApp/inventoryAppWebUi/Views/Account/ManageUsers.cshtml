@@ -32,7 +32,7 @@ else
                         @user.Roles.FirstOrDefault().RoleId
                     </td>
                     <td>
-                        @Html.ActionLink("Change User Role", "ManageUsers", "Account", null,
+                        @Html.ActionLink("Change User Role", "ChangeRole", "Account", new {user.Id},
                         new { @class = "btn btn-outline-info" })
                         
                     </td>

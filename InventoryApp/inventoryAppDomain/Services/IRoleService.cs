@@ -18,6 +18,6 @@ namespace inventoryAppDomain.Services
         Task RemoveUserFromRole(string userId);
         Task RemoveUserRole(string roleId);
 
-        void ChangeUserRole(string userId, string updatedRoleName);
+        Task ChangeUserRole(string userId, string updatedRoleName);
     }
 }
