@@ -74,19 +74,18 @@ namespace inventoryAppDomain.Repository
             var user = await ValidateUser(updateUserRoleViewModel.UserId);
             await RoleService.ChangeUserRole(user.Id, updateUserRoleViewModel.UpdatedUserRole);
             
-            //create the appropriate profile for him
+            // TODO: create the appropriate profile for him
             
             return user;
         }
 
         public async Task RemoveUser(string userId)
         {
-            //delete corresponding profile pharmacist or store manager
 
             var user = await ValidateUser(userId);
-            var userRole = RoleService.GetRolesByUser(user.Id).FirstOrDefault();
+            var userRole = await RoleService.GetRoleByUser(user.Id);
 
-            if (userRole != null && userRole.Equals("Pharmacists"))
+            if (userRole != null && userRole.Equals("Pharmacist"))
             {
                 var pharmacist =
                     _dbContext.Pharmacists.FirstOrDefault(pharmacist1 => pharmacist1.ApplicationUserId.Equals(user.Id));
@@ -98,7 +97,7 @@ namespace inventoryAppDomain.Repository
                 var storeManager =
                     _dbContext.StoreManagers.FirstOrDefault(manager => manager.ApplicationUserId.Equals(user.Id));
 
-                _dbContext.StoreManagers.Remove(storeManager?? throw new Exception("Store Manager Not Found"));
+                _dbContext.StoreManagers.Remove(storeManager ?? throw new Exception("Store Manager Not Found"));
             }
 
             await _dbContext.SaveChangesAsync();

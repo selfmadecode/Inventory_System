@@ -56,16 +56,24 @@ namespace inventoryAppDomain.Repository
 
 
         public Supplier FindSupplier(int id) => _dbContext.Suppliers.SingleOrDefault(s => s.Id == id);
+        public IEnumerable<Drug> GetAllDrugsBySupplier(string supplierTagNumber) => _dbContext.Drugs.Where(d => d.SupplierTag == supplierTagNumber).ToList();
 
         private static Random random = new Random();
         public string GenerateTagNumber()
         {
-            int length = 7;
+            const int tagLength = 7;
 
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-            return "TAG-" + new string(Enumerable.Repeat(chars, length)
+            var uniqueTag = "TAG-" + new string(Enumerable.Repeat(chars, tagLength)
               .Select(s => s[random.Next(s.Length)]).ToArray());
+
+            var tagInDb = _dbContext.Suppliers.SingleOrDefault(t => t.TagNumber == uniqueTag);
+
+            if (tagInDb != null)
+                GenerateTagNumber();
+
+            return uniqueTag;
         }
 
         public int TotalNumberOfSupplier() => _dbContext.Suppliers.Count();

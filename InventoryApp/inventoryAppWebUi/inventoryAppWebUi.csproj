@@ -333,9 +333,13 @@
     <Compile Include="Migrations\202103081202223_ReportUpdate.Designer.cs">
       <DependentUpon>202103081202223_ReportUpdate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202103111141398_AddedSupplierTagToDrug.cs" />
-    <Compile Include="Migrations\202103111141398_AddedSupplierTagToDrug.Designer.cs">
-      <DependentUpon>202103111141398_AddedSupplierTagToDrug.cs</DependentUpon>
+    <Compile Include="Migrations\202103110833456_RecentChanges.cs" />
+    <Compile Include="Migrations\202103110833456_RecentChanges.Designer.cs">
+      <DependentUpon>202103110833456_RecentChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103111209120_AddedSupplierTagToDrugModel.cs" />
+    <Compile Include="Migrations\202103111209120_AddedSupplierTagToDrugModel.Designer.cs">
+      <DependentUpon>202103111209120_AddedSupplierTagToDrugModel.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -442,6 +446,7 @@
     <Content Include="Views\Shared\_SuccessNotificationPartial.cshtml" />
     <Content Include="Views\Shared\_ErrorNotificationPartial.cshtml" />
     <Content Include="Views\Shared\_SwaSuccessPartial.cshtml" />
+    <Content Include="Views\Supplier\GetDrugsBySupplier.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -508,8 +513,11 @@
     <EmbeddedResource Include="Migrations\202103081202223_ReportUpdate.resx">
       <DependentUpon>202103081202223_ReportUpdate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202103111141398_AddedSupplierTagToDrug.resx">
-      <DependentUpon>202103111141398_AddedSupplierTagToDrug.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202103110833456_RecentChanges.resx">
+      <DependentUpon>202103110833456_RecentChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103111209120_AddedSupplierTagToDrugModel.resx">
+      <DependentUpon>202103111209120_AddedSupplierTagToDrugModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -43,14 +43,18 @@ namespace inventoryAppDomain.Repository
 
         public int GetTotalSales()
         {
-            var TotalSales = _ctx.Orders.Select(order => order.OrderItems).Count();
-            return TotalSales;
+            var totalSales = _ctx.Orders.Select(order => order.OrderItems).Count();
+            return totalSales;
         }
 
         public decimal GetTotalRevenue()
         {
-            var TotalRevenue = _ctx.Orders.Select(x => x.Price).Sum();
-            return TotalRevenue;
+            if (_ctx.Orders.Any())
+            {
+                var totalRevenue = _ctx.Orders.Select(x => x.Price).Sum();
+                return totalRevenue;
+            }
+            return 0;
         }
 
         public List<Order> GetOrdersForTheDay()
