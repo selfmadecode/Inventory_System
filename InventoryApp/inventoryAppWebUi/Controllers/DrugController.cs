@@ -12,7 +12,7 @@ using inventoryAppWebUi.Models;
 
 namespace inventoryAppWebUi.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class DrugController : Controller
     {
         private readonly IDrugService _drugService;
