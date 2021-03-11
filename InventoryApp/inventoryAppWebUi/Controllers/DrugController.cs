@@ -32,12 +32,6 @@ namespace inventoryAppWebUi.Controllers
         public ActionResult AvailableDrugs()
         {
             var drugs = _drugService.GetAvailableDrugs();
-
-            //var drugsearchVM = new DrugSearchViewModel
-            //{
-            //    Drugs = drugs,
-            //    SearchString = searchQuery
-            //};
           
             return View(drugs);
         }
@@ -104,6 +98,7 @@ namespace inventoryAppWebUi.Controllers
             if (!ModelState.IsValid)
             {
                 drug.DrugCategory = _drugService.AllCategories();
+                TempData["failed"] = "failed";
                 return View("AddDrugForm", drug);
             }
 
@@ -117,6 +112,7 @@ namespace inventoryAppWebUi.Controllers
                     //If the supplier tag is not in the Db
                     ModelState.AddModelError("SupplierTag", "Supplier Tag isn't registered yet");
                     drug.DrugCategory = _drugService.AllCategories();
+                    TempData["failed"] = "failed";
                     return View("AddDrugForm", drug);
                 }
                 else
@@ -142,6 +138,8 @@ namespace inventoryAppWebUi.Controllers
                         var getDrugInDb = _drugService.EditDrug(drug.Id);
                         _drugService.UpdateDrug(Mapper.Map(drug, getDrugInDb));
                     }
+                    TempData["added"] = "added";
+
                 }
             }
             catch (Exception)
@@ -149,7 +147,6 @@ namespace inventoryAppWebUi.Controllers
 
                 throw new HttpException("Something went wrong");
             }
-            
             return RedirectToAction("AddDrugForm");
         }
 
@@ -167,10 +164,11 @@ namespace inventoryAppWebUi.Controllers
             if (ModelState.IsValid)
             {
                 _drugService.AddDrugCategory(category);
-                TempData["Category"] = "Category successfully added";
+                TempData["categoryAdded"] = "added";
                 return View("AddDrugCategory");
             }
-            return View("AddDrugCategory");
+            TempData["failedToAddCategory"] = "failed";
+            return View("AddDrugCategory", category);
         }
 
         public ActionResult RemoveDrug(int id)

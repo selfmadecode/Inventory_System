@@ -12,7 +12,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-
     <!-- Fav  Icon Link -->
     <link rel="shortcut icon" type="image/png" href="~/Content/Assets/images/fav.png">
 
@@ -25,6 +24,8 @@
 
     @Styles.Render("~/Content/template/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link href="~/Content/sweetalert/sweet-alert.css">
 
     <style>
         .dropdown-text {
@@ -82,7 +83,7 @@
                     @Html.ActionLink("Requested Drugs", "Index", "DrugCart")
                 </li>
                 <li>
-                    @Html.ActionLink("Request Drugs", "FilteredDrugsList", "Drug")
+                    @Html.ActionLink("Available Drugs", "FilteredDrugsList", "Drug")
                 </li>
                 <li>
                     @Html.ActionLink("Add Category", "AddDrugCategory", "Drug")
@@ -108,17 +109,17 @@
         </li>
         <li>
             <a href="#nav-payment" data-toggle="collapse" aria-expanded="false">
-                <span class="ti-money"></span> Invoice
+                <span class="ti-money"></span> Report
             </a>
             <ul class="collapse list-unstyled" id="nav-payment">
                 <li>
-                    @Html.ActionLink("Generate Invoice", "Invoice", "Order")
+                    @Html.ActionLink("Daily", "Index", "Report", new { TimeFrame = "DAILY" }, null)
                 </li>
                 <li>
-                    @Html.ActionLink("Invoice", "")
+                    @Html.ActionLink("Weekly", "Index", "Report", new { TimeFrame = "WEEKLY" }, null)
                 </li>
                 <li>
-                    @Html.ActionLink("Payment", "")
+                    @Html.ActionLink("Monthly", "Index", "Report", new { TimeFrame = "MONTHLY" }, null)
                 </li>
             </ul>
         </li>

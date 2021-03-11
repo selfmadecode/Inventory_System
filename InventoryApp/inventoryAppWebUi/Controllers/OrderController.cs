@@ -39,7 +39,6 @@ namespace inventoryAppWebUi.Controllers
 
             if (!items.Any())
             {
-                //ModelState.AddModelError("", "");
                 ModelState.AddModelError("", @"Your cart is empty");
             }
 
@@ -47,16 +46,17 @@ namespace inventoryAppWebUi.Controllers
             {
                 _orderService.CreateOrder(Mapper.Map<OrderViewModel, Order>(viewModel), userId);
                 DrugCartService.RefreshCart(userId);
-                return RedirectToAction("CheckoutComplete");
+                TempData["dispensed"] = "dispensed";
+                return RedirectToAction("AvailableDrugs", "Drug");
             }
-            return View("Invoice",viewModel);
+            return View("Invoice", viewModel);
 
         }
 
         public ActionResult CheckoutComplete()
         {
             ViewBag.CheckoutCompleteMessage = "Drug Dispensed";
-            return View("CheckoutComplete");
+            return View();
         }
     }
 }
