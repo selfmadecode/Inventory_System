@@ -9,23 +9,23 @@ namespace inventoryAppWebUi.Controllers
     
     public class HomeController : Controller
     {
-        public ISupplierService _supplierService { get; }
+        public ISupplierService SupplierService { get; }
         public IDrugService DrugService { get; }
         public IDrugCartService DrugCartService { get; }
-        public IOrderService _orderService { get; }
+        public IOrderService OrderService { get; }
 
         public HomeController( ISupplierService supplierService, IDrugService drugService, IDrugCartService drugCartService, IOrderService orderService)
         {
-            _supplierService = supplierService;
+            SupplierService = supplierService;
             DrugService = drugService;
             DrugCartService = drugCartService;
-            _orderService = orderService;
+            OrderService = orderService;
         }
 
         public ActionResult Index()
         {
             //check if user already has as cart
-            if (Request.IsAuthenticated)
+            if (Request.IsAuthenticated && User.Identity.IsAuthenticated)
             {
                 var cart = DrugCartService.GetCart(User.Identity.GetUserId(),CartStatus.ACTIVE);
                 if (cart == null)
@@ -35,10 +35,10 @@ namespace inventoryAppWebUi.Controllers
             }
             var totalNumberOfSupplier = new IndexPageViewModel
             {
-                TotalNumberOfSupplier = _supplierService.TotalNumberOfSupplier(),
+                TotalNumberOfSupplier = SupplierService.TotalNumberOfSupplier(),
                 TotalNumberOfDrugs = DrugService.GetAllDrugs().Count,
-                TotalRevenue = _orderService.GetTotalRevenue(),
-                TotalSales = _orderService.GetTotalSales()
+                TotalRevenue = OrderService.GetTotalRevenue(),
+                TotalSales = OrderService.GetTotalSales()
 
             };
             return View(totalNumberOfSupplier);
