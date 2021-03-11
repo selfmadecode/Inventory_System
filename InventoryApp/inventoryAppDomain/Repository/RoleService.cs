@@ -63,7 +63,12 @@ namespace inventoryAppDomain.Repository
         }
 
         public IdentityRole FindByRoleName(string roleName) => RoleManager.FindByName(roleName);
-        public List<string> GetRolesByUser(string userId) => UserManager.GetRoles(userId).ToList();
+        public async Task<string> GetRoleByUser(string userId)
+        {
+            var result = await UserManager.GetRolesAsync(userId);
+            return result?.First();
+        }
+
         public async Task RemoveUserFromRole(string userId)
         {
             await UserManager.RemoveFromRolesAsync(userId);
@@ -82,10 +87,14 @@ namespace inventoryAppDomain.Repository
             {
                 throw new Exception("User Already in Role");
             }
-            
-            await UserManager.RemoveFromRolesAsync(userId);
-            await UserManager.AddToRoleAsync(userId, role.Name);
 
+            var previousRole = await UserManager.GetRolesAsync(userId);
+            
+            var result = await UserManager.RemoveFromRoleAsync(userId, previousRole.First());
+            if (result.Succeeded)
+            {
+                await UserManager.AddToRoleAsync(userId, role.Name);
+            }
         }
     }
 }

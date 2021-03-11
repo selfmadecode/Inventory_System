@@ -101,7 +101,15 @@ namespace inventoryAppWebUi.Controllers
 
         public async Task<RedirectToRouteResult> RemoveUser(string id)
         {
-            await ProfileService.RemoveUser(id);
+            try
+            {
+                await ProfileService.RemoveUser(id);
+            }
+            catch (Exception e)
+            {
+                ViewBag.Error = e.Message;
+                return RedirectToAction("ManageUsers");
+            }
             return RedirectToAction("ManageUsers");
         }
 
@@ -129,19 +137,19 @@ namespace inventoryAppWebUi.Controllers
                 {
                     await ProfileService.ChangeUserRole(Mapper.Map<UpdateUserRoleViewModel, MockViewModel>(viewModel));
                     ViewBag.RoleChangeSuccessful = "User Role Changed";
+                    return RedirectToAction("ManageUsers", "Account");
                 }
                 catch (Exception e)
                 {
                     ViewBag.Error = e.Message;
-                    throw new Exception(e.Message);
+                    return RedirectToAction("ChangeRole", new { id = viewModel.UserId});
                 }
             }
             else
             {
                 ModelState.AddModelError("", @"Model has Error");
-                return RedirectToAction("ChangeRole");
+                return RedirectToAction("ChangeRole", new { id = viewModel.UserId});
             }
-            return RedirectToAction("Index", "Home");
         }
 
         //
@@ -276,10 +284,10 @@ namespace inventoryAppWebUi.Controllers
                         user.PasswordHash = passwordHasher.HashPassword(model.NewPassword);
                         UserManager.Update(user);
 
-                        var roles = RoleService.GetRolesByUser(user.Id);
+                        var role = await RoleService.GetRoleByUser(user.Id);
                         try
                         {
-                            if (roles.Contains("Pharmacist"))
+                            if (role.Equals("Pharmacist"))
                             {
                                 var pharmacist = Mapper.Map<EditProfileViewModel, Pharmacist>(model);
                                 ProfileService.EditProfile(user, pharmacist);
