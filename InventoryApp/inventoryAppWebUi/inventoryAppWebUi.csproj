@@ -471,6 +471,7 @@
     <Content Include="Content\assets\vendor\remixicon\fonts\remixicondf6d.eot" />
     <Content Include="Content\assets\vendor\remixicon\fonts\remixicondf6d.ttf" />
     <Content Include="Content\assets\vendor\remixicon\fonts\remixicondf6d.woff" />
+    <Content Include="libman.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
