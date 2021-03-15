@@ -23,11 +23,7 @@ namespace inventoryAppWebUi
                 "~/Content/Assets/js/jquery-3.2.1.min.js",
                 "~/Content/Assets/js/popper.min.js",
                 "~/Content/Assets/js/bootstrap.min.js",
-                "~/Content/Assets/js/custom.js",
-                "~/Content/Assets/js/app.js",
-                "~/Content/Assets/js/chart-custom.js",
-                "~/Content/Assets/js/customizer.js",
-                "~/Content/Assets/js/table-treeview"));
+                "~/Content/Assets/js/custom.js"));
 
 
             bundles.Add(new StyleBundle("~/Content/template/css").Include(
