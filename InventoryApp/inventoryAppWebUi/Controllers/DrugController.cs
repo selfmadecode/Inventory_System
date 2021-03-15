@@ -9,10 +9,11 @@ using System.Web.Mvc;
 using inventoryAppDomain.Entities;
 using inventoryAppDomain.IdentityEntities;
 using inventoryAppWebUi.Models;
+using inventoryAppDomain.Entities.Enums;
 
 namespace inventoryAppWebUi.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class DrugController : Controller
     {
         private readonly IDrugService _drugService;
@@ -32,12 +33,6 @@ namespace inventoryAppWebUi.Controllers
         public ActionResult AvailableDrugs()
         {
             var drugs = _drugService.GetAvailableDrugs();
-
-            //var drugsearchVM = new DrugSearchViewModel
-            //{
-            //    Drugs = drugs,
-            //    SearchString = searchQuery
-            //};
           
             return View(drugs);
         }
@@ -104,6 +99,7 @@ namespace inventoryAppWebUi.Controllers
             if (!ModelState.IsValid)
             {
                 drug.DrugCategory = _drugService.AllCategories();
+                TempData["failed"] = "failed";
                 return View("AddDrugForm", drug);
             }
 
@@ -117,6 +113,7 @@ namespace inventoryAppWebUi.Controllers
                     //If the supplier tag is not in the Db
                     ModelState.AddModelError("SupplierTag", "Supplier Tag isn't registered yet");
                     drug.DrugCategory = _drugService.AllCategories();
+                    TempData["failed"] = "failed";
                     return View("AddDrugForm", drug);
                 }
                 else
@@ -126,13 +123,45 @@ namespace inventoryAppWebUi.Controllers
                     {
                         var expiryDate = _drugService.DateComparison(DateTime.Today, drug.ExpiryDate);
 
+                        //DRUG HAS EXPIRED 
                         if (expiryDate >= 0)
                         {
                             ModelState.AddModelError("ExpiryDate", "Must be later than today");
                             drug.DrugCategory = _drugService.AllCategories();
+                            TempData["failed"] = "failed";
                             return View("AddDrugForm", drug);
                         }
-                         _drugService.AddDrug(Mapper.Map<DrugViewModel, Drug>(drug));
+
+                        //SUPPLIER IS INACTIVE
+                        if(supplierInDb.Status == SupplierStatus.InActive)
+                        {
+                            ModelState.AddModelError("SupplierTag", "Supplier has been deactivated");
+                            drug.DrugCategory = _drugService.AllCategories();
+                            TempData["failed"] = "failed";
+                            return View("AddDrugForm", drug);
+                        }
+
+                        // DRUG IS NOT GREATER THAN 0
+                        if (drug.Quantity <= 0)
+                        {
+                            ModelState.AddModelError("Quantity", "Quantity should be greater than zero");
+                            drug.DrugCategory = _drugService.AllCategories();
+                            TempData["failed"] = "failed";
+                            return View("AddDrugForm", drug);
+                        }
+
+                        // DRUG PRICE IS LESS THAN 0
+                        if (drug.Price <= 0)
+                        {
+                            ModelState.AddModelError("Price", "Price should be greater than zero");
+                            drug.DrugCategory = _drugService.AllCategories();
+                            TempData["failed"] = "failed";
+                            return View("AddDrugForm", drug);
+                        }
+
+
+
+                        _drugService.AddDrug(Mapper.Map<DrugViewModel, Drug>(drug));
                     }
                     else
                     {
@@ -142,6 +171,8 @@ namespace inventoryAppWebUi.Controllers
                         var getDrugInDb = _drugService.EditDrug(drug.Id);
                         _drugService.UpdateDrug(Mapper.Map(drug, getDrugInDb));
                     }
+                    TempData["added"] = "added";
+
                 }
             }
             catch (Exception)
@@ -149,7 +180,6 @@ namespace inventoryAppWebUi.Controllers
 
                 throw new HttpException("Something went wrong");
             }
-            
             return RedirectToAction("AddDrugForm");
         }
 
@@ -167,10 +197,11 @@ namespace inventoryAppWebUi.Controllers
             if (ModelState.IsValid)
             {
                 _drugService.AddDrugCategory(category);
-                TempData["Category"] = "Category successfully added";
+                TempData["categoryAdded"] = "added";
                 return View("AddDrugCategory");
             }
-            return View("AddDrugCategory");
+            TempData["failedToAddCategory"] = "failed";
+            return View("AddDrugCategory", category);
         }
 
         public ActionResult RemoveDrug(int id)

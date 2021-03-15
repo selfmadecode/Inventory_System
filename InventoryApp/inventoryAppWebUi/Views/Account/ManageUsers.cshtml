@@ -10,9 +10,17 @@
 }
 else
 {
-<div class="table-responsive">
-    <table class="table table-hover table-bordered">
-        <thead>
+    <div class="table-responsive">
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Error</div>
+        }
+        @if (ViewBag.RoleChangeSuccessful != null)
+        {
+            <div class="alert alert-success">@ViewBag.RoleChangeSuccessful</div>
+        }
+        <table class="table table-hover table-bordered">
+            <thead>
             <tr class="table-success">
                 <th>Username</th>
                 <th>Email</th>
@@ -20,8 +28,8 @@ else
                 <th></th>
                 <th></th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
 
             @foreach (var user in Model)
             {
@@ -32,18 +40,17 @@ else
                         @user.Roles.FirstOrDefault().RoleId
                     </td>
                     <td>
-                        @Html.ActionLink("Change User Role", "ManageUsers", "Account", null,
-                        new { @class = "btn btn-outline-info" })
-                        
+                        @Html.ActionLink("Change User Role", "ChangeRole", "Account", new {user.Id},
+                            new {@class = "btn btn-outline-info"})
+
                     </td>
                     <td>
-                        @Html.ActionLink("Remove User", "RemoveUser", "Account", new { user.Id },
-                       new { @class = "btn btn-outline-danger" })
+                        @Html.ActionLink("Remove User", "RemoveUser", "Account", new {user.Id},
+                            new {@class = "btn btn-outline-danger"})
                     </td>
                 </tr>
             }
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
 }
-

@@ -297,6 +297,7 @@
     </role>
     <table id="60" parent="43" name="AspNetRoles">
       <ObjectId>661577395</ObjectId>
+      <Outdated>1</Outdated>
       <CreatedTimestamp>2021-03-04.11:53:52.080</CreatedTimestamp>
       <ModifiedTimestamp>2021-03-04.11:53:52.097</ModifiedTimestamp>
     </table>
@@ -312,11 +313,13 @@
     </table>
     <table id="63" parent="43" name="AspNetUserRoles">
       <ObjectId>693577509</ObjectId>
+      <Outdated>1</Outdated>
       <CreatedTimestamp>2021-03-04.11:53:52.080</CreatedTimestamp>
       <ModifiedTimestamp>2021-03-04.11:53:52.100</ModifiedTimestamp>
     </table>
     <table id="64" parent="43" name="AspNetUsers">
       <ObjectId>725577623</ObjectId>
+      <Outdated>1</Outdated>
       <CreatedTimestamp>2021-03-04.11:53:52.083</CreatedTimestamp>
       <ModifiedTimestamp>2021-03-04.17:56:05.157</ModifiedTimestamp>
     </table>
@@ -360,11 +363,13 @@
     </table>
     <table id="72" parent="43" name="Pharmacists">
       <ObjectId>1013578649</ObjectId>
+      <Outdated>1</Outdated>
       <CreatedTimestamp>2021-03-04.11:53:53.233</CreatedTimestamp>
       <ModifiedTimestamp>2021-03-04.11:53:53.240</ModifiedTimestamp>
     </table>
     <table id="73" parent="43" name="StoreManagers">
       <ObjectId>1061578820</ObjectId>
+      <Outdated>1</Outdated>
       <CreatedTimestamp>2021-03-04.11:53:53.263</CreatedTimestamp>
       <ModifiedTimestamp>2021-03-04.11:53:53.270</ModifiedTimestamp>
     </table>

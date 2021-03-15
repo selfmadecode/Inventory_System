@@ -20,6 +20,10 @@
 
 <div class="card">
     <div class="card-body col-lg-12">
+        @if ((string)TempData["supplierAdded"] == "added")
+        {
+            @Html.Partial("_SwaSuccessPartial")
+        }
 
         @if (!Model.Any())
         {

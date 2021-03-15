@@ -50,7 +50,7 @@ namespace inventoryAppDomain.Repository
             return result.Succeeded ? role : throw new Exception(result.Errors.ToString());
         }
 
-        public List<string> GetAllRoles() => RoleManager.Roles.Select(x => x.Name).ToList();
+        public List<string> GetAllRoles() => RoleManager.Roles.Where(role => role.Name != "Admin").Select(x => x.Name).ToList();
 
 
         public IdentityRole GetAppUserRole(string roleId) => RoleManager.FindById(roleId);
@@ -63,26 +63,38 @@ namespace inventoryAppDomain.Repository
         }
 
         public IdentityRole FindByRoleName(string roleName) => RoleManager.FindByName(roleName);
-        public List<string> GetRolesByUser(string userId) => UserManager.GetRoles(userId).ToList();
+        public async Task<string> GetRoleByUser(string userId)
+        {
+            var result = await UserManager.GetRolesAsync(userId);
+            return result?.First();
+        }
+
         public async Task RemoveUserFromRole(string userId)
         {
             await UserManager.RemoveFromRolesAsync(userId);
         }
 
-        public async void ChangeUserRole(string userId, string updatedRoleName)
+        public async Task ChangeUserRole(string userId, string updatedRoleName)
         {
-
-            await UserManager.RemoveFromRolesAsync(userId);
-
             var role = await RoleManager.FindByNameAsync(updatedRoleName);
 
             if (role == null)
             {
                 throw new Exception("Role Doesn't Exist");
             }
+            
+            if (await UserManager.IsInRoleAsync(userId, updatedRoleName))
+            {
+                throw new Exception("User Already in Role");
+            }
 
-            await UserManager.AddToRoleAsync(userId, role.Name);
-
+            var previousRole = await UserManager.GetRolesAsync(userId);
+            
+            var result = await UserManager.RemoveFromRoleAsync(userId, previousRole.First());
+            if (result.Succeeded)
+            {
+                await UserManager.AddToRoleAsync(userId, role.Name);
+            }
         }
     }
 }

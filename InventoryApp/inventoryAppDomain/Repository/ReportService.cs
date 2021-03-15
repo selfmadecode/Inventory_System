@@ -16,11 +16,11 @@ namespace inventoryAppDomain.Repository
     public class ReportService : IReportService
     {
         private ApplicationDbContext _dbContext;
-        public IOrderService OrderService { get; }
+        private readonly IOrderService _orderService;
 
         public ReportService(IOrderService orderService)
         {
-            OrderService = orderService;
+            _orderService = orderService;
             _dbContext = HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>();
         }
 
@@ -63,13 +63,13 @@ namespace inventoryAppDomain.Repository
                     Func<Report, bool> dailyFunc = report1 => report1.CreatedAt.Date == DateTime.Now.Date && report1.TimeFrame == timeFrame;
                     report = _dbContext.Reports.FirstOrDefault(dailyFunc) ?? new Report();
 
-                    report.Orders = OrderService.GetOrdersForTheDay();
+                    report.Orders = _orderService.GetOrdersForTheDay();
                     report.TimeFrame = timeFrame;
-                    report.TotalRevenueForReport = OrderService.GetOrdersForTheDay().Select(order => order.Price).Sum();
+                    report.TotalRevenueForReport = _orderService.GetOrdersForTheDay().Select(order => order.Price).Sum();
 
                     var drugItem = new List<DrugCartItem>();
                     var drugs = new List<Drug>();
-                    var orders = OrderService.GetOrdersForTheDay();
+                    var orders = _orderService.GetOrdersForTheDay();
                     foreach (var order in orders)
                     {
                         foreach (var drugCartItem in order.OrderItems)
@@ -106,14 +106,14 @@ namespace inventoryAppDomain.Repository
                     
                     report = _dbContext.Reports.FirstOrDefault(weeklyFunc) ?? new Report();
 
-                    report.Orders = OrderService.GetOrdersForTheWeek();
+                    report.Orders = _orderService.GetOrdersForTheWeek();
                     report.TimeFrame = timeFrame;
                     report.TotalRevenueForReport =
-                        OrderService.GetOrdersForTheWeek().Select(order => order.Price).Sum();
+                        _orderService.GetOrdersForTheWeek().Select(order => order.Price).Sum();
 
                     var drugItem = new List<DrugCartItem>();
                     var drugs = new List<Drug>();
-                    var orders = OrderService.GetOrdersForTheWeek();
+                    var orders = _orderService.GetOrdersForTheWeek();
                     foreach (var order in orders)
                     {
                         foreach (var drugCartItem in order.OrderItems)
@@ -150,14 +150,14 @@ namespace inventoryAppDomain.Repository
                         report = new Report();
                     }
 
-                    report.Orders = OrderService.GetOrdersForTheMonth();
+                    report.Orders = _orderService.GetOrdersForTheMonth();
                     report.TimeFrame = timeFrame;
                     report.TotalRevenueForReport =
-                        OrderService.GetOrdersForTheMonth().Select(order => order.Price).Sum();
+                        _orderService.GetOrdersForTheMonth().Select(order => order.Price).Sum();
 
                     var drugItem = new List<DrugCartItem>();
                     var drugs = new List<Drug>();
-                    var orders = OrderService.GetOrdersForTheMonth();
+                    var orders = _orderService.GetOrdersForTheMonth();
                     foreach (var order in orders)
                     {
                         foreach (var drugCartItem in order.OrderItems)

@@ -6,6 +6,11 @@
 
 <div class="row">
     <div class="col-sm-6 col-md-8 auth-box text-left">
+        
+        @if ((string)TempData["failed"] == "failed")
+        {
+            @Html.Partial("_ErrorNotificationPartial")
+        }
         <div class="proclinic-box-shadow">
             <h3>Add a supplier  </h3>
             @using (Html.BeginForm("Save", "Supplier", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -39,7 +44,7 @@
 
                     <div class="form-group">
                         <div class="col-sm-12">
-                            @Html.Label($"Your Tag number is: {(string)ViewBag.TagNumber}")
+                            @Html.Label($"Your Tag number is: {(string)ViewBag.TagNumber}") <small>(Auto Generated)</small>
                             @Html.TextBoxFor(s => s.TagNumber, new { @class = "form-control textbox", PlaceHolder = "Tag Number", @Value = (string)ViewBag.TagNumber, @readonly = "readonly" })
                             @Html.ValidationMessageFor(s => s.TagNumber, "", new { @class = "text-danger" })
                         </div>

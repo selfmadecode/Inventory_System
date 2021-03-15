@@ -36,20 +36,24 @@ namespace inventoryAppWebUi.Controllers
         public ActionResult Save(SupplierViewModel supplier)
         {
             if (!ModelState.IsValid)
+            {
+                TempData["failed"] = "failed";
                 return View("AddSupplier", supplier);
+            }
 
             //Add new supplier
             if (supplier.Id == 0)
             {
                 var newSupplier = Mapper.Map<SupplierViewModel, Supplier>(supplier);
                 _supplierService.AddSupplier(Mapper.Map<SupplierViewModel, Supplier>(supplier));
-
+                TempData["supplierAdded"] = "added";
             }
             else
             {
                 //Update the existing supplier in DB
                 var supplierInDb = _supplierService.FindSupplier(supplier.Id);
                 _supplierService.UpdateSupplier(Mapper.Map(supplier, supplierInDb));
+                TempData["supplierAdded"] = "added";
             }
 
             return RedirectToAction("AllSuppliers");
@@ -91,6 +95,16 @@ namespace inventoryAppWebUi.Controllers
                 return HttpNotFound("Supplier not found");
             
             return View(supplier);
+        }
+
+        public ActionResult GetDrugsBySupplier(string supplierTag)
+        {
+            var drugsBySupplier = Mapper.Map<IEnumerable<DrugViewModel>>(_supplierService.GetAllDrugsBySupplier(supplierTag));
+
+            if (drugsBySupplier == null)
+                return HttpNotFound("Not Found");
+
+            return View(drugsBySupplier);
         }
 
     }

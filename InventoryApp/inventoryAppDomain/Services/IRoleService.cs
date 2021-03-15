@@ -13,11 +13,11 @@ namespace inventoryAppDomain.Services
         IdentityRole FindByRoleName(string roleName);
         IdentityRole GetAppUserRole(string roleId);
 
-        List<string> GetRolesByUser(string userId);
+        Task<string> GetRoleByUser(string userId);
 
         Task RemoveUserFromRole(string userId);
         Task RemoveUserRole(string roleId);
 
-        void ChangeUserRole(string userId, string updatedRoleName);
+        Task ChangeUserRole(string userId, string updatedRoleName);
     }
 }

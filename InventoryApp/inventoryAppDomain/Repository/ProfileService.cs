@@ -15,13 +15,13 @@ namespace inventoryAppDomain.Repository
 {
     public class ProfileService : IProfileService
     {
-        public IRoleService RoleService { get; }
+        private readonly IRoleService _roleService;
         private ApplicationUserManager _userManager;
         private readonly ApplicationDbContext _dbContext;
 
         public ProfileService(IRoleService roleService)
         {
-            RoleService = roleService;
+            _roleService = roleService;
             _dbContext = HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>();
         }
 
@@ -66,24 +66,26 @@ namespace inventoryAppDomain.Repository
 
         public List<ApplicationUser> GetAllUsers()
         {
-            return UserManager.Users.ToList();
+            return UserManager.Users.Where(user => user.Email != "Admin@Admin.com").ToList();
         }
 
-        public async Task<ApplicationUser> ChangeUserRole(Tuple<String, String> updateUserRoleViewModel)
+        public async Task<ApplicationUser> ChangeUserRole(MockViewModel updateUserRoleViewModel)
         {
-            var user = await ValidateUser(updateUserRoleViewModel.Item1);
-            RoleService.ChangeUserRole(user.Id, updateUserRoleViewModel.Item2);
+            var user = await ValidateUser(updateUserRoleViewModel.UserId);
+            await _roleService.ChangeUserRole(user.Id, updateUserRoleViewModel.UpdatedUserRole);
+            
+            // TODO: create the appropriate profile for him
+            
             return user;
         }
 
         public async Task RemoveUser(string userId)
         {
-            //delete corresponding profile pharmacist or store manager
 
             var user = await ValidateUser(userId);
-            var userRole = RoleService.GetRolesByUser(user.Id).FirstOrDefault();
+            var userRole = await _roleService.GetRoleByUser(user.Id);
 
-            if (userRole != null && userRole.Equals("Pharmacists"))
+            if (userRole != null && userRole.Equals("Pharmacist"))
             {
                 var pharmacist =
                     _dbContext.Pharmacists.FirstOrDefault(pharmacist1 => pharmacist1.ApplicationUserId.Equals(user.Id));
@@ -95,11 +97,11 @@ namespace inventoryAppDomain.Repository
                 var storeManager =
                     _dbContext.StoreManagers.FirstOrDefault(manager => manager.ApplicationUserId.Equals(user.Id));
 
-                _dbContext.StoreManagers.Remove(storeManager?? throw new Exception("Store Manager Not Found"));
+                _dbContext.StoreManagers.Remove(storeManager ?? throw new Exception("Store Manager Not Found"));
             }
 
             await _dbContext.SaveChangesAsync();
-            await RoleService.RemoveUserFromRole(user.Id);
+            await _roleService.RemoveUserFromRole(user.Id);
             await UserManager.DeleteAsync(user);
         }
 
@@ -113,5 +115,11 @@ namespace inventoryAppDomain.Repository
 
             return user;
         }
+    }
+
+    public class MockViewModel
+    {
+        public string UserId { get; set; }
+        public string UpdatedUserRole { get; set; }
     }
 }

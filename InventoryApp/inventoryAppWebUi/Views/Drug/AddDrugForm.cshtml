@@ -1,5 +1,7 @@
 ﻿
 @model inventoryAppWebUi.Models.DrugViewModel
+@using System.Globalization
+
 
 @{
     ViewBag.Title = "Add Drug";
@@ -8,11 +10,19 @@
 
 }
 
-<div class="row">
+<div class="rojw">
     <div id="content">
         <div class="container-fluid">
             <div class="row" id="formContainer">
                 <div class="col-sm-8 auth-box">
+                    @if ((string)TempData["added"] == "added")
+                    {
+                        @Html.Partial("_SwaSuccessPartial")
+                    }
+                    @if ((string)TempData["failed"] == "failed")
+                    {
+                        @Html.Partial("_ErrorNotificationPartial")
+                    }
                     <div class="proclinic-box-shadow text-left" id="form" style="margin-top: 70px;">
                         <h2 class="widget-title text-center">Add Drug</h2>
 
@@ -20,9 +30,9 @@
                         {
                             <div class="form-group">
                                 <div class="col-sm-12">
-                                    @Html.Label("DrugName", "Drug Name", new {@class = ""})
-                                    @Html.EditorFor(model => model.DrugName, new {htmlAttributes = new {@class = "form-control textbox", PlaceHolder = "Drug Name"}})
-                                    @Html.ValidationMessageFor(model => model.DrugName, "", new {@class = "text-danger" })
+                                    @Html.Label("DrugName", "Drug Name", new { @class = "" })
+                                    @Html.EditorFor(model => model.DrugName, new { htmlAttributes = new { @class = "form-control textbox", PlaceHolder = "Drug Name" } })
+                                    @Html.ValidationMessageFor(model => model.DrugName, "", new { @class = "text-danger" })
                                 </div>
                             </div>
 
@@ -30,13 +40,14 @@
                                 <div class="col-sm-12">
                                     @Html.Label("Quantity", "Quantity")
                                     @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control textbox", PlaceHolder = "Quantity" } })
-                                    @Html.ValidationMessageFor(model => model.Quantity, "", new { htmlAttributes = new { @class = "text-danger" } })
+                                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     @Html.Label("Price", "Price")
+                                    <span>@NumberFormatInfo.CurrentInfo.CurrencySymbol</span>
                                     @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control textbox", PlaceHolder = "Price" } })
                                     @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
                                 </div>

@@ -127,6 +127,10 @@
     <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.1\lib\netstandard2.0\System.Memory.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
@@ -144,6 +148,10 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -333,6 +341,14 @@
     <Compile Include="Migrations\202103081202223_ReportUpdate.Designer.cs">
       <DependentUpon>202103081202223_ReportUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103110833456_RecentChanges.cs" />
+    <Compile Include="Migrations\202103110833456_RecentChanges.Designer.cs">
+      <DependentUpon>202103110833456_RecentChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103121137321_NotificationsEntityUpdate.cs" />
+    <Compile Include="Migrations\202103121137321_NotificationsEntityUpdate.Designer.cs">
+      <DependentUpon>202103121137321_NotificationsEntityUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DrugCartViewModel.cs" />
@@ -341,6 +357,7 @@
     <Compile Include="Models\EditProfileViewModel.cs" />
     <Compile Include="Models\IndexPageViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NotificationsPageViewModel.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\ReportViewModel.cs" />
     <Compile Include="Models\UpdateUserRoleViewModel.cs" />
@@ -349,21 +366,111 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Assets\js\app.js" />
-    <Content Include="Content\Assets\js\chart-custom.js" />
-    <Content Include="Content\Assets\js\customizer.js" />
-    <Content Include="Content\Assets\js\CustomScript.js" />
-    <Content Include="Content\Assets\js\table-treeview.js" />
+    <Content Include="Content\assets\css\ajax-loader.html" />
+    <Content Include="Content\assets\css\backend-plugin.min.css" />
+    <Content Include="Content\assets\css\backende209.css" />
+    <Content Include="Content\assets\css\fonts\slick-2.html" />
+    <Content Include="Content\assets\css\fonts\slick-3.html" />
+    <Content Include="Content\assets\css\fonts\slick-4.html" />
+    <Content Include="Content\assets\css\fonts\slick.html" />
+    <Content Include="Content\assets\css\fonts\slickd41d.html" />
+    <Content Include="Content\assets\images\dark-loader.html" />
+    <Content Include="Content\assets\images\error\02.png" />
+    <Content Include="Content\assets\images\error\404.png" />
+    <Content Include="Content\assets\images\error\500.png" />
+    <Content Include="Content\assets\images\layouts\side-bkg.png" />
+    <Content Include="Content\assets\images\loader.gif" />
+    <Content Include="Content\assets\images\login\01.png" />
+    <Content Include="Content\assets\images\login\mail.png" />
+    <Content Include="Content\assets\images\logo.png" />
+    <Content Include="Content\assets\images\page-img\07.jpg" />
+    <Content Include="Content\assets\images\page-img\08.jpg" />
+    <Content Include="Content\assets\images\page-img\09.jpg" />
+    <Content Include="Content\assets\images\page-img\10.jpg" />
+    <Content Include="Content\assets\images\page-img\11.jpg" />
+    <Content Include="Content\assets\images\page-img\12.jpg" />
+    <Content Include="Content\assets\images\page-img\13.jpg" />
+    <Content Include="Content\assets\images\page-img\14.jpg" />
+    <Content Include="Content\assets\images\page-img\15.jpg" />
+    <Content Include="Content\assets\images\page-img\16.jpg" />
+    <Content Include="Content\assets\images\page-img\17.jpg" />
+    <Content Include="Content\assets\images\page-img\18.jpg" />
+    <Content Include="Content\assets\images\page-img\19.jpg" />
+    <Content Include="Content\assets\images\page-img\20.jpg" />
+    <Content Include="Content\assets\images\page-img\21.jpg" />
+    <Content Include="Content\assets\images\page-img\22.jpg" />
+    <Content Include="Content\assets\images\page-img\23.jpg" />
+    <Content Include="Content\assets\images\page-img\24.jpg" />
+    <Content Include="Content\assets\images\page-img\profile-bg.jpg" />
+    <Content Include="Content\assets\images\product\01.png" />
+    <Content Include="Content\assets\images\product\02.png" />
+    <Content Include="Content\assets\images\product\03.png" />
+    <Content Include="Content\assets\images\product\04.png" />
+    <Content Include="Content\assets\images\product\05.png" />
+    <Content Include="Content\assets\images\product\1.png" />
+    <Content Include="Content\assets\images\product\2.png" />
+    <Content Include="Content\assets\images\product\3.png" />
+    <Content Include="Content\assets\images\small\flag-01.png" />
+    <Content Include="Content\assets\images\small\flag-02.png" />
+    <Content Include="Content\assets\images\small\flag-03.png" />
+    <Content Include="Content\assets\images\small\flag-04.png" />
+    <Content Include="Content\assets\images\small\flag-05.png" />
+    <Content Include="Content\assets\images\small\flag-06.png" />
+    <Content Include="Content\assets\images\small\img-1.jpg" />
+    <Content Include="Content\assets\images\sort_asc.png" />
+    <Content Include="Content\assets\images\sort_asc_disabled.png" />
+    <Content Include="Content\assets\images\sort_both.png" />
+    <Content Include="Content\assets\images\sort_desc.png" />
+    <Content Include="Content\assets\images\sort_desc_disabled.png" />
+    <Content Include="Content\assets\images\table\product\01.jpg" />
+    <Content Include="Content\assets\images\table\product\02.jpg" />
+    <Content Include="Content\assets\images\table\product\03.jpg" />
+    <Content Include="Content\assets\images\table\product\04.jpg" />
+    <Content Include="Content\assets\images\table\product\05.jpg" />
+    <Content Include="Content\assets\images\table\product\06.jpg" />
+    <Content Include="Content\assets\images\table\product\07.jpg" />
+    <Content Include="Content\assets\images\table\product\08.jpg" />
+    <Content Include="Content\assets\images\table\product\09.jpg" />
+    <Content Include="Content\assets\images\user\01.jpg" />
+    <Content Include="Content\assets\images\user\02.jpg" />
+    <Content Include="Content\assets\images\user\03.jpg" />
+    <Content Include="Content\assets\images\user\05.jpg" />
+    <Content Include="Content\assets\images\user\06.jpg" />
+    <Content Include="Content\assets\images\user\07.jpg" />
+    <Content Include="Content\assets\images\user\1.png" />
+    <Content Include="Content\assets\images\user\i1.jpg" />
+    <Content Include="Content\assets\js\app.js" />
+    <Content Include="Content\assets\js\backend-bundle.min.js" />
+    <Content Include="Content\assets\js\chart-custom.js" />
+    <Content Include="Content\assets\js\customizer.js" />
+    <Content Include="Content\assets\js\table-treeview.js" />
+    <Content Include="Content\assets\vendor\%40fortawesome\fontawesome-free\css\all.min.css" />
+    <Content Include="Content\assets\vendor\line-awesome\dist\line-awesome\css\line-awesome.min.css" />
+    <Content Include="Content\assets\vendor\remixicon\fonts\remixicon.css" />
+    <Content Include="Content\assets\vendor\remixicon\fonts\remixicondf6d.html" />
+    <Content Include="Content\assets\vendor\remixicon\fonts\remixicondf6d.svg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\sweetalert\bootstrap-sweetalert.png" />
+    <Content Include="Content\sweetalert\docs.css" />
+    <Content Include="Content\sweetalert\sweet-alert.css" />
+    <Content Include="Content\sweetalert\thumbs-up.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\sweetalert\sweet-alert.less" />
+    <Content Include="Content\sweetalert\sweet-alert-combine.less" />
+    <Content Include="Content\sweetalert\sweet-alert-animations.less" />
+    <Content Include="Content\bootstrap\variables.less" />
+    <Content Include="Content\bootstrap\mixins.less" />
+    <Content Include="Content\assets\vendor\remixicon\fonts\remixicondf6d.eot" />
+    <Content Include="Content\assets\vendor\remixicon\fonts\remixicondf6d.ttf" />
+    <Content Include="Content\assets\vendor\remixicon\fonts\remixicondf6d.woff" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -375,7 +482,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Views\Account\ChangeRole.cshtml" />
     <Content Include="Views\Account\ManageUsers.cshtml" />
+    <Content Include="Views\Notifications\Index.cshtml" />
     <Content Include="Views\Pharmacist\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -428,6 +537,11 @@
     <Content Include="Views\Drug\ListDrugCategories.cshtml" />
     <Content Include="Views\Drug\FilteredDrugsList.cshtml" />
     <Content Include="Views\Order\CheckoutComplete.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\Shared\_SuccessNotificationPartial.cshtml" />
+    <Content Include="Views\Shared\_ErrorNotificationPartial.cshtml" />
+    <Content Include="Views\Shared\_SwaSuccessPartial.cshtml" />
+    <Content Include="Views\Supplier\GetDrugsBySupplier.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -493,6 +607,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103081202223_ReportUpdate.resx">
       <DependentUpon>202103081202223_ReportUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103110833456_RecentChanges.resx">
+      <DependentUpon>202103110833456_RecentChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103121137321_NotificationsEntityUpdate.resx">
+      <DependentUpon>202103121137321_NotificationsEntityUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

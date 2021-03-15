@@ -14,20 +14,20 @@ namespace inventoryAppDomain.Repository
 {
     public class OrderService : IOrderService
     {
-        public IDrugCartService DrugCartService { get; }
+        private readonly IDrugCartService _drugCartService;
         private readonly ApplicationDbContext _ctx;
         
         public OrderService(IDrugCartService drugCartService)
         {
-            DrugCartService = drugCartService;
+            _drugCartService = drugCartService;
             _ctx = HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>();
         }
 
         public void CreateOrder(Order order, string userId)
         {
-            var cart = DrugCartService.GetCart(userId,CartStatus.ACTIVE);
+            var cart = _drugCartService.GetCart(userId,CartStatus.ACTIVE);
             order.OrderItems = cart.DrugCartItems;
-            order.Price = DrugCartService.GetDrugCartTotal(userId);
+            order.Price = _drugCartService.GetDrugCartTotal(userId);
             
             cart.DrugCartItems.ForEach(item =>
             {
@@ -43,14 +43,18 @@ namespace inventoryAppDomain.Repository
 
         public int GetTotalSales()
         {
-            var TotalSales = _ctx.Orders.Select(order => order.OrderItems).Count();
-            return TotalSales;
+            var totalSales = _ctx.Orders.Select(order => order.OrderItems).Count();
+            return totalSales;
         }
 
         public decimal GetTotalRevenue()
         {
-            var TotalRevenue = _ctx.Orders.Select(x => x.Price).Sum();
-            return TotalRevenue;
+            if (_ctx.Orders.Any())
+            {
+                var totalRevenue = _ctx.Orders.Select(x => x.Price).Sum();
+                return totalRevenue;
+            }
+            return 0;
         }
 
         public List<Order> GetOrdersForTheDay()

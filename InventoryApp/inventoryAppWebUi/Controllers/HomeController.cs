@@ -9,34 +9,34 @@ namespace inventoryAppWebUi.Controllers
     
     public class HomeController : Controller
     {
-        public ISupplierService _supplierService { get; }
-        public IDrugService DrugService { get; }
-        public IDrugCartService DrugCartService { get; }
-        public IOrderService _orderService { get; }
+        private readonly ISupplierService _supplierService;
+        private readonly IDrugService _drugService;
+        private readonly IDrugCartService _drugCartService;
+        private readonly IOrderService _orderService;
 
         public HomeController( ISupplierService supplierService, IDrugService drugService, IDrugCartService drugCartService, IOrderService orderService)
         {
             _supplierService = supplierService;
-            DrugService = drugService;
-            DrugCartService = drugCartService;
+            _drugService = drugService;
+            _drugCartService = drugCartService;
             _orderService = orderService;
         }
 
         public ActionResult Index()
         {
             //check if user already has as cart
-            if (Request.IsAuthenticated)
+            if (Request.IsAuthenticated && User.Identity.IsAuthenticated)
             {
-                var cart = DrugCartService.GetCart(User.Identity.GetUserId(),CartStatus.ACTIVE);
+                var cart = _drugCartService.GetCart(User.Identity.GetUserId(),CartStatus.ACTIVE);
                 if (cart == null)
                 {
-                    cart = DrugCartService.CreateCart(User.Identity.GetUserId());   
+                    cart = _drugCartService.CreateCart(User.Identity.GetUserId());   
                 }
             }
             var totalNumberOfSupplier = new IndexPageViewModel
             {
                 TotalNumberOfSupplier = _supplierService.TotalNumberOfSupplier(),
-                TotalNumberOfDrugs = DrugService.GetAllDrugs().Count,
+                TotalNumberOfDrugs = _drugService.GetAllDrugs().Count,
                 TotalRevenue = _orderService.GetTotalRevenue(),
                 TotalSales = _orderService.GetTotalSales()
 
