@@ -743,25 +743,39 @@
 @RenderSection("scripts", required: false)
 
 
-@section scripts{
-    <script>
-        function getNotifications(){
-            $.ajax({
-                url: "https://localhost:44324/Notifications/",
-                type: 'GET',
-                contentType: "application/json;charset=UTF-8",
-                dataType: "json",
-                success: function (response) {
-                    return response;
-                },
-                failure: function (response) {
-                    alert(response.responseText);
-                }
-            });
-        }
-            
-    </script>
-}
+<script>
+    function getNotifications(){
+        $.ajax({
+            url: "https://localhost:44324/Notifications/",
+            type: 'GET',
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            success: function (response) {
+                return response;
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            }
+        });
+    }
+    
+    function getNotification(id){
+        console.log("here")
+        $.ajax({
+            url: `https://localhost:44324/Notifications/GetNotificationById/${id}`,
+            type: 'GET',
+            contentType: 'application/json;charset=utf-8',
+            dataType: 'json',
+            success: (response) => {
+                console.log(response)
+            },
+            failure: (response) => {
+                console.log(response)
+            }
+        })
+    }
+        
+</script>
 
 @*Delete the scripts below*@
 

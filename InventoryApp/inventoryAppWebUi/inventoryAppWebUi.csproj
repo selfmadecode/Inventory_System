@@ -127,6 +127,10 @@
     <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.1\lib\netstandard2.0\System.Memory.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
@@ -144,6 +148,10 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -337,9 +345,9 @@
     <Compile Include="Migrations\202103110833456_RecentChanges.Designer.cs">
       <DependentUpon>202103110833456_RecentChanges.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202103111209120_AddedSupplierTagToDrugModel.cs" />
-    <Compile Include="Migrations\202103111209120_AddedSupplierTagToDrugModel.Designer.cs">
-      <DependentUpon>202103111209120_AddedSupplierTagToDrugModel.cs</DependentUpon>
+    <Compile Include="Migrations\202103121137321_NotificationsEntityUpdate.cs" />
+    <Compile Include="Migrations\202103121137321_NotificationsEntityUpdate.Designer.cs">
+      <DependentUpon>202103121137321_NotificationsEntityUpdate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -349,6 +357,7 @@
     <Compile Include="Models\EditProfileViewModel.cs" />
     <Compile Include="Models\IndexPageViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NotificationsPageViewModel.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\ReportViewModel.cs" />
     <Compile Include="Models\UpdateUserRoleViewModel.cs" />
@@ -475,6 +484,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\Account\ChangeRole.cshtml" />
     <Content Include="Views\Account\ManageUsers.cshtml" />
+    <Content Include="Views\Notifications\Index.cshtml" />
     <Content Include="Views\Pharmacist\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -601,8 +611,8 @@
     <EmbeddedResource Include="Migrations\202103110833456_RecentChanges.resx">
       <DependentUpon>202103110833456_RecentChanges.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202103111209120_AddedSupplierTagToDrugModel.resx">
-      <DependentUpon>202103111209120_AddedSupplierTagToDrugModel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202103121137321_NotificationsEntityUpdate.resx">
+      <DependentUpon>202103121137321_NotificationsEntityUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

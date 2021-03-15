@@ -9,18 +9,18 @@ namespace inventoryAppWebUi.Controllers
     [Authorize]
     public class ReportController : Controller
     {
-        public IReportService ReportService { get; }
+        private readonly IReportService _reportService;
 
         public ReportController(IReportService reportService)
         {
-            ReportService = reportService;
+            _reportService = reportService;
         }
         
         // GET
         public ActionResult Index(TimeFrame timeFrame)
         {
             ViewBag.CurrentPage = timeFrame + " Report";
-            var report = Mapper.Map<ReportViewModel>(ReportService.CreateReport(timeFrame));
+            var report = Mapper.Map<ReportViewModel>(_reportService.CreateReport(timeFrame));
             return View(report);
         }
     }

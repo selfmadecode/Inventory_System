@@ -9,17 +9,17 @@ namespace inventoryAppWebUi.Controllers
     
     public class HomeController : Controller
     {
-        public ISupplierService SupplierService { get; }
-        public IDrugService DrugService { get; }
-        public IDrugCartService DrugCartService { get; }
-        public IOrderService OrderService { get; }
+        private readonly ISupplierService _supplierService;
+        private readonly IDrugService _drugService;
+        private readonly IDrugCartService _drugCartService;
+        private readonly IOrderService _orderService;
 
         public HomeController( ISupplierService supplierService, IDrugService drugService, IDrugCartService drugCartService, IOrderService orderService)
         {
-            SupplierService = supplierService;
-            DrugService = drugService;
-            DrugCartService = drugCartService;
-            OrderService = orderService;
+            _supplierService = supplierService;
+            _drugService = drugService;
+            _drugCartService = drugCartService;
+            _orderService = orderService;
         }
 
         public ActionResult Index()
@@ -27,18 +27,18 @@ namespace inventoryAppWebUi.Controllers
             //check if user already has as cart
             if (Request.IsAuthenticated && User.Identity.IsAuthenticated)
             {
-                var cart = DrugCartService.GetCart(User.Identity.GetUserId(),CartStatus.ACTIVE);
+                var cart = _drugCartService.GetCart(User.Identity.GetUserId(),CartStatus.ACTIVE);
                 if (cart == null)
                 {
-                    cart = DrugCartService.CreateCart(User.Identity.GetUserId());   
+                    cart = _drugCartService.CreateCart(User.Identity.GetUserId());   
                 }
             }
             var totalNumberOfSupplier = new IndexPageViewModel
             {
-                TotalNumberOfSupplier = SupplierService.TotalNumberOfSupplier(),
-                TotalNumberOfDrugs = DrugService.GetAllDrugs().Count,
-                TotalRevenue = OrderService.GetTotalRevenue(),
-                TotalSales = OrderService.GetTotalSales()
+                TotalNumberOfSupplier = _supplierService.TotalNumberOfSupplier(),
+                TotalNumberOfDrugs = _drugService.GetAllDrugs().Count,
+                TotalRevenue = _orderService.GetTotalRevenue(),
+                TotalSales = _orderService.GetTotalSales()
 
             };
             return View(totalNumberOfSupplier);

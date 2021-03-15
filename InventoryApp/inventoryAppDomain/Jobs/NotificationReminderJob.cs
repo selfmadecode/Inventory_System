@@ -47,7 +47,8 @@ namespace inventoryAppDomain.Jobs
                         {
                             Title = "Drug Expiration",
                             NotificationDetails = $"{drug.DrugName} is Expiring this Week.",
-                            NotificationType = NotificationType.REOCCURRING
+                            NotificationType = NotificationType.REOCCURRING,
+                            NotificationCategory = NotificationCategory.EXPIRATION
                         };
                         _dbContext.Notifications.Add(notification);
                     }); 
@@ -64,7 +65,8 @@ namespace inventoryAppDomain.Jobs
                         {
                             Title = "Drug Expiration",
                             NotificationDetails = $"{drug.DrugName} is Expiring this Month.",
-                            NotificationType = NotificationType.REOCCURRING
+                            NotificationType = NotificationType.REOCCURRING,
+                            NotificationCategory = NotificationCategory.EXPIRATION
                         };
                         _dbContext.Notifications.Add(notification);
                     });
@@ -84,7 +86,8 @@ namespace inventoryAppDomain.Jobs
                 {
                     Title = "Running Out Stock",
                     NotificationDetails = $"{drug.DrugName} is Running Out.",
-                    NotificationType = NotificationType.REOCCURRING
+                    NotificationType = NotificationType.REOCCURRING,
+                    NotificationCategory = NotificationCategory.RUNNING_OUT_OF_STOCK
                 };
                 _dbContext.Notifications.Add(notification);
             });
