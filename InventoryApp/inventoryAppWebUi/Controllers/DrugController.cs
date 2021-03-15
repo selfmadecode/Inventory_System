@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using inventoryAppDomain.Entities;
 using inventoryAppDomain.IdentityEntities;
 using inventoryAppWebUi.Models;
+using inventoryAppDomain.Entities.Enums;
 
 namespace inventoryAppWebUi.Controllers
 {
@@ -122,13 +123,45 @@ namespace inventoryAppWebUi.Controllers
                     {
                         var expiryDate = _drugService.DateComparison(DateTime.Today, drug.ExpiryDate);
 
+                        //DRUG HAS EXPIRED 
                         if (expiryDate >= 0)
                         {
                             ModelState.AddModelError("ExpiryDate", "Must be later than today");
                             drug.DrugCategory = _drugService.AllCategories();
+                            TempData["failed"] = "failed";
                             return View("AddDrugForm", drug);
                         }
-                         _drugService.AddDrug(Mapper.Map<DrugViewModel, Drug>(drug));
+
+                        //SUPPLIER IS INACTIVE
+                        if(supplierInDb.Status == SupplierStatus.InActive)
+                        {
+                            ModelState.AddModelError("SupplierTag", "Supplier has been deactivated");
+                            drug.DrugCategory = _drugService.AllCategories();
+                            TempData["failed"] = "failed";
+                            return View("AddDrugForm", drug);
+                        }
+
+                        // DRUG IS NOT GREATER THAN 0
+                        if (drug.Quantity <= 0)
+                        {
+                            ModelState.AddModelError("Quantity", "Quantity should be greater than zero");
+                            drug.DrugCategory = _drugService.AllCategories();
+                            TempData["failed"] = "failed";
+                            return View("AddDrugForm", drug);
+                        }
+
+                        // DRUG PRICE IS LESS THAN 0
+                        if (drug.Price <= 0)
+                        {
+                            ModelState.AddModelError("Price", "Price should be greater than zero");
+                            drug.DrugCategory = _drugService.AllCategories();
+                            TempData["failed"] = "failed";
+                            return View("AddDrugForm", drug);
+                        }
+
+
+
+                        _drugService.AddDrug(Mapper.Map<DrugViewModel, Drug>(drug));
                     }
                     else
                     {

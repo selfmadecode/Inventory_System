@@ -18,7 +18,7 @@
             <td>@Model.Status</td>
             <td>@Model.Website</td>
             <td>
-                @Html.ActionLink("Drugs Supplied", "", "", new { Id = Model.Id },
+                @Html.ActionLink("Drugs Supplied", "GetDrugsBySupplier", "Supplier", new { supplierTag = Model.TagNumber },
                      new { @class = "btn btn-info" })
             </td>
         </tr>

@@ -24,5 +24,6 @@ namespace inventoryAppDomain.Services
 
         void UpdateSupplier(Supplier supplier);
 
+        IEnumerable<Drug> GetAllDrugsBySupplier(string tagNumber);
     }
 }
