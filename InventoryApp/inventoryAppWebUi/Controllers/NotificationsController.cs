@@ -1,44 +1,94 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using inventoryAppDomain.Entities;
 using inventoryAppDomain.Entities.Enums;
-using inventoryAppDomain.Jobs;
-using inventoryAppDomain.Repository;
-using IronPdf;
+using inventoryAppDomain.Services;
+using inventoryAppWebUi.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace inventoryAppWebUi.Controllers
 {
     public class NotificationsController : Controller
     {
-        public NotificationService NotificationService { get; }
-        public ReportPdfGenerator ReportPdfGenerator { get; }
+        private readonly INotificationService _notificationService;
 
-        public NotificationsController(NotificationService notificationService, ReportPdfGenerator reportPdfGenerator)
+        public NotificationsController(INotificationService notificationService)
         {
-            NotificationService = notificationService;
-            ReportPdfGenerator = reportPdfGenerator;
+            _notificationService = notificationService;
         }
-        
-        // GET
+
         public ActionResult Index()
         {
-            return Json( NotificationService.GetAllNotifications().Skip(Math.Max(0, NotificationService.GetAllNotifications().Count - 5)).Take(5).ToList(), JsonRequestBehavior.AllowGet);
+            var notificationViewModel = new NotificationsPageViewModel
+            {
+                AllNotifications = _notificationService.GetAllNotifications(),
+                NotificationsCount = _notificationService.GetNotificationsCount(NotificationStatus.UN_READ),
+                UnreadNotifications = _notificationService.GetAllNonReadNotifications(),
+            };
+            return View(notificationViewModel);
         }
 
-        // [HttpPost]
-        // public async Task<ActionResult> CreateNotification()
-        // {
-        //     return Json(await NotificationService.CreateNotification("Test Notification", "This is a test", NotificationType.NONREOCCURRING));
-        // }
-
-        public PdfDocument GeneratePdfTest()
+        public ActionResult GetRecentFive()
         {
-            return ReportPdfGenerator.GenerateReportPdf(TimeFrame.DAILY);
+            var notifications = _notificationService.GetRecentFive();
+            return Json(notifications, JsonRequestBehavior.AllowGet);
         }
         
+        public ActionResult GetNotificationById(int id)
+        {
+            var notification = _notificationService.GetNotificationById(id);
+            return Json(notification, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> MarkAsRead(int id)
+        {
+            try
+            {
+                var result = await _notificationService.MarkAsRead(id);
+                
+                if (result)
+                {
+                    return Json(new {status = "200", message = "Marked As Read Successful"}, JsonRequestBehavior.DenyGet);
+                }
+                return Json(new {status = "400", message = "Failed"}, JsonRequestBehavior.DenyGet);
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = StatusCodes.Status400BadRequest;
+                return Json(e.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> MarkAllAsRead()
+        {
+            try
+            {
+                await _notificationService.MarkAllAsRead();
+                return Json("Success" , JsonRequestBehavior.DenyGet);
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = StatusCodes.Status400BadRequest;
+                return Json(e.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult GetAllNotifications()
+        {
+            try
+            {
+                var notifications = _notificationService.GetAllNotifications();
+                return Json(new {status = "200", message = "Success", data = notifications},
+                    JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = StatusCodes.Status400BadRequest;
+                return Json(e.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
 
     }
 }

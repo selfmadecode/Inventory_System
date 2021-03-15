@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,7 +43,6 @@
 @Html.Partial("_PageLoading")
 
 
-
 <div class="wrapper">
 <!-- Sidebar -->
 <nav id="sidebar" class="proclinic-bg">
@@ -51,7 +50,7 @@
         <a href="@Url.Action("Index", "Home")">
             <img src="~/Content/Assets/images/logo.png" class="logo" alt="logo">
         </a>
-        
+
     </div>
     <ul class="list-unstyled components">
         <li class="active">
@@ -113,13 +112,13 @@
             </a>
             <ul class="collapse list-unstyled" id="nav-payment">
                 <li>
-                    @Html.ActionLink("Daily", "Index", "Report", new { TimeFrame = "DAILY" }, null)
+                    @Html.ActionLink("Daily", "Index", "Report", new {TimeFrame = "DAILY"}, null)
                 </li>
                 <li>
-                    @Html.ActionLink("Weekly", "Index", "Report", new { TimeFrame = "WEEKLY" }, null)
+                    @Html.ActionLink("Weekly", "Index", "Report", new {TimeFrame = "WEEKLY"}, null)
                 </li>
                 <li>
-                    @Html.ActionLink("Monthly", "Index", "Report", new { TimeFrame = "MONTHLY" }, null)
+                    @Html.ActionLink("Monthly", "Index", "Report", new {TimeFrame = "MONTHLY"}, null)
                 </li>
             </ul>
         </li>
@@ -206,20 +205,24 @@
                         <h5>Notifications</h5>
                         @{
                             var webClient = new WebClient();
-                            string url = "https://localhost:44324/Notifications/";
+                            string url = "https://localhost:44324/Notifications/GetRecentFive";
                             try
                             {
                                 string jsonString = webClient.DownloadString(new Uri(url));
                                 var json = JsonConvert.DeserializeObject<List<Notification>>(jsonString);
-                                if(json.Any()){
+                                if (json.Any())
+                                {
                                     foreach (var notification in json)
                                     {
-                                        <a class="dropdown-item" href="#">
-                                            <span class="ti-wheelchair"></span> @notification.Title
+                                        <a class="dropdown-item" href="#" onclick="getNotification(@notification.Id)" id="particularNotification">
+                                            <span class="ti-wheelchair"></span>
+                                            @notification.Title
+                                            <p>@notification.NotificationDetails</p>
                                         </a>
                                     }
                                     <a class="dropdown-item" onclick="getNotifications()" href="#">
-                                        <span class="ti-wheelchair"></span> See More
+                                        <span class="ti-wheelchair"></span>
+                                        @* @Html.ActionLink("See more", "Get", "Notifications") *@
                                     </a>
                                 }
                                 else
@@ -233,7 +236,7 @@
                             {
                                 ViewBag.NoNetwork = "Check your Network Settings";
                             }
-                            
+
                         }
                         @if (ViewBag.NoNetwork != null)
                         {
@@ -324,7 +327,7 @@
     <div class="container-fluid home">
         @if (TempData["Category"] != null)
         {
-        <p>@TempData["Category"] </p>
+            <p>@TempData["Category"] </p>
         }
         @RenderBody()
     </div>
@@ -352,25 +355,39 @@
 @RenderSection("scripts", required: false)
 
 
-@section scripts{
-    <script>
-        function getNotifications(){
-            $.ajax({
-                url: "https://localhost:44324/Notifications/",
-                type: 'GET',
-                contentType: "application/json;charset=UTF-8",
-                dataType: "json",
-                success: function (response) {
-                    return response;
-                },
-                failure: function (response) {
-                    alert(response.responseText);
-                }
-            });
-        }
-            
-    </script>
-}
+<script>
+    function getNotifications(){
+        $.ajax({
+            url: "https://localhost:44324/Notifications/",
+            type: 'GET',
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            success: function (response) {
+                return response;
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            }
+        });
+    }
+    
+    function getNotification(id){
+        console.log("here")
+        $.ajax({
+            url: `https://localhost:44324/Notifications/GetNotificationById/${id}`,
+            type: 'GET',
+            contentType: 'application/json;charset=utf-8',
+            dataType: 'json',
+            success: (response) => {
+                console.log(response)
+            },
+            failure: (response) => {
+                console.log(response)
+            }
+        })
+    }
+        
+</script>
 
 @*Delete the scripts below*@
 
