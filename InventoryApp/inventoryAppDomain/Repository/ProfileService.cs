@@ -15,13 +15,13 @@ namespace inventoryAppDomain.Repository
 {
     public class ProfileService : IProfileService
     {
-        public IRoleService RoleService { get; }
+        private readonly IRoleService _roleService;
         private ApplicationUserManager _userManager;
         private readonly ApplicationDbContext _dbContext;
 
         public ProfileService(IRoleService roleService)
         {
-            RoleService = roleService;
+            _roleService = roleService;
             _dbContext = HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>();
         }
 
@@ -72,7 +72,7 @@ namespace inventoryAppDomain.Repository
         public async Task<ApplicationUser> ChangeUserRole(MockViewModel updateUserRoleViewModel)
         {
             var user = await ValidateUser(updateUserRoleViewModel.UserId);
-            await RoleService.ChangeUserRole(user.Id, updateUserRoleViewModel.UpdatedUserRole);
+            await _roleService.ChangeUserRole(user.Id, updateUserRoleViewModel.UpdatedUserRole);
             
             // TODO: create the appropriate profile for him
             
@@ -83,7 +83,7 @@ namespace inventoryAppDomain.Repository
         {
 
             var user = await ValidateUser(userId);
-            var userRole = await RoleService.GetRoleByUser(user.Id);
+            var userRole = await _roleService.GetRoleByUser(user.Id);
 
             if (userRole != null && userRole.Equals("Pharmacist"))
             {
@@ -101,7 +101,7 @@ namespace inventoryAppDomain.Repository
             }
 
             await _dbContext.SaveChangesAsync();
-            await RoleService.RemoveUserFromRole(user.Id);
+            await _roleService.RemoveUserFromRole(user.Id);
             await UserManager.DeleteAsync(user);
         }
 

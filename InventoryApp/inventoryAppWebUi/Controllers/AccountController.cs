@@ -21,18 +21,18 @@ namespace inventoryAppWebUi.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        public IRoleService RoleService { get; }
-        public IProfileService ProfileService { get; }
-        public INotificationService NotificationService { get; }
+        private readonly IRoleService _roleService;
+        private readonly IProfileService _profileService;
+        private readonly INotificationService _notificationService;
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
         public AccountController(IRoleService roleService, IProfileService profileService,
             INotificationService notificationService)
         {
-            RoleService = roleService;
-            ProfileService = profileService;
-            NotificationService = notificationService;
+            _roleService = roleService;
+            _profileService = profileService;
+            _notificationService = notificationService;
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -95,7 +95,7 @@ namespace inventoryAppWebUi.Controllers
 
         public ActionResult ManageUsers()
         {
-            return View(ProfileService.GetAllUsers());
+            return View(_profileService.GetAllUsers());
         }
 
 
@@ -103,7 +103,7 @@ namespace inventoryAppWebUi.Controllers
         {
             try
             {
-                await ProfileService.RemoveUser(id);
+                await _profileService.RemoveUser(id);
             }
             catch (Exception e)
             {
@@ -118,7 +118,7 @@ namespace inventoryAppWebUi.Controllers
             var user = await UserManager.FindByIdAsync(id);
             var viewModel = new UpdateUserRoleViewModel
             {
-                Roles = RoleService.GetAllRoles(), 
+                Roles = _roleService.GetAllRoles(), 
                 Email = $"{user.Email}",
                 UserId = id
             };
@@ -135,7 +135,7 @@ namespace inventoryAppWebUi.Controllers
             {
                 try
                 {
-                    await ProfileService.ChangeUserRole(Mapper.Map<UpdateUserRoleViewModel, MockViewModel>(viewModel));
+                    await _profileService.ChangeUserRole(Mapper.Map<UpdateUserRoleViewModel, MockViewModel>(viewModel));
                     ViewBag.RoleChangeSuccessful = "User Role Changed";
                     return RedirectToAction("ManageUsers", "Account");
                 }
@@ -204,7 +204,7 @@ namespace inventoryAppWebUi.Controllers
         {
             var registerViewModel = new RegisterViewModel
             {
-                Roles = RoleService.GetAllRoles(),
+                Roles = _roleService.GetAllRoles(),
             };
             return View(registerViewModel);
         }
@@ -224,7 +224,7 @@ namespace inventoryAppWebUi.Controllers
 
                 if (result.Succeeded)
                 {
-                    var role = RoleService.FindByRoleName(model.RoleName);
+                    var role = _roleService.FindByRoleName(model.RoleName);
 
                     if (role != null)
                     {
@@ -243,9 +243,9 @@ namespace inventoryAppWebUi.Controllers
 
 
                     //Popup Toast here, User Created
-                    var notification = await NotificationService.CreateNotification("User Added",
+                    var notification = await _notificationService.CreateNotification("User Added",
                         "User Created Successfully",
-                        NotificationType.NONREOCCURRING);
+                        NotificationType.NONREOCCURRING,NotificationCategory.USER_CREATED);
                     ViewBag.Notification = notification;
                     return RedirectToAction("Index", "Home");
                 }
@@ -284,18 +284,18 @@ namespace inventoryAppWebUi.Controllers
                         user.PasswordHash = passwordHasher.HashPassword(model.NewPassword);
                         UserManager.Update(user);
 
-                        var role = await RoleService.GetRoleByUser(user.Id);
+                        var role = await _roleService.GetRoleByUser(user.Id);
                         try
                         {
                             if (role.Equals("Pharmacist"))
                             {
                                 var pharmacist = Mapper.Map<EditProfileViewModel, Pharmacist>(model);
-                                ProfileService.EditProfile(user, pharmacist);
+                                _profileService.EditProfile(user, pharmacist);
                             }
                             else
                             {
                                 var storeManager = Mapper.Map<EditProfileViewModel, StoreManager>(model);
-                                ProfileService.EditProfile(user, null, storeManager);
+                                _profileService.EditProfile(user, null, storeManager);
                             }
                         }
                         catch (Exception e)

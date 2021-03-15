@@ -16,11 +16,11 @@ namespace inventoryAppWebUi.Controllers
     [Authorize]
     public class OrderController : Controller
     {
-        private IDrugCartService DrugCartService { get; }
+        private readonly IDrugCartService _drugCartService;
         private readonly IOrderService _orderService;
         public OrderController(IOrderService orderService, IDrugCartService drugCartService)
         {
-            DrugCartService = drugCartService;
+            _drugCartService = drugCartService;
             _orderService = orderService;
         }
         
@@ -34,7 +34,7 @@ namespace inventoryAppWebUi.Controllers
         public ActionResult Checkout(OrderViewModel viewModel)
         {
             var userId = User.Identity.GetUserId();
-            var items = DrugCartService.GetDrugCartItems(userId,CartStatus.ACTIVE);
+            var items = _drugCartService.GetDrugCartItems(userId,CartStatus.ACTIVE);
 
 
             if (!items.Any())
@@ -45,7 +45,7 @@ namespace inventoryAppWebUi.Controllers
             if (ModelState.IsValid)
             {
                 _orderService.CreateOrder(Mapper.Map<OrderViewModel, Order>(viewModel), userId);
-                DrugCartService.RefreshCart(userId);
+                _drugCartService.RefreshCart(userId);
                 TempData["dispensed"] = "dispensed";
                 return RedirectToAction("AvailableDrugs", "Drug");
             }
