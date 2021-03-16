@@ -543,6 +543,7 @@
     <Content Include="Views\Shared\_ErrorNotificationPartial.cshtml" />
     <Content Include="Views\Shared\_SwaSuccessPartial.cshtml" />
     <Content Include="Views\Supplier\GetDrugsBySupplier.cshtml" />
+    <Content Include="Views\Shared\_FooterPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
