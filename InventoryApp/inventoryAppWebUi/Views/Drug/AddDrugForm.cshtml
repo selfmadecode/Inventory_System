@@ -11,13 +11,13 @@
 }
 
 <!-- Modal Edit -->
-<div class="modal fade" id="edit-note" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modall fadee" id="edit-note" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-body">
                 <div class="popup text-left">
                     <div class="media align-items-top justify-content-between">
-                        <h3 class="mb-3">Product</h3>
+                        <h3 class="mb-3">Add Drug</h3>
                         <div class="btn-cancel p-0" data-dismiss="modal"><i class="las la-times"></i></div>
                     </div>
                     <div class="content edit-notes">
@@ -28,13 +28,69 @@
                                     </div>
                                 </div>
                                 <div id="quill-toolbar1">
-                                    <p>Virtual Digital Marketing Course every week on Monday, Wednesday and Saturday.Virtual Digital Marketing Course every week on Monday</p>
+                                    @using (Html.BeginForm("SaveDrug", "Drug", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.Label("DrugName", "Drug Name", new { @class = "" })
+                                                    @Html.EditorFor(model => model.DrugName, new { htmlAttributes = new { @class = "form-control textbox", PlaceHolder = "Drug Name" } })
+                                                    @Html.ValidationMessageFor(model => model.DrugName, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.Label("Quantity", "Quantity")
+                                                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control textbox", PlaceHolder = "Quantity" } })
+                                                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.Label("Price", "Price")
+                                                    <span>@NumberFormatInfo.CurrentInfo.CurrencySymbol</span>
+                                                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control textbox", PlaceHolder = "Price" } })
+                                                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.Label("ExpiryDate", "Expiry Date")
+                                                    @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control datepicker", @Value = Model.ExpiryDate != null ? Model.ExpiryDate.Date.ToString("{0:d MMM yyyy}") : null } })
+                                                    @Html.ValidationMessageFor(model => model.ExpiryDate, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.Label("SupplierTag", "Supplier Tag")
+                                                    @Html.EditorFor(model => model.SupplierTag, new { htmlAttributes = new { @class = "form-control textbox", PlaceHolder = "Tag number" } })
+                                                    @Html.ValidationMessageFor(model => model.SupplierTag, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.Label("DrugCategory", "Drug Category")
+                                                    @Html.DropDownListFor(model => model.DrugCategoryId, new SelectList(Model.DrugCategory, "id", "CategoryName"), "Select Category", new { @class = "form-control textbox" })
+                                                </div>
+                                            </div>
+                                            @Html.HiddenFor(model => model.Id)
+                                            @*<div class="col-md-2">
+                                                <div class="form-group">
+                                                    <input type="submit" value="Save" class="btn btn-primary col-sm-12 mr-2" style="height: 3rem" />
+                                                </div>
+                                            </div>*@
+
+                                        </div>
+                                        
+                                    }
                                 </div>
                             </div>
                             <div class="card-footer border-0">
                                 <div class="d-flex flex-wrap align-items-ceter justify-content-end">
-                                    <div class="btn btn-primary mr-3" data-dismiss="modal">Cancel</div>
-                                    <div class="btn btn-outline-primary" data-dismiss="modal">Save</div>
+                                    
+                                    
+                                    <input type="submit" value="Save" class="btn btn-primary col-sm-12 mr-2" style="height: 3rem" />
+
                                 </div>
                             </div>
                         </div>
@@ -45,7 +101,7 @@
     </div>
 </div>
 
-<div class="container-fluid add-form-list">
+<!--<div class="container-fluid add-form-list">
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
@@ -116,11 +172,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
     <!-- Page end  -->
-</div>
+<!--</div>-->
 
-<div class="row">
+@*<div class="row">
     <div id="content" class="add-drug-content">
         <div class="container-fluid add-form-list">
             <div class="row" id="formContainer">
@@ -198,5 +254,5 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
