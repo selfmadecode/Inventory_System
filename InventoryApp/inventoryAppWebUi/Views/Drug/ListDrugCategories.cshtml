@@ -3,35 +3,84 @@
     ViewBag.CurrentPage = "All Categories";
 }
 
-<div class="card-body col-lg-12">
-    @if (!Model.Any())
-    {
-        <p>No Category yet</p>
-    }
-    else
-    {
-        <div class="table-responsive">
-            <table class="table table-hover table-bordered text-left">
-                <thead>
-                <tr>
-                    <th colspan="2">Drug Categories</th>
-                    
-                </tr>
-                </thead>
-                @foreach (var category in Model)
-                {
-                    <tbody>
-                    <tr class="info" style="cursor: pointer">
-                        <td>@category.CategoryName</td>
-                        <td>
-                            @Html.ActionLink("Remove", "RemoveDrugCategory", "Drug", new{Id = category.Id}, new { @class = "btn btn-outline-danger" })
-                        </td>
-                    </tr>
-                    </tbody>
-                }
-            </table>
-            @Html.ActionLink("Add Category", "AddDrugCategory", "Drug", new { @class = "btn btn-outline-primary" })
 
+<head>
+    @Scripts.Render("~/bundles/js")
+    <link rel="stylesheet" type="text/css" href="~/Content/datatable/datatables.min.css" />
+    <script type="text/javascript" src="~/Content/datatable/datatables.min.js"></script>
+</head>
+
+<div class="content-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
+                    <div>
+                        <h4 class="mb-3">Drug Category</h4>
+                        <p class="mb-0">
+                            Drug categories are listed here
+                        </p>
+                    </div>
+                    @Html.ActionLink("Add Category", "AddDrugCategory", "Drug", new { @class = "btn btn-outline-primary" })
+
+                    @*<a data-toggle="modal" data-target="#edit-note" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Add Drug</a>*@
+                </div>
+            </div>
+
+            @if (!Model.Any())
+            {
+                <p>No Category Available</p>
+            }
+            else
+            {
+                <div class="col-lg-12">
+                    <div class="table-responsive rounded mb-3">
+                        <table id="tablee" class="display table display table mb-0 tbl-server-info">
+                            <thead class="bg-white text-uppercase">
+                                <tr>
+
+                                    <th>Category Name</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var category in Model)
+                                {
+
+                                    <tr>
+                                        <td>@category.CategoryName</td>
+                                        <td>
+                                            @Html.ActionLink("Remove", "RemoveDrugCategory", "Drug", new { Id = category.Id }, new { @class = "btn btn-outline-danger" })
+                                    </td>
+
+                                    <td>
+                                        <div class="d-flex align-items-center list-action">
+                                            <a class="badge bg-success mr-2" data-toggle="modal" data-target="#edit-note" data-placement="top" title="" data-original-title="Edit"
+                                               href=""><i data-toggle="tooltip" data-placement="top" data-original-title="Edit" class="ri-pencil-line mr-0"></i></a>
+                                            <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"
+                                               href="#"><i class="ri-delete-bin-line mr-0"></i></a>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            }
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            }
         </div>
-    }
+    </div>
 </div>
+@Html.Partial("_SupplierModalPartial")
+@Html.Partial("_FooterPartial")
+<script>
+    $(document).ready(function () {
+        $('#tablee').DataTable();
+    });
+
+       // Html.ActionLink("Remove", "RemoveDrugCategory", "Drug", new{Id = category.Id}, new { class = "btn btn-outline-danger" })
+
+</script>
