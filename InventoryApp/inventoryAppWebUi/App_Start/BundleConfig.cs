@@ -32,8 +32,7 @@ namespace inventoryAppWebUi
                       "~/Content/assets/css/backende209.css?v=1.0.0",
                       "~/Content/assets/vendor/%40fortawesome/fontawesome-free/css/all.min.css",
                       "~/Content/assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css",
-                      "~/Content/assets/vendor/remixicon/fonts/remixicon.css",
-                      "~/Content/assets/Site.css"));
+                      "~/Content/assets/vendor/remixicon/fonts/remixicon.css"));
         }
     }
 }
