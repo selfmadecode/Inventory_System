@@ -5,69 +5,69 @@
 @{
     ViewBag.CurrentPage = "All Suppliers";
 }
-    <head>
+<head>
 
-        <style>
-            .InActive {
-                color: #dc3545;
-                font-weight: bolder;
-                font-size: 12px;
-            }
+    <style>
+        .InActive {
+            color: #dc3545;
+            font-weight: bolder;
+            font-size: 12px;
+        }
 
-            .Active {
-                color: #157347;
-                font-weight: bolder;
-                font-size: 12px;
-            }
-        </style>
+        .Active {
+            color: #157347;
+            font-weight: bolder;
+            font-size: 12px;
+        }
+    </style>
 
-        @Scripts.Render("~/bundles/js")
-        <link rel="stylesheet" type="text/css" href="~/Content/datatable/datatables.min.css" />
-        <script type="text/javascript" src="~/Content/datatable/datatables.min.js"></script>
-    </head>
+    @Scripts.Render("~/bundles/js")
+    <link rel="stylesheet" type="text/css" href="~/Content/datatable/datatables.min.css" />
+    <script type="text/javascript" src="~/Content/datatable/datatables.min.js"></script>
+</head>
 
-    <div class="content-page">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
-                        <div>
-                            <h4 class="mb-3">Supplier List</h4>
-                            <p class="mb-0">
-                                A supplier dashboard lets you easily gather and visualize customer data from optimizing <br>
-                                the customer experience, ensuring customer retention.
-                            </p>
-                        </div>
-                        <a href="page-add-customers.html" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Add Customer</a>
+<div class="content-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
+                    <div>
+                        <h4 class="mb-3">Supplier List</h4>
+                        <p class="mb-0">
+                            A supplier dashboard lets you easily gather and visualize customer data from optimizing <br>
+                            the customer experience, ensuring customer retention.
+                        </p>
                     </div>
+                    <a onclick="AddSupplier()" data-toggle="modal" data-target="#edit-note" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Add Supplier</a>
                 </div>
-                @if ((string)TempData["supplierAdded"] == "added")
-                {
-                    @Html.Partial("_SwaSuccessPartial")
-                }
+            </div>
+            @if ((string)TempData["supplierAdded"] == "added")
+            {
+                @Html.Partial("_SwaSuccessPartial")
+            }
 
-                @if (!Model.Any())
-                {
-                    <p>No Available Supplier</p>
-                }
-                else
-                {
-                    <div class="col-lg-12">
-                        <div class="table-responsive rounded mb-3">
-                            <table id="table_id" class="display table display table mb-0 tbl-server-info">
-                                <thead class="bg-white text-uppercase">
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Tag</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody class="">
+            @if (!Model.Any())
+            {
+                <p>No Available Supplier</p>
+            }
+            else
+            {
+                <div class="col-lg-12">
+                    <div class="table-responsive rounded mb-3">
+                        <table id="table_id" class="display table display table mb-0 tbl-server-info">
+                            <thead class="bg-white text-uppercase">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Tag</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody class="">
 
-                                    @foreach (var supplier in Model)
-                                    {
+                                @foreach (var supplier in Model)
+                                {
 
                                     <tr>
                                         <td>@supplier.SupplierName</td>
@@ -75,8 +75,8 @@
                                         <td class="@supplier.Status">@supplier.Status</td>
                                         <td>
                                             <div class="d-flex align-items-center list-action">
-                                                <a class="badge badge-info mr-2"
-                                                   href="@Url.Action("SupplierDetails", "Supplier", new { Id = supplier.Id })"><i data-toggle="tooltip" data-placement="top" data-original-title="View" class="ri-eye-line mr-0"></i></a>
+                                                <a class="badge badge-info mr-2" data-toggle="modal" data-target="#edit-note"
+                                                   href="#"><i data-toggle="tooltip" data-placement="top" data-original-title="Edit" class="ri-eye-line mr-0"></i></a>
                                                 <a class="badge bg-success mr-2"
                                                    href="@Url.Action("EditSupplier", "Supplier", new { Id = supplier.Id })"><i data-toggle="tooltip" data-placement="top" data-original-title="Edit" class="ri-pencil-line mr-0"></i></a>
                                                 <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"
@@ -100,23 +100,34 @@
                                             </td>
                                         }
                                     </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
+                                }
+                            </tbody>
+                        </table>
                     </div>
-                }
-            </div>
-            <!-- Page end  -->
+                </div>
+            }
         </div>
-
+        <!-- Page end  -->
     </div>
+
+</div>
+@Html.Partial("_SupplierModalPartial")
+
 @Html.Partial("_FooterPartial")
 
 <script>
     $(document).ready(function () {
         $('#table_id').DataTable();
     });
+
+    async function AddSupplier() {
+        var url = "/Supplier/AddSupplier/";
+        var data = await fetch(url);
+        data = await data.text();
+
+        var locate = document.getElementById("contentpage");
+        locate.innerHTML = data;
+    }
 
     // Url.Action("SupplierDetails", "Supplier", new { Id = supplier.Id }
     // Url.Action("EditSupplier", "Supplier", new { Id = supplier.Id })

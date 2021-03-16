@@ -30,7 +30,7 @@ namespace inventoryAppWebUi.Controllers
         {
             ViewBag.TagNumber = _supplierService.GenerateTagNumber();
 
-            return View(new SupplierViewModel());
+            return PartialView("_SupplierPartial", new SupplierViewModel());
         }
 
         public ActionResult Save(SupplierViewModel supplier)
@@ -38,7 +38,8 @@ namespace inventoryAppWebUi.Controllers
             if (!ModelState.IsValid)
             {
                 TempData["failed"] = "failed";
-                return View("AddSupplier", supplier);
+                Response.StatusCode = 201;
+                return PartialView("_SupplierPartial", supplier);
             }
 
             //Add new supplier
