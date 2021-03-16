@@ -457,6 +457,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\datatable\datatables.min.css" />
+    <Content Include="Content\datatable\datatables.min.js" />
     <Content Include="Content\sweetalert\bootstrap-sweetalert.png" />
     <Content Include="Content\sweetalert\docs.css" />
     <Content Include="Content\sweetalert\sweet-alert.css" />
@@ -475,6 +477,7 @@
     <Content Include="Content\assets\vendor\remixicon\fonts\remixicondf6d.eot" />
     <Content Include="Content\assets\vendor\remixicon\fonts\remixicondf6d.ttf" />
     <Content Include="Content\assets\vendor\remixicon\fonts\remixicondf6d.woff" />
+    <Content Include="libman.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -546,6 +549,8 @@
     <Content Include="Views\Shared\_ErrorNotificationPartial.cshtml" />
     <Content Include="Views\Shared\_SwaSuccessPartial.cshtml" />
     <Content Include="Views\Supplier\GetDrugsBySupplier.cshtml" />
+    <Content Include="Views\Shared\_FooterPartial.cshtml" />
+    <Content Include="Views\Shared\_SupplierModalPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
