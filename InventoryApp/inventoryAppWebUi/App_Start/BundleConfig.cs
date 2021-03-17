@@ -33,6 +33,10 @@ namespace inventoryAppWebUi
                       "~/Content/assets/vendor/%40fortawesome/fontawesome-free/css/all.min.css",
                       "~/Content/assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css",
                       "~/Content/assets/vendor/remixicon/fonts/remixicon.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/ajaxUnobtrusive").Include(
+                        "~/Content/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.min.js"));
+
         }
     }
 }

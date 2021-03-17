@@ -33,6 +33,7 @@ namespace inventoryAppWebUi.Controllers
             return PartialView("_SupplierPartial", new SupplierViewModel());
         }
 
+        [HttpPost]
         public ActionResult Save(SupplierViewModel supplier)
         {
             if (!ModelState.IsValid)

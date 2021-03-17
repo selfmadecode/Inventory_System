@@ -115,21 +115,29 @@
 
 @Html.Partial("_FooterPartial")
 
-<script>
-    $(document).ready(function () {
-        $('#table_id').DataTable();
-    });
 
-    async function AddSupplier() {
-        var url = "/Supplier/AddSupplier/";
-        var data = await fetch(url);
-        data = await data.text();
 
-        var locate = document.getElementById("contentpage");
-        locate.innerHTML = data;
-    }
+@section scripts{
 
-    // Url.Action("SupplierDetails", "Supplier", new { Id = supplier.Id }
-    // Url.Action("EditSupplier", "Supplier", new { Id = supplier.Id })
+    <script>
+        $(document).ready(function () {
+            $('#table_id').DataTable();
+        });
 
-</script>
+        async function AddSupplier() {
+            var url = "/Supplier/AddSupplier/";
+            var data = await fetch(url);
+            data = await data.text();
+
+            var locate = document.getElementById("contentpage");
+            locate.innerHTML = data;
+
+            $.validator.unobtrusive.parse("#form");
+        }
+
+        // Url.Action("SupplierDetails", "Supplier", new { Id = supplier.Id }
+        // Url.Action("EditSupplier", "Supplier", new { Id = supplier.Id })
+
+    </script>
+
+}
