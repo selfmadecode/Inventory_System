@@ -2,8 +2,8 @@
 
 <div id="quill-toolbar1">
 
-    @using (Ajax.BeginForm("Save", "Supplier", new AjaxOptions {
-        OnSuccess = "validResponse(data, status, xhr)",
+    @using (Ajax.BeginForm("Save", "Supplier", null, new AjaxOptions {
+        OnSuccess = "validResponse()",
         OnFailure = "queryFailed",
         HttpMethod = "POST"
         }, new { @class = "form-horizontal", id = "form", role = "form" }))
@@ -64,10 +64,10 @@
 </div>
 
 <script>
-    function validResponse(data, status, Xhr) {
+    var validResponse = function() {
         debugger;
         alert("dd");
-        if (data.statuscode == 200) {
+        if (response.statuscode == 200) {
             debugger;
             alert("hey");
         }
