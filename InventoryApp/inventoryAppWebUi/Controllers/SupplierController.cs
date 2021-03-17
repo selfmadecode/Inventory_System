@@ -54,12 +54,11 @@ namespace inventoryAppWebUi.Controllers
             {
                 //Update the existing supplier in DB
                 var supplierInDb = _supplierService.FindSupplier(supplier.Id);
-                _supplierService.UpdateSupplier(Mapper.Map(supplier, supplierInDb));
+               _supplierService.UpdateSupplier(Mapper.Map(supplier, supplierInDb));
                 TempData["supplierAdded"] = "added";
             }
-            Response.StatusCode = 200;
-            /// return RedirectToAction("AllSuppliers");
-            return Json(new { statuscode = 200 }, JsonRequestBehavior.AllowGet);
+            // Response.StatusCode = 200;
+            return RedirectToAction("AllSuppliers");
         }
 
         public ActionResult ProcessSupplier(int id)

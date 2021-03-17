@@ -2,11 +2,11 @@
 
 <div id="quill-toolbar1">
 
-    @using (Ajax.BeginForm("Save", "Supplier", null, new AjaxOptions {
-        OnSuccess = "validResponse()",
-        OnFailure = "queryFailed",
-        HttpMethod = "POST"
-        }, new { @class = "form-horizontal", id = "form", role = "form" }))
+    @using (Ajax.BeginForm("Save", "Supplier", null, new AjaxOptions
+    {
+        OnSuccess = "submitSuccess",
+        OnFailure = "submitSuccess"
+    }, new { @class = "form-horizontal", id = "form", role = "form" }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -55,7 +55,7 @@
 
         <div class="form-group">
             <div class="col-sm-12">
-                <input type="submit" value="Save Supplier" class="btn btn-primary col-sm-12" />
+                <input id="formBtn" type="submit" value="Save Supplier" class="btn btn-primary col-sm-12" />
             </div>
         </div>
 
@@ -63,13 +63,13 @@
     }
 </div>
 
-<script>
-    var validResponse = function() {
-        debugger;
-        alert("dd");
-        if (response.statuscode == 200) {
+@section Scripts
+{
+    <script type="text/javascript">
+
+        function submitSuccess(data, status, xhr) {
+            
             debugger;
-            alert("hey");
         }
-    }
-</script>
+    </script>
+}
