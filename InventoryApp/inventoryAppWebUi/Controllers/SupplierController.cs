@@ -58,7 +58,8 @@ namespace inventoryAppWebUi.Controllers
                 TempData["supplierAdded"] = "added";
             }
 
-            return RedirectToAction("AllSuppliers");
+            Response.StatusCode = 200;
+            return PartialView("_SupplierPartial");
         }
 
         public ActionResult ProcessSupplier(int id)
