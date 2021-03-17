@@ -1,15 +1,12 @@
 ﻿@model inventoryAppWebUi.Models.SupplierViewModel
 
-<head>
-    @*@Scripts.Render("~/bundles/js")*@
-    @Styles.Render("~/Content/template/css")
-
-    @Scripts.Render("~/bundles/jqueryval")
-</head>
-
 <div id="quill-toolbar1">
 
-    @using (Ajax.BeginForm("Save", "Supplier", new AjaxOptions { OnFailure = "onSuccess" }, new { @class = "form-horizontal", id = "form", role = "form" }))
+    @using (Ajax.BeginForm("Save", "Supplier", new AjaxOptions {
+        OnSuccess = "validResponse",
+        OnFailure = "queryFailed",
+        HttpMethod = "POST"
+        }, new { @class = "form-horizontal", id = "form", role = "form" }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -67,11 +64,8 @@
 </div>
 
 <script>
-    function onSuccess(data, status, Xhr) {
-        debugger;
-        alert('cc');
-        if (Xhr.status == 201) {
-            $("#quill-toolbar1").innerHTML = data;
-        }
+    function validResponse() {
+        alert('g');
+        // debugger;
     }
 </script>

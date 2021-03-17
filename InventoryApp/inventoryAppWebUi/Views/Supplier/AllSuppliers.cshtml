@@ -20,8 +20,6 @@
             font-size: 12px;
         }
     </style>
-
-    @Scripts.Render("~/bundles/js")
     <link rel="stylesheet" type="text/css" href="~/Content/datatable/datatables.min.css" />
     <script type="text/javascript" src="~/Content/datatable/datatables.min.js"></script>
 </head>
@@ -135,9 +133,11 @@
             $.validator.unobtrusive.parse("#form");
         }
 
-        // Url.Action("SupplierDetails", "Supplier", new { Id = supplier.Id }
-        // Url.Action("EditSupplier", "Supplier", new { Id = supplier.Id })
+            // Url.Action("SupplierDetails", "Supplier", new { Id = supplier.Id }
+            // Url.Action("EditSupplier", "Supplier", new { Id = supplier.Id })
 
     </script>
 
 }
+@Scripts.Render("~/bundles/js")
+@Scripts.Render("~/bundles/jqueryval")
