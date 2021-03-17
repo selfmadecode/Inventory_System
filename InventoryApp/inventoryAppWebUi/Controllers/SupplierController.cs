@@ -6,6 +6,7 @@ using inventoryAppDomain.Services;
 using inventoryAppWebUi.Models;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace inventoryAppWebUi.Controllers
@@ -44,9 +45,21 @@ namespace inventoryAppWebUi.Controllers
             //Add new supplier
             if (supplier.Id == 0)
             {
-                var newSupplier = Mapper.Map<SupplierViewModel, Supplier>(supplier);
-                _supplierService.AddSupplier(Mapper.Map<SupplierViewModel, Supplier>(supplier));
-                TempData["supplierAdded"] = "added";
+                var allSuppliers = _supplierService.GetAllSuppliers();
+                var tagAlreadyExists = allSuppliers.Any(s => s.TagNumber == supplier.TagNumber);
+                if (tagAlreadyExists)
+                {
+                    ModelState.AddModelError("Supplier Tag", "Supplier with this tag already exists");
+                    return View("AddSupplier", supplier);
+                }
+                else
+                {
+                    var newSupplier = Mapper.Map<SupplierViewModel, Supplier>(supplier);
+                    _supplierService.AddSupplier(Mapper.Map<SupplierViewModel, Supplier>(supplier));
+                    TempData["supplierAdded"] = "added";
+                }
+
+                
             }
             else
             {
