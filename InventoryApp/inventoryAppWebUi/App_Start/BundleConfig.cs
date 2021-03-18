@@ -24,6 +24,7 @@ namespace inventoryAppWebUi
                 "~/Content/assets/js/table-treeview.js",
                 "~/Content/assets/js/customizer.js",
                 "~/Content/assets/js/chart-custom.js",
+                "~/Scripts/jquery-3.4.1.min.js",
                 "~/Content/assets/js/app.js"));
 
 

@@ -5,24 +5,25 @@
 @{
     ViewBag.CurrentPage = "All Suppliers";
 }
-<head>
+    <head>
 
-    <style>
-        .InActive {
-            color: #dc3545;
-            font-weight: bolder;
-            font-size: 12px;
-        }
+        <style>
+            .InActive {
+                color: #dc3545;
+                font-weight: bolder;
+                font-size: 12px;
+            }
 
-        .Active {
-            color: #157347;
-            font-weight: bolder;
-            font-size: 12px;
-        }
-    </style>
-    <link rel="stylesheet" type="text/css" href="~/Content/datatable/datatables.min.css" />
-    <script type="text/javascript" src="~/Content/datatable/datatables.min.js"></script>
-</head>
+            .Active {
+                color: #157347;
+                font-weight: bolder;
+                font-size: 12px;
+            }
+        </style>
+        @Scripts.Render("~/bundles/js")
+        <link rel="stylesheet" type="text/css" href="~/Content/datatable/datatables.min.css" />
+        <script type="text/javascript" src="~/Content/datatable/datatables.min.js"></script>
+    </head>
 
 <div class="content-page">
     <div class="container-fluid">
@@ -36,7 +37,7 @@
                             the customer experience, ensuring customer retention.
                         </p>
                     </div>
-                    <a onclick="AddSupplier()" data-toggle="modal" data-target="#edit-note" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Add Supplier</a>
+                    <a id="addSupplierModal" onclick="AddSupplier()" data-target="#edit-note" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Add Supplier</a>
                 </div>
             </div>
             @if ((string)TempData["supplierAdded"] == "added")
@@ -52,7 +53,7 @@
             {
                 <div class="col-lg-12">
                     <div class="table-responsive rounded mb-3">
-                        <table id="table_id" class="display table display table mb-0 tbl-server-info">
+                        <table id="tabl_id" class="display table display table mb-0 tbl-server-info">
                             <thead class="bg-white text-uppercase">
                                 <tr>
                                     <th>Name</th>
@@ -112,14 +113,9 @@
 @Html.Partial("_SupplierModalPartial")
 
 @Html.Partial("_FooterPartial")
-
-
-
-
-
     <script>
         $(document).ready(function () {
-            $('#table_id').DataTable();
+            $('#tabl_id').DataTable();
         });
 
         async function AddSupplier() {
@@ -127,16 +123,27 @@
             var data = await fetch(url);
             data = await data.text();
 
-            var locate = document.getElementById("contentpage");
-            locate.innerHTML = data;
-            $.validator.unobtrusive.parse("#form");
+            var modalPartial = document.getElementById("contentpage");
+            modalPartial.innerHTML = data;
 
-            alert("done");
+            $.validator.unobtrusive.parse("#form");
+            $("#edit-note").modal('show');
         }
 
         function OnSuccess(data) {
+            if (data.response == "success") {
+                window.location.reload();
+                $("#addSupplierModal").modal('hide');
+                $("#edit-note").modal('hide');
 
-            alert('wise Status Code: ' + data.status);
+            } else if (data.response == null) {
+
+                var modalPartial = document.getElementById("contentpage");
+                modalPartial.innerHTML = data;
+
+                $.validator.unobtrusive.parse("#form");
+                $("#edit-note").modal('show');
+            }
         }
 
             // Url.Action("SupplierDetails", "Supplier", new { Id = supplier.Id }
@@ -146,5 +153,3 @@
 
 
 }
-@Scripts.Render("~/bundles/js")
-@*@Scripts.Render("~/bundles/jqueryval")*@
