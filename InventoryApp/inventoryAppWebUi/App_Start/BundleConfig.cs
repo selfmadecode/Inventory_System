@@ -35,7 +35,7 @@ namespace inventoryAppWebUi
                       "~/Content/assets/vendor/remixicon/fonts/remixicon.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/ajaxUnobtrusive").Include(
-                        "~/Content/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.min.js"));
+                        "~/Scripts/jquery.unobtrusive-ajax.min.js"));
 
         }
     }

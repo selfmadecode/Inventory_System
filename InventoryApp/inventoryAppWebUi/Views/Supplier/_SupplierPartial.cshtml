@@ -4,7 +4,7 @@
 
     @using (Ajax.BeginForm("Save", "Supplier", null, new AjaxOptions
     {
-        OnSuccess = "submitSuccess",
+        OnSuccess = "OnSuccess",
         OnFailure = "submitSuccess"
     }, new { @class = "form-horizontal", id = "form", role = "form" }))
     {
@@ -63,13 +63,3 @@
     }
 </div>
 
-@section Scripts
-{
-    <script type="text/javascript">
-
-        function submitSuccess(data, status, xhr) {
-            
-            debugger;
-        }
-    </script>
-}

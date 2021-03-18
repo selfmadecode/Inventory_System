@@ -47,18 +47,19 @@ namespace inventoryAppWebUi.Controllers
             if (supplier.Id == 0)
             {
                 var newSupplier = Mapper.Map<SupplierViewModel, Supplier>(supplier);
-                _supplierService.AddSupplier(Mapper.Map<SupplierViewModel, Supplier>(supplier));
+               // _supplierService.AddSupplier(Mapper.Map<SupplierViewModel, Supplier>(supplier));
                 TempData["supplierAdded"] = "added";
             }
             else
             {
                 //Update the existing supplier in DB
                 var supplierInDb = _supplierService.FindSupplier(supplier.Id);
-               _supplierService.UpdateSupplier(Mapper.Map(supplier, supplierInDb));
+              // _supplierService.UpdateSupplier(Mapper.Map(supplier, supplierInDb));
                 TempData["supplierAdded"] = "added";
             }
             // Response.StatusCode = 200;
-            return RedirectToAction("AllSuppliers");
+            // return RedirectToAction("AllSuppliers");
+            return Json(new { status = "success" }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ProcessSupplier(int id)
