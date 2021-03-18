@@ -1,5 +1,10 @@
 ﻿@model inventoryAppWebUi.Models.SupplierViewModel
 
+    <head>
+        @Styles.Render("~/Content/template/css")
+        @Scripts.Render("~/bundles/modernizr")
+    </head>
+
 <div id="quill-toolbar1">
 
     @using (Ajax.BeginForm("Save", "Supplier", null, new AjaxOptions

@@ -87,9 +87,10 @@ namespace inventoryAppWebUi.Controllers
             if (supplier == null)
                 return HttpNotFound("Supplier not found");
 
-            return View("AddSupplier", supplier);
+            return PartialView("_SupplierPartial", supplier);
         }
 
+        [HttpPost]
         public ActionResult SupplierDetails(int id)
         {
             var supplier = Mapper.Map<SupplierViewModel>(_supplierService.FindSupplier(id));
