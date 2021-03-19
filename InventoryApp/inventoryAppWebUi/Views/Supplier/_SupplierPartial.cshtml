@@ -10,7 +10,7 @@
     @using (Ajax.BeginForm("Save", "Supplier", null, new AjaxOptions
     {
         OnSuccess = "OnSuccess",
-        OnFailure = "submitSuccess"
+        OnFailure = "OnFailure"
     }, new { @class = "form-horizontal", id = "form", role = "form" }))
     {
         @Html.AntiForgeryToken()
