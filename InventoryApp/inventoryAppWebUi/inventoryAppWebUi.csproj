@@ -559,6 +559,7 @@
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
     <Content Include="Views\Shared\_SupplierModalPartial.cshtml" />
     <Content Include="Views\Supplier\_SupplierPartial.cshtml" />
+    <Content Include="Views\Shared\_DrugModalPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
