@@ -89,14 +89,21 @@ namespace inventoryAppWebUi.Controllers
             return PartialView("_SupplierPartial", supplier);
         }
 
-        public ActionResult SupplierDetails(int id)
+        public ActionResult SupplierAndDrugDetails(int id)
         {
             var supplier = Mapper.Map<SupplierViewModel>(_supplierService.FindSupplier(id));
 
             if (supplier == null)
                 return HttpNotFound("Supplier not found");
+            var drugsBySupplier = Mapper.Map<IEnumerable<DrugViewModel>>(_supplierService.GetAllDrugsBySupplier(supplier.TagNumber));
             
-            return View(supplier);
+            var supplierAndDrugs = new SupplierAndDrugsViewModel
+            {
+                SupplierViewModel = supplier,
+                DrugViewModel = drugsBySupplier
+            };
+
+            return View("SupplierDetails", supplierAndDrugs);
         }
 
         public ActionResult GetDrugsBySupplier(string supplierTag)
