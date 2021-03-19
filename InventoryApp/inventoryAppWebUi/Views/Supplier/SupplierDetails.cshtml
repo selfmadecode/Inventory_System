@@ -9,7 +9,7 @@
                     <div>
                         <h4 class="mb-3">Supplier Details</h4>
                         <p class="mb-0">
-                            See drugs suppllied by @Model.SupplierViewModel.SupplierName.
+                            See drugs suppllied by: @Model.SupplierViewModel.SupplierName.
                         </p>
                     </div>
                 </div>
@@ -35,30 +35,37 @@
                 </div>
                 <div class="col-lg-12">
                     <div class="table-responsive rounded mb-3">
-                        <table id="tabl_id" class="display table display table mb-0 tbl-server-info">
-                            <thead class="bg-white text-uppercase">
-                                <tr>
-                                    <th>Drug Name</th>
-                                    <th>Quantity</th>
-                                    <th>Price</th>
-                                    <th>Expiry date</th>
-                                </tr>
-                            </thead>
-                            <tbody class="">
-
-                                @foreach (var drug in Model.DrugViewModel)
-                                {
-
+                        @if (!Model.DrugViewModel.Any())
+                        {
+                            <h3>No Drugs supplied!</h3>
+                        }
+                        else
+                        {
+                            <table id="tabl_id" class="display table display table mb-0 tbl-server-info">
+                                <thead class="bg-white text-uppercase">
                                     <tr>
-                                        <td class="font-weight-bold">@drug.DrugName</td>
-                                        <td class="">@drug.Quantity</td>
-                                        <td class=""> <span>@NumberFormatInfo.CurrentInfo.CurrencySymbol</span> @drug.Price</td>
-                                        <td>@drug.ExpiryDate.ToShortDateString() </td>
-
+                                        <th>Drug Name</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Expiry date</th>
                                     </tr>
-                                }
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody class="">
+
+                                    @foreach (var drug in Model.DrugViewModel)
+                                    {
+
+                                        <tr>
+                                            <td class="font-weight-bold">@drug.DrugName</td>
+                                            <td class="">@drug.Quantity</td>
+                                            <td class=""> <span>@NumberFormatInfo.CurrentInfo.CurrencySymbol</span> @drug.Price</td>
+                                            <td>@drug.ExpiryDate.ToShortDateString() </td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
                     </div>
                 </div>
             </div>
