@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using inventoryAppDomain.Entities;
+using inventoryAppDomain.Entities.Dtos;
+using inventoryAppDomain.Entities.MonnifyDtos;
 using inventoryAppDomain.Repository;
 using inventoryAppWebUi.Models;
 
@@ -37,6 +37,17 @@ namespace inventoryAppWebUi.Infrastructures
                  .ForMember(model => model.Orders, act => act.MapFrom(report => report.Orders))
                  .ForMember(model => model.ReportDrugs, act => act.MapFrom(report => report.ReportDrugs))
                  .ForMember(model => model.TotalRevenueForReport, act => act.MapFrom(report => report.TotalRevenueForReport));
+
+             Mapper.CreateMap<TransactionViewModel, TransactionDetails>()
+                 .ForMember(details => details.amount, act => act.Ignore())
+                 .ForMember(details => details.txRef, act => act.Ignore())
+                 .ForMember(details => details.PBFPubKey, act => act.Ignore())
+                 .ForMember(details => details.cvv, act => act.MapFrom(model => model.Cvv))
+                 .ForMember(details => details.cardno, act => act.MapFrom(model => model.CardNumber))
+                 .ForMember(details => details.email, act => act.MapFrom(model => model.Email))
+                 .ForMember(details => details.expirymonth, act => act.MapFrom(model => model.ExpiryMonth))
+                 .ForMember(details => details.expiryyear, act => act.MapFrom(model => model.ExpiryYear));
+             
         }
     }
 }

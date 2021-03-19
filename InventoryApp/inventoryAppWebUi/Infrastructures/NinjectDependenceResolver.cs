@@ -13,6 +13,7 @@ using inventoryAppDomain.Services;
 using Ninject.Web.Common;
 using Microsoft.AspNetCore.Http;
 using inventoryAppDomain.Entities;
+using inventoryAppDomain.Infrastructure;
 
 namespace inventoryAppWebUi.Infrastructures
 {
@@ -47,6 +48,8 @@ namespace inventoryAppWebUi.Infrastructures
             kernel.Bind<IReportService>().To<ReportService>();
             kernel.Bind<NotificationReminderJob>().ToSelf();
             kernel.Bind<ReportPdfGenerator>().ToSelf();
+            kernel.Bind<IPaymentService>().To<MonnifyPaymentService>();
+            kernel.Bind<ITransactionService>().To<TransactionService>();
         }
     }
 }
