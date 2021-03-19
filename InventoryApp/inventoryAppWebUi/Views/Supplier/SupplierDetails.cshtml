@@ -9,7 +9,7 @@
                     <div>
                         <h4 class="mb-3">Supplier Details</h4>
                         <p class="mb-0">
-                            See drugs suppllied by @Model.SupplierName.
+                            See drugs suppllied by @Model.SupplierViewModel.SupplierName.
                         </p>
                     </div>
                 </div>
@@ -27,9 +27,9 @@
                         </thead>
                         <tbody class="">
                             <tr>
-                                <td>@Model.SupplierName</td>
-                                <td>@Model.Status</td>
-                                <td>@Model.Website</td>
+                                <td>@Model.SupplierViewModel.SupplierName</td>
+                                <td>@Model.SupplierViewModel.Status</td>
+                                <td>@Model.SupplierViewModel.Website</td>
                                 <td>
                                     @Html.ActionLink("Drugs Supplied", "GetDrugsBySupplier", "Supplier", new { supplierTag = Model.TagNumber },
                                          new { @class = "btn btn-info" })
