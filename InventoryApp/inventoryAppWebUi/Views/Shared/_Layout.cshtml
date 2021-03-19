@@ -214,7 +214,7 @@
                                     </a>
                                 </li>
                                 <li class="">
-                                    <a href="@Url.Action("AddSupplier", "Supplier")">
+                                    <a href="@Url.Action("AllSuppliers", "Supplier", new { btn = "addSupplier" })" onclick="redirecupplier()">
                                         <i class="las la-minus"></i><span>Add Supplier</span>
                                     </a>
                                 </li>
@@ -689,11 +689,20 @@
 
         function SessionEnd() {
             window.location = "/Account/Login";
-    }
+        }
 
     </script>
 
     <script>
+        //function redirectToAgllSupplier() {
+        //    var url = "/Supplier/AllSuppliers/";
+        //    window.location = url;
+        //    var btn = document.getElementById("addSupplierModal");
+        //    // btn.click();
+        //    console.log(btn);
+        //    alert("Jj");
+        //}
+
         function getNotifications() {
             $.ajax({
                 url: "https://localhost:44324/Notifications/",

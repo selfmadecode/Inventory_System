@@ -57,7 +57,6 @@ namespace inventoryAppWebUi.Controllers
                _supplierService.UpdateSupplier(Mapper.Map(supplier, supplierInDb));
                 TempData["supplierAdded"] = "added";
             }
-            // Response.StatusCode = 200;
             // return RedirectToAction("AllSuppliers");
             return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
         }
