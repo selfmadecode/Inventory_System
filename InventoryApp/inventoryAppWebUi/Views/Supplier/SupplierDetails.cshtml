@@ -1,5 +1,5 @@
 ﻿@model inventoryAppWebUi.Models.SupplierAndDrugsViewModel
-
+@using System.Globalization
 
 <div class="content-page">
     <div class="container-fluid">
@@ -22,7 +22,6 @@
                                 <th>Supplier Name</th>
                                 <th>Status</th>
                                 <th>Website</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody class="">
@@ -30,10 +29,6 @@
                                 <td>@Model.SupplierViewModel.SupplierName</td>
                                 <td>@Model.SupplierViewModel.Status</td>
                                 <td>@Model.SupplierViewModel.Website</td>
-                                <td>
-                                    @Html.ActionLink("Drugs Supplied", "GetDrugsBySupplier", "Supplier", new { supplierTag = Model.TagNumber },
-                                         new { @class = "btn btn-info" })
-                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -51,7 +46,7 @@
                             </thead>
                             <tbody class="">
 
-                                @foreach (var supplier in Model)
+                                @foreach (var drug in Model.DrugViewModel)
                                 {
 
                                     <tr>
