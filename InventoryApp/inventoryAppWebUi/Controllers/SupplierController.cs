@@ -31,15 +31,17 @@ namespace inventoryAppWebUi.Controllers
         {
             ViewBag.TagNumber = _supplierService.GenerateTagNumber();
 
-            return View(new SupplierViewModel());
+            return PartialView("_SupplierPartial", new SupplierViewModel());
         }
 
+        [HttpPost]
         public ActionResult Save(SupplierViewModel supplier)
         {
             if (!ModelState.IsValid)
             {
                 TempData["failed"] = "failed";
-                return View("AddSupplier", supplier);
+                Response.StatusCode = 201;
+                return PartialView("_SupplierPartial", supplier);
             }
 
             //Add new supplier
@@ -65,11 +67,11 @@ namespace inventoryAppWebUi.Controllers
             {
                 //Update the existing supplier in DB
                 var supplierInDb = _supplierService.FindSupplier(supplier.Id);
-                _supplierService.UpdateSupplier(Mapper.Map(supplier, supplierInDb));
+               _supplierService.UpdateSupplier(Mapper.Map(supplier, supplierInDb));
                 TempData["supplierAdded"] = "added";
             }
-
-            return RedirectToAction("AllSuppliers");
+            // return RedirectToAction("AllSuppliers");
+            return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ProcessSupplier(int id)
@@ -97,7 +99,7 @@ namespace inventoryAppWebUi.Controllers
             if (supplier == null)
                 return HttpNotFound("Supplier not found");
 
-            return View("AddSupplier", supplier);
+            return PartialView("_SupplierPartial", supplier);
         }
 
         public ActionResult SupplierDetails(int id)
