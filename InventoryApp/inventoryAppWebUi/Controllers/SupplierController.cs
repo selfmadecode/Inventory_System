@@ -89,7 +89,6 @@ namespace inventoryAppWebUi.Controllers
             return PartialView("_SupplierPartial", supplier);
         }
 
-        [HttpPost]
         public ActionResult SupplierDetails(int id)
         {
             var supplier = Mapper.Map<SupplierViewModel>(_supplierService.FindSupplier(id));
