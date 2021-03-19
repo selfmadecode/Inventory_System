@@ -24,6 +24,7 @@ namespace inventoryAppWebUi
                 "~/Content/assets/js/table-treeview.js",
                 "~/Content/assets/js/customizer.js",
                 "~/Content/assets/js/chart-custom.js",
+                "~/Scripts/jquery-3.4.1.min.js",
                 "~/Content/assets/js/app.js"));
 
 
@@ -33,6 +34,10 @@ namespace inventoryAppWebUi
                       "~/Content/assets/vendor/%40fortawesome/fontawesome-free/css/all.min.css",
                       "~/Content/assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css",
                       "~/Content/assets/vendor/remixicon/fonts/remixicon.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/ajaxUnobtrusive").Include(
+                        "~/Scripts/jquery.unobtrusive-ajax.min.js"));
+
         }
     }
 }

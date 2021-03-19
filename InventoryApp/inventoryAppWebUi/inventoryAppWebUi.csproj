@@ -357,6 +357,9 @@
     <Compile Include="Migrations\202103181443000_TransactionUpdated.cs" />
     <Compile Include="Migrations\202103181443000_TransactionUpdated.Designer.cs">
       <DependentUpon>202103181443000_TransactionUpdated.cs</DependentUpon>
+    <Compile Include="Migrations\202103151516471_test.cs" />
+    <Compile Include="Migrations\202103151516471_test.Designer.cs">
+      <DependentUpon>202103151516471_test.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -370,6 +373,7 @@
     <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\ReportViewModel.cs" />
     <Compile Include="Models\TransactionViewModel.cs" />
+    <Compile Include="Models\SupplierAndDrugsViewModel.cs" />
     <Compile Include="Models\UpdateUserRoleViewModel.cs" />
     <Compile Include="Models\SupplierViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -463,6 +467,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\datatable\datatables.min.css" />
+    <Content Include="Content\datatable\datatables.min.js" />
     <Content Include="Content\sweetalert\bootstrap-sweetalert.png" />
     <Content Include="Content\sweetalert\docs.css" />
     <Content Include="Content\sweetalert\sweet-alert.css" />
@@ -471,6 +477,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\lib\jquery-ajax-unobtrusive\dist\jquery.unobtrusive-ajax.js" />
+    <Content Include="Content\lib\jquery-ajax-unobtrusive\dist\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Content\lib\jquery-ajax-unobtrusive\LICENSE.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\sweetalert\sweet-alert.less" />
@@ -481,12 +490,17 @@
     <Content Include="Content\assets\vendor\remixicon\fonts\remixicondf6d.eot" />
     <Content Include="Content\assets\vendor\remixicon\fonts\remixicondf6d.ttf" />
     <Content Include="Content\assets\vendor\remixicon\fonts\remixicondf6d.woff" />
+    <Content Include="libman.json" />
+    <Content Include="Content\lib\jquery-ajax-unobtrusive\package.json" />
+    <Content Include="Content\lib\jquery-ajax-unobtrusive\README.md" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -553,6 +567,9 @@
     <Content Include="Views\Shared\_ErrorNotificationPartial.cshtml" />
     <Content Include="Views\Shared\_SwaSuccessPartial.cshtml" />
     <Content Include="Views\Supplier\GetDrugsBySupplier.cshtml" />
+    <Content Include="Views\Shared\_FooterPartial.cshtml" />
+    <Content Include="Views\Shared\_SupplierModalPartial.cshtml" />
+    <Content Include="Views\Supplier\_SupplierPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -630,6 +647,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103181443000_TransactionUpdated.resx">
       <DependentUpon>202103181443000_TransactionUpdated.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202103151516471_test.resx">
+      <DependentUpon>202103151516471_test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
