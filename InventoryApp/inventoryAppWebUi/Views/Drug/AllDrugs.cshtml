@@ -19,7 +19,7 @@
                             the customer experience, ensuring customer retention.
                         </p>
                     </div>
-                    <a id="addSupplierModal" onclick="AddSupplier()" data-target="#edit-note" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Add Drug</a>
+                    <a id="addDrugModal" onclick="AddDrug()" data-target="#edit-note" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Add Drug</a>
 
                     @*<a data-toggle="modal" data-target="#edit-note" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Add Drug</a>*@
                 </div>
@@ -59,7 +59,7 @@
                                             <div class="d-flex align-items-center list-action">
                                                 <a class="badge badge-info mr-2" data-toggle="modal" data-target="#edit-note" data-placement="top" title="" data-original-title="View"
                                                    href=""><i data-toggle="tooltip" data-placement="top" data-original-title="View" class="ri-eye-line mr-0"></i></a>
-                                                <a class="badge bg-success mr-2" data-toggle="modal" data-target="#edit-note" data-placement="top" title="" data-original-title="Edit"
+                                                <a onclick="EditDrug(@drug)" data-target="#edit-note" class="badge bg-success mr-2" data-toggle="modal" data-placement="top" title="" data-original-title="Edit"
                                                    href=""><i data-toggle="tooltip" data-placement="top" data-original-title="Edit" class="ri-pencil-line mr-0"></i></a>
                                                 <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"
                                                    href="#"><i class="ri-delete-bin-line mr-0"></i></a>
@@ -77,14 +77,14 @@
         </div>
     </div>
 </div>
-@Html.Partial("_SupplierModalPartial")
+@Html.Partial("_DrugModalPartial")
 
 @Html.Partial("_FooterPartial")
 
 
 
 
-<script>
+@*<script>
     $(document).ready(function () {
         $('#tablee').DataTable();
     });
@@ -94,4 +94,71 @@
 
     // Html.ActionLink("Remove", "RemoveDrug", "Drug", new { Id = drug.Id }, new { class = "btn btn-outline-danger" })
     //Html.ActionLink("Edit", "UpdateDrug", "Drug", new { Id = drug.Id }, new { class = "btn btn-outline-success" })
+</script>*@
+
+<script>
+    $(document).ready(function() {
+        $('#tablee').DataTable();
+
+        let action = new URLSearchParams(window.location.search);
+        action = action.get('btn');
+
+        // click the add drug button
+        switch (action) {
+            case 'addDrug':
+                $("#addDrugModal").click();
+                break;
+            default:
+                //alert("Not recognized.");
+                break;
+        }
+    });
+
+    async function AddDrug() {
+        var url = "/Drug/AddDrugForm/";
+        var data = await fetch(url);
+        data = await data.text();
+
+
+        var modalPartial = document.getElementById("contentpage");
+        console.log(modalPartial);
+
+        modalPartial.innerHTML = data;
+        console.log(modalPartial);
+
+        $.validator.unobtrusive.parse("#form");
+        $("#edit-note").modal('show');
+    }
+
+    async function EditDrug(drug) {
+        var url = "/Drug/UpdateDrug/" + drug;
+        var data = await fetch(url);
+        data = await data.text();
+
+        console.log(data);
+
+        var modalPartial = document.getElementById("contentpage");
+        modalPartial.innerHTML = data;
+
+        
+
+        $.validator.unobtrusive.parse("#form");
+        $("#edit-note").modal('show');
+    }
+
+    function OnSuccess(data) {
+        if (data.response == "success") {
+            window.location.reload();
+            $("#addDrugModal").modal('hide');
+            $("#edit-note").modal('hide');
+
+        } else if (data.response == null) {
+
+            var modalPartial = document.getElementById("contentpage");
+            modalPartial.innerHTML = data;
+
+            $.validator.unobtrusive.parse("#form");
+            $("#edit-note").modal('show');
+        }
+    }
 </script>

@@ -79,7 +79,8 @@ namespace inventoryAppWebUi.Controllers
                 DrugCategory = _drugService.AllCategories()
 
             };
-            return View(drugCategory);
+            //return View(drugCategory);
+            return PartialView("_DrugPartial", new DrugViewModel());
         }
 
         public ActionResult UpdateDrug(DrugViewModel drug)
