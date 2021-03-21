@@ -6,16 +6,17 @@ using inventoryAppDomain.Services;
 using Moq;
 using inventoryAppWebUi.Controllers;
 using System.Web.Mvc;
+using inventoryAppDomain.Entities;
 
 namespace InventoryAppWebUi.Test
 {
     /// <summary>
-    /// Summary description for HomeControllerTest
+    /// Summary description for NotificationsControllerTest
     /// </summary>
     [TestClass]
-    public class HomeControllerTest
+    public class NotificationsControllerTest
     {
-        public HomeControllerTest()
+        public NotificationsControllerTest()
         {
             //
             // TODO: Add constructor logic here
@@ -63,19 +64,51 @@ namespace InventoryAppWebUi.Test
         #endregion
 
         [TestMethod]
-        public void TestMethod1()
+        public void IndexTest()
         {
-            Mock<IDrugCartService> _drugCartService = new Mock<IDrugCartService>();
-            Mock<IDrugService> _drugService = new Mock<IDrugService>();
-            Mock<ISupplierService> _suppService = new Mock<ISupplierService>();
-            Mock<IOrderService> _orderService = new Mock<IOrderService>();
+            Mock<INotificationService> _mockNotifications = new Mock<INotificationService>();
+         
 
-            var _acontroller = new HomeController(_suppService.Object, _drugService.Object, _drugCartService.Object, _orderService.Object);
+            var controller = new NotificationsController(_mockNotifications.Object);
 
-            var result = _acontroller.Index() as ViewResult;
+            var result = controller.Index() as ViewResult;
 
-            Assert.AreNotEqual("Index", result.ViewName);
+            Assert.IsNotNull(result);
+        }
 
+        [TestMethod]
+        public void GetAllNotificationsTest()
+        {
+            Mock<INotificationService> _mockNotifications = new Mock<INotificationService>();
+
+
+            var controller = new NotificationsController(_mockNotifications.Object);
+
+            var result = controller.GetAllNotifications() as ViewResult;
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void GetByIdTest()
+        {
+            int NotId = 99;
+
+            var Notif = new Notification {
+            Id = NotId,
+            Title = "FakeNot",
+            NotificationDetails = "FakeNotDetails",
+            CreatedAt = DateTime.Now
+            };
+
+            Mock<INotificationService> _mockNotifications = new Mock<INotificationService>();
+
+
+            var controller = new NotificationsController(_mockNotifications.Object);
+
+            var result = controller.GetNotificationById(NotId) as ViewResult;
+
+            Assert.AreNotSame(result, Notif);
         }
     }
 }

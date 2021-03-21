@@ -10,12 +10,12 @@ using System.Web.Mvc;
 namespace InventoryAppWebUi.Test
 {
     /// <summary>
-    /// Summary description for HomeControllerTest
+    /// Summary description for UnitTest2
     /// </summary>
     [TestClass]
-    public class HomeControllerTest
+    public class OrderControllerTest
     {
-        public HomeControllerTest()
+        public OrderControllerTest()
         {
             //
             // TODO: Add constructor logic here
@@ -63,19 +63,16 @@ namespace InventoryAppWebUi.Test
         #endregion
 
         [TestMethod]
-        public void TestMethod1()
+        public void CheckoutCompleteTest()
         {
-            Mock<IDrugCartService> _drugCartService = new Mock<IDrugCartService>();
-            Mock<IDrugService> _drugService = new Mock<IDrugService>();
-            Mock<ISupplierService> _suppService = new Mock<ISupplierService>();
-            Mock<IOrderService> _orderService = new Mock<IOrderService>();
+            Mock<IDrugCartService> _mockDrugCart = new Mock<IDrugCartService>();
+            Mock<IOrderService> _mockOrder = new Mock<IOrderService>();
 
-            var _acontroller = new HomeController(_suppService.Object, _drugService.Object, _drugCartService.Object, _orderService.Object);
+            var controller = new OrderController(_mockOrder.Object, _mockDrugCart.Object);
 
-            var result = _acontroller.Index() as ViewResult;
+            var result = controller.CheckoutComplete() as ViewResult;
 
-            Assert.AreNotEqual("Index", result.ViewName);
-
+            Assert.IsNotNull(result);
         }
     }
 }

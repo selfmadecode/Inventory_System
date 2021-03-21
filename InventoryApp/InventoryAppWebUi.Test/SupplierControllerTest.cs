@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+//using Microsoft.VisualStudio.TestTools.UnitTesting;
 using inventoryAppDomain.Services;
 using Moq;
 using inventoryAppWebUi.Controllers;
 using System.Web.Mvc;
+using NUnit.Framework;
 
 namespace InventoryAppWebUi.Test
 {
     /// <summary>
-    /// Summary description for HomeControllerTest
+    /// Summary description for SupplierControllerTest
     /// </summary>
-    [TestClass]
-    public class HomeControllerTest
+    //[TestClass]
+    public class SupplierControllerTest
     {
-        public HomeControllerTest()
+        public SupplierControllerTest()
         {
             //
             // TODO: Add constructor logic here
@@ -62,20 +63,17 @@ namespace InventoryAppWebUi.Test
         //
         #endregion
 
-        [TestMethod]
+        [Test]
         public void TestMethod1()
         {
-            Mock<IDrugCartService> _drugCartService = new Mock<IDrugCartService>();
-            Mock<IDrugService> _drugService = new Mock<IDrugService>();
-            Mock<ISupplierService> _suppService = new Mock<ISupplierService>();
-            Mock<IOrderService> _orderService = new Mock<IOrderService>();
+            Mock<ISupplierService> _mockSupplier = new Mock<ISupplierService>();
 
-            var _acontroller = new HomeController(_suppService.Object, _drugService.Object, _drugCartService.Object, _orderService.Object);
 
-            var result = _acontroller.Index() as ViewResult;
+            var controller = new SupplierController(_mockSupplier.Object);
 
-            Assert.AreNotEqual("Index", result.ViewName);
+            var result = controller.AllSuppliers() as ViewResult;
 
+            Assert.IsNotNull(result);
         }
     }
 }

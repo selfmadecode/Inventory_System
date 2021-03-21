@@ -90,8 +90,14 @@
   <ItemGroup>
     <Compile Include="AccountController.Test.cs" />
     <Compile Include="DrugCartControllerTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HomeControllerTest.cs" />
+    <Compile Include="NotificationsControllerTest.cs" />
+    <Compile Include="PaymentControllerTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DrugControllerTest.cs" />
+    <Compile Include="OrderControllerTest.cs" />
+    <Compile Include="RoleControllerTest.cs" />
+    <Compile Include="SupplierControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
