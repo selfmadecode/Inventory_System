@@ -70,13 +70,53 @@
         </div>
     </div>
 </div>
-@Html.Partial("_SupplierModalPartial")
+@Html.Partial("_DrugCategoryModalPartial")
 @Html.Partial("_FooterPartial")
-<script>
+@*<script>
     $(document).ready(function () {
         $('#tablee').DataTable();
+
     });
 
-       // Html.ActionLink("Remove", "RemoveDrugCategory", "Drug", new{Id = category.Id}, new { class = "btn btn-outline-danger" })
+    async function AddCategory() {
+        var url = "/Drug/AddDrugForm/";
+        var data = await fetch(url);
+        data = await data.text();
 
-</script>
+        var modalPartial = document.getElementById("contentpage");
+        modalPartial.innerHTML = data;
+
+        $.validator.unobtrusive.parse("#form");
+        $("#edit-note").modal('show');
+    }
+
+    async function EditDrug(id) {
+        var url = "/Drug/UpdateDrug/" + id;
+        var data = await fetch(url);
+        data = await data.text();
+
+        var modalPartial = document.getElementById("contentpage");
+        modalPartial.innerHTML = data;
+
+        $.validator.unobtrusive.parse("#form");
+        $("#edit-note").modal('show');
+
+    }
+
+    function OnSuccess(data) {
+
+        if (data.response == "success") {
+            window.location.reload();
+            $("#addDrugModal").modal('hide');
+            $("#edit-note").modal('hide');
+
+        } else if (data.response == null) {
+
+            var modalPartial = document.getElementById("contentpage");
+            modalPartial.innerHTML = data;
+
+            $.validator.unobtrusive.parse("#form");
+            $("#edit-note").modal('show');
+        }
+    }
+</script>*@
