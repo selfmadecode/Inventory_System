@@ -8,6 +8,7 @@ using System.Web.Routing;
 using AutoMapper;
 using Hangfire;
 using inventoryAppDomain.Entities.Enums;
+using inventoryAppDomain.Infrastructure;
 using inventoryAppDomain.Jobs;
 using inventoryAppWebUi.Infrastructures;
 
@@ -33,7 +34,11 @@ namespace inventoryAppWebUi
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            Mapper.Initialize(configuration => configuration.AddProfile<MappingProfile>());
+            Mapper.Initialize(configuration =>
+            {
+                configuration.AddProfile<MappingProfile>(); 
+                configuration.AddProfile<DomainMappingProfile>();
+            });
             HangfireAspNet.Use(GetHangfireServers);
 
             NotificationReminderJob notificationReminder = new NotificationReminderJob();
