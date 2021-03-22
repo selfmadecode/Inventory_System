@@ -80,19 +80,19 @@ namespace inventoryAppWebUi.Controllers
 
             };
             //return View(drugCategory);
-            return PartialView("_DrugPartial", new DrugViewModel());
+            return PartialView("_DrugPartial", drugCategory);
         }
 
-        public ActionResult UpdateDrug(DrugViewModel drug)
+        public ActionResult UpdateDrug(int id)
         {
 
-            var drugInDb = Mapper.Map<DrugViewModel>(_drugService.EditDrug(drug.Id));
+            var drugInDb = Mapper.Map<DrugViewModel>(_drugService.EditDrug(id));
 
             if (drugInDb == null) return HttpNotFound("No drug found");
 
             drugInDb.DrugCategory = _drugService.AllCategories();
 
-            return View("AddDrugForm", drugInDb);
+            return PartialView("_DrugPartial", drugInDb);
         }
 
         public ActionResult SaveDrug(DrugViewModel drug)
@@ -181,7 +181,9 @@ namespace inventoryAppWebUi.Controllers
 
                 throw new HttpException("Something went wrong");
             }
-            return RedirectToAction("AddDrugForm");
+            // return RedirectToAction("AddDrugForm");
+            return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
+
         }
 
         //Get

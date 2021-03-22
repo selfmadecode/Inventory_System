@@ -7,7 +7,7 @@
 </head>
 
 <div id="quill-toolbar1">
-    @using (Ajax.BeginForm("AddDrugForm", "Drug", null, new AjaxOptions
+    @using (Ajax.BeginForm("SaveDrug", "Drug", null, new AjaxOptions
     {
         OnSuccess = "OnSuccess",
         OnFailure = "OnFailure"
@@ -56,7 +56,7 @@
             <div class="col-sm-12">
                 @Html.Label("DrugCategory", "Drug Category")
 
-                @*@Html.DropDownListFor(model => model.DrugCategoryId, new SelectList(Model.DrugCategory, "id", "CategoryName"), "Select Category", new { @class = "form-control textbox" })*@
+                @Html.DropDownListFor(model => model.DrugCategoryId, new SelectList(Model.DrugCategory, "id", "CategoryName"), "Select Category", new { @class = "form-control textbox" })
             </div>
         </div>
 
@@ -65,5 +65,7 @@
                 <input id="formBtn" type="submit" value="Add Drug" class="btn btn-primary col-sm-12" />
             </div>
         </div>
+        @Html.HiddenFor(model => model.Id)
+
     }
 </div>
