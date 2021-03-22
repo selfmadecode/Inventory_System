@@ -44,10 +44,11 @@ namespace inventoryAppWebUi.Controllers
 
             if (ModelState.IsValid)
             {
-                _orderService.CreateOrder(Mapper.Map<OrderViewModel, Order>(viewModel), userId);
+                var order = _orderService.CreateOrder(Mapper.Map<OrderViewModel, Order>(viewModel), userId);
                 _drugCartService.RefreshCart(userId);
-                TempData["dispensed"] = "dispensed";
-                return RedirectToAction("AvailableDrugs", "Drug");
+                return RedirectToAction("ProcessPayment", "Payment", new {orderId = order.OrderId});
+                // TempData["dispensed"] = "dispensed";
+                // return RedirectToAction("AvailableDrugs", "Drug");
             }
             return View("Invoice", viewModel);
 

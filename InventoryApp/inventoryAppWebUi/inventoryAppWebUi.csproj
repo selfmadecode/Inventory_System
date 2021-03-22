@@ -272,6 +272,7 @@
     <Compile Include="Controllers\DrugCartController.cs" />
     <Compile Include="Controllers\DrugController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -349,6 +350,14 @@
     <Compile Include="Migrations\202103121137321_NotificationsEntityUpdate.Designer.cs">
       <DependentUpon>202103121137321_NotificationsEntityUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103171220474_Transactions.cs" />
+    <Compile Include="Migrations\202103171220474_Transactions.Designer.cs">
+      <DependentUpon>202103171220474_Transactions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103181443000_TransactionUpdated.cs" />
+    <Compile Include="Migrations\202103181443000_TransactionUpdated.Designer.cs">
+      <DependentUpon>202103181443000_TransactionUpdated.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\202103151516471_test.cs" />
     <Compile Include="Migrations\202103151516471_test.Designer.cs">
       <DependentUpon>202103151516471_test.cs</DependentUpon>
@@ -364,6 +373,7 @@
     <Compile Include="Models\NotificationsPageViewModel.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\ReportViewModel.cs" />
+    <Compile Include="Models\TransactionViewModel.cs" />
     <Compile Include="Models\SupplierAndDrugsViewModel.cs" />
     <Compile Include="Models\UpdateUserRoleViewModel.cs" />
     <Compile Include="Models\SupplierViewModel.cs" />
@@ -502,6 +512,7 @@
     <Content Include="Views\Account\ChangeRole.cshtml" />
     <Content Include="Views\Account\ManageUsers.cshtml" />
     <Content Include="Views\Notifications\Index.cshtml" />
+    <Content Include="Views\Payment\Index.cshtml" />
     <Content Include="Views\Pharmacist\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -635,6 +646,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103121137321_NotificationsEntityUpdate.resx">
       <DependentUpon>202103121137321_NotificationsEntityUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103171220474_Transactions.resx">
+      <DependentUpon>202103171220474_Transactions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103181443000_TransactionUpdated.resx">
+      <DependentUpon>202103181443000_TransactionUpdated.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103151516471_test.resx">
       <DependentUpon>202103151516471_test.cs</DependentUpon>

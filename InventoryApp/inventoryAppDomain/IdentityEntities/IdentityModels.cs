@@ -37,6 +37,8 @@ namespace inventoryAppDomain.IdentityEntities
         
         public DbSet<Report> Reports { get; set; }
 
+        public DbSet<Transaction> Transactions { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

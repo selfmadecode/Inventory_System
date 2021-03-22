@@ -23,7 +23,7 @@ namespace inventoryAppDomain.Repository
             _ctx = HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>();
         }
 
-        public void CreateOrder(Order order, string userId)
+        public Order CreateOrder(Order order, string userId)
         {
             var cart = _drugCartService.GetCart(userId,CartStatus.ACTIVE);
             order.OrderItems = cart.DrugCartItems;
@@ -39,6 +39,12 @@ namespace inventoryAppDomain.Repository
             cart.CartStatus = CartStatus.MOST_RECENT;
             _ctx.Entry(cart).State = EntityState.Modified;
             _ctx.SaveChanges();
+            return order;
+        }
+
+        public Order GetOrderById(int orderId)
+        {
+            return _ctx.Orders.FirstOrDefault(order => order.OrderId == orderId);
         }
 
         public int GetTotalSales()
