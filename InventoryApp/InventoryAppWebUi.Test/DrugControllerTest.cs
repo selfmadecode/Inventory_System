@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using inventoryAppDomain.Services;
 using Moq;
 using inventoryAppWebUi.Controllers;
 using System.Web.Mvc;
 using inventoryAppDomain.Entities;
 using inventoryAppWebUi.Models;
+using NUnit.Framework;
 
 namespace InventoryAppWebUi.Test
 {
     /// <summary>
     /// Summary description for UnitTest3
     /// </summary>
-    [TestClass]
+    //[TestClass]
     public class DrugControllerTest
     {
         public DrugControllerTest()
@@ -64,7 +65,7 @@ namespace InventoryAppWebUi.Test
         //
         #endregion
 
-        [TestMethod]
+        [Test]
         public void AvailableDrugsTest()
         {
           
@@ -77,7 +78,7 @@ namespace InventoryAppWebUi.Test
             Assert.IsNotNull(result);
         }
 
-        [TestMethod]
+        [Test]
         public void DrugCategoriesTest()
         {
            
@@ -90,7 +91,7 @@ namespace InventoryAppWebUi.Test
             Assert.IsNotNull(result);
         }
 
-        [TestMethod]
+        [Test]
         public void AllDrugsTest()
         {
            
@@ -103,7 +104,7 @@ namespace InventoryAppWebUi.Test
             Assert.AreNotEqual("AllDrugs", result.ViewName);
         }
 
-        [TestMethod]
+        [Test]
         public void EditDrugTest()
         {
             int DrugId = 98;
@@ -124,7 +125,7 @@ namespace InventoryAppWebUi.Test
 
             var result = _controller.UpdateDrug(newDrug);
 
-            Assert.AreSame(newDrug, result);
+            Assert.AreEqual(newDrug, result);
         }
 
     }

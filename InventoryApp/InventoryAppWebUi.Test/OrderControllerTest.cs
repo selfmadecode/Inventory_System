@@ -6,6 +6,7 @@ using inventoryAppDomain.Services;
 using Moq;
 using inventoryAppWebUi.Controllers;
 using System.Web.Mvc;
+using inventoryAppWebUi.Models;
 
 namespace InventoryAppWebUi.Test
 {
@@ -73,6 +74,26 @@ namespace InventoryAppWebUi.Test
             var result = controller.CheckoutComplete() as ViewResult;
 
             Assert.IsNotNull(result);
+        }
+        [TestMethod]
+        public void CheckoutTest()
+        {
+            var orderVM = new OrderViewModel
+            {
+                Email = "abc@abc.com",
+                FirstName = "dab",
+                LastName = "bad",
+                PhoneNumber = "0908123"
+            };
+
+            Mock<IDrugCartService> _mockDrugCart = new Mock<IDrugCartService>();
+            Mock<IOrderService> _mockOrder = new Mock<IOrderService>();
+
+            var controller = new OrderController(_mockOrder.Object, _mockDrugCart.Object);
+
+            var result = controller.Checkout(orderVM) as ViewResult;
+
+            Assert.AreNotEqual("Invoice", result.ViewName);
         }
     }
 }

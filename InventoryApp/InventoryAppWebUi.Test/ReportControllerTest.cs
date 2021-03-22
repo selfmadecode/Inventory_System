@@ -1,25 +1,23 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
-//using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using NUnit.Framework;
 using inventoryAppDomain.Services;
 using Moq;
 using inventoryAppWebUi.Controllers;
 using System.Web.Mvc;
-using NUnit.Framework;
-using NUnit.Compatibility;
-using inventoryAppDomain.Entities;
-using inventoryAppWebUi.Models;
+using inventoryAppDomain.Entities.Enums;
 
 namespace InventoryAppWebUi.Test
 {
     /// <summary>
-    /// Summary description for SupplierControllerTest
+    /// Summary description for ReportControllerTest
     /// </summary>
     //[TestClass]
-    public class SupplierControllerTest
+    public class ReportControllerTest
     {
-        public SupplierControllerTest()
+        public ReportControllerTest()
         {
             //
             // TODO: Add constructor logic here
@@ -28,7 +26,10 @@ namespace InventoryAppWebUi.Test
 
         private TestContext testContextInstance;
 
-      
+        /// <summary>
+        ///Gets or sets the test context which provides
+        ///information about and functionality for the current test run.
+        ///</summary>
         public TestContext TestContext
         {
             get
@@ -64,42 +65,19 @@ namespace InventoryAppWebUi.Test
         #endregion
 
         [Test]
-        public void AllSuppliersTest()
+        public void IndexTest()
         {
-            Mock<ISupplierService> _mockSupplier = new Mock<ISupplierService>();
+            //Arrange
+            var newTimeFrame = new TimeFrame();
 
+            Mock<IReportService> _mockReport = new Mock<IReportService>();
 
-            var controller = new SupplierController(_mockSupplier.Object);
+            var controller = new ReportController(_mockReport.Object);
+            //Act
+            var result = controller.Index(newTimeFrame) as ViewResult;
 
-            var result = controller.AllSuppliers() as ViewResult;
-
+            //Assert
             Assert.IsNotNull(result);
         }
-
-        [Test]
-        public void SaveTest()
-        {
-            var suppId = 998;
-            var newSupp = new Supplier
-            {
-                Id = suppId,
-                Email = "Abc@abc.com",
-                SupplierName = "Obi",
-                //GrossAmountOfDrugsSupplied = 213,
-                TagNumber = "abcdef",
-                Website = "Https://www.abc.com"
-                
-            };
-
-            Mock<ISupplierService> _mockSupplier = new Mock<ISupplierService>();
-            _mockSupplier.Setup(v => v.AddSupplier(newSupp));
-            var controller = new SupplierController(_mockSupplier.Object);
-
-            //controller.Save(newSupp);
-            var target = controller.SupplierAndDrugDetails(suppId);
-
-            Assert.AreNotEqual(newSupp, target);
-        }
-
     }
 }

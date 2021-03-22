@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+//using Microsoft.VisualStudio.TestTools.UnitTesting;
 using inventoryAppDomain.Services;
 using Moq;
 using inventoryAppWebUi.Controllers;
 using System.Web.Mvc;
+using NUnit.Framework;
 
 namespace InventoryAppWebUi.Test
 {
     /// <summary>
     /// Summary description for HomeControllerTest
     /// </summary>
-    [TestClass]
+    //[TestClass]
     public class HomeControllerTest
     {
         public HomeControllerTest()
@@ -62,8 +63,8 @@ namespace InventoryAppWebUi.Test
         //
         #endregion
 
-        [TestMethod]
-        public void TestMethod1()
+        [Test]
+        public void IndexTest()
         {
             Mock<IDrugCartService> _drugCartService = new Mock<IDrugCartService>();
             Mock<IDrugService> _drugService = new Mock<IDrugService>();
@@ -74,8 +75,24 @@ namespace InventoryAppWebUi.Test
 
             var result = _acontroller.Index() as ViewResult;
 
-            Assert.AreNotEqual("Index", result.ViewName);
-
+            Assert.IsNotNull(result.ViewName);
         }
+
+        [Test]
+        public void AboutTest()
+        {
+            Mock<IDrugCartService> _drugCartService = new Mock<IDrugCartService>();
+            Mock<IDrugService> _drugService = new Mock<IDrugService>();
+            Mock<ISupplierService> _suppService = new Mock<ISupplierService>();
+            Mock<IOrderService> _orderService = new Mock<IOrderService>();
+
+            var _acontroller = new HomeController(_suppService.Object, _drugService.Object, _drugCartService.Object, _orderService.Object);
+
+            var result = _acontroller.About() as ViewResult;
+
+            Assert.AreEqual(result.ViewName, "");
+        }
+
+
     }
 }

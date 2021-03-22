@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+//using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using inventoryAppDomain.Services;
 using Moq;
 using inventoryAppWebUi.Controllers;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity.EntityFramework;
+using inventoryAppDomain.Repository;
 
 namespace InventoryAppWebUi.Test
 {
     /// <summary>
     /// Summary description for RoleControllerTest
     /// </summary>
-    [TestClass]
+    //[TestClass]
     public class RoleControllerTest
     {
         public RoleControllerTest()
@@ -62,8 +65,8 @@ namespace InventoryAppWebUi.Test
         //
         #endregion
 
-        [TestMethod]
-        public void TestMethod1()
+        [Test]
+        public void IndexTest()
         {
             Mock<IRoleService> _mockRoles = new Mock<IRoleService>();
 
@@ -71,6 +74,27 @@ namespace InventoryAppWebUi.Test
             var controller = new RoleController(_mockRoles.Object);
 
             var result = controller.Index() as ViewResult;
+
+            Assert.That(result.ViewName, Is.EqualTo(""));
+        }
+
+        [Test]
+        public void CreateTest()
+        {
+            var roleName = "Admin";
+            //var newRole = new IdentityRole
+            //{
+            //    Id = "abcdef",
+            //    Name = roleName,
+                
+            //};
+
+            Mock<IRoleService> _mockRoles = new Mock<IRoleService>();
+            var controller = new RoleController(_mockRoles.Object);
+
+            controller.Create(roleName);
+         
+            var result = controller.Index();
 
             Assert.IsNotNull(result);
         }

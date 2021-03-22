@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+//using Microsoft.VisualStudio.TestTools.UnitTesting;
 using inventoryAppDomain.Services;
 using Moq;
 using inventoryAppWebUi.Controllers;
 using System.Web.Mvc;
+using NUnit.Framework;
+using inventoryAppDomain.Entities;
 
 namespace InventoryAppWebUi.Test
 {
     /// <summary>
     /// Summary description for DrugCartControllerTest
     /// </summary>
-    [TestClass]
+    //[TestClass]
     public class DrugCartControllerTest
     {
         public DrugCartControllerTest()
@@ -62,17 +64,37 @@ namespace InventoryAppWebUi.Test
         //
         #endregion
 
-        [TestMethod]
+        [Test]
         public void IndexTest()
         {
+            var userId = Guid.NewGuid();
 
             Mock<IDrugCartService> _mockDrug = new Mock<IDrugCartService>();
-            //_mockDrug.Setup(z => z.RefreshCart(userId.ToString()));
+            _mockDrug.Setup(z => z.ClearCart(userId.ToString()));
             var controller = new DrugCartController(_mockDrug.Object);
 
             var result = controller.Index() as ViewResult;
 
             Assert.AreNotEqual("Index", result.ViewName);
+        }
+
+        [Test]
+        public void AddToShoppingCartTest()
+        {
+            var drugCartId = 909;
+            //var newDrugCart = new DrugCart
+            //{
+            //    Id = drugCartId,
+              
+            //    ApplicationUserId = "4be7ca48-dc53-4d18-84fa-44c73507e4a5"
+
+            //};
+            Mock<IDrugCartService> _mockDrug = new Mock<IDrugCartService>();
+            //_mockDrug.Setup(z => z.RefreshCart(userId.ToString()));
+            var controller = new DrugCartController(_mockDrug.Object);
+            var result = controller.AddToShoppingCart(drugCartId) as ViewResult;
+
+            Assert.AreNotEqual("FilteredDrugsList", result.ViewName);
         }
     }
 }

@@ -2,13 +2,13 @@
 using inventoryAppDomain.Services;
 using inventoryAppWebUi.Controllers;
 using Moq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+//using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Web.Mvc;
-//using NUnit.Framework;
+using NUnit.Framework;
 
 namespace InventoryAppWebUi.Test
 {
-    [TestClass]
+    //[TestClass]
     public class UnitTest1 : IDisposable
     {
 
@@ -24,7 +24,7 @@ namespace InventoryAppWebUi.Test
             _notificationService = new Mock<INotificationService>();
             _controller = new AccountController(_roleService.Object, _profileService.Object, _notificationService.Object);
         }
-        [TestMethod]
+        [Test]
         public void TestMethod1()
         {
             int x = 4, y = 5;
@@ -33,14 +33,14 @@ namespace InventoryAppWebUi.Test
             Assert.AreEqual(target, z);
 
         }
-        [TestMethod]
+        [Test]
         public void ManageUserTest()
         {
             var target = _controller.ManageUsers() as ViewResult;
 
             Assert.AreNotEqual("ManageUsers", target.Model);
         }
-        [TestMethod]
+        [Test]
         public void SignupTest()
         {
          
@@ -48,16 +48,16 @@ namespace InventoryAppWebUi.Test
 
             Assert.IsNotNull(target.ViewName);
         }
-        [TestMethod]
+        [Test]
         public void Login()
         {
             var returnUrl = Guid.NewGuid().ToString();
 
             var result = _controller.Login(returnUrl) as ViewResult;
 
-            Assert.AreNotEqual("Login", result.Model);
+            Assert.AreEqual("Login", result.Model);
         }
-        [TestMethod]
+        [Test]
         public void ChangeRole()
         {
             var roleId = Guid.NewGuid().ToString();
