@@ -6,7 +6,10 @@
     <script type="text/javascript" src="~/Content/datatable/datatables.min.js"></script>
 </head>
 
-
+@if ((string)TempData["added"] == "added")
+{
+    @Html.Partial("_SwaSuccessPartial")
+}
 <div class="content-page">
     <div class="container-fluid">
         <div class="row">
@@ -19,6 +22,7 @@
                             the customer experience, ensuring customer retention.
                         </p>
                     </div>
+
                     <a id="addDrugModal" onclick="AddDrug()" data-target="#edit-note" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Add Drug</a>
 
                     @*<a data-toggle="modal" data-target="#edit-note" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Add Drug</a>*@
@@ -82,36 +86,10 @@
 @Html.Partial("_FooterPartial")
 
 
-
-
-@*<script>
-    $(document).ready(function () {
-        $('#tablee').DataTable();
-    });
-
-
-    // Html.ActionLink("Details", "", "", new { Id = drug.Id }, new { class = "btn btn-outline-primary" })
-
-    // Html.ActionLink("Remove", "RemoveDrug", "Drug", new { Id = drug.Id }, new { class = "btn btn-outline-danger" })
-    //Html.ActionLink("Edit", "UpdateDrug", "Drug", new { Id = drug.Id }, new { class = "btn btn-outline-success" })
-</script>*@
-
 <script>
     $(document).ready(function() {
         $('#tablee').DataTable();
 
-        let action = new URLSearchParams(window.location.search);
-        action = action.get('btn');
-
-        // click the add drug button
-        switch (action) {
-            case 'addDrug':
-                $("#addDrugModal").click();
-                break;
-            default:
-                //alert("Not recognized.");
-                break;
-        }
     });
 
     async function AddDrug() {
@@ -119,12 +97,8 @@
         var data = await fetch(url);
         data = await data.text();
 
-
         var modalPartial = document.getElementById("contentpage");
-        console.log(modalPartial);
-
         modalPartial.innerHTML = data;
-        console.log(modalPartial);
 
         $.validator.unobtrusive.parse("#form");
         $("#edit-note").modal('show');
@@ -133,17 +107,10 @@
     async function EditDrug(id) {
         var url = "/Drug/UpdateDrug/" + id;
         var data = await fetch(url);
-        console.log(data);
-
         data = await data.text();
-        console.log(data);
-
-        console.log(data);
 
         var modalPartial = document.getElementById("contentpage");
         modalPartial.innerHTML = data;
-
-        
 
         $.validator.unobtrusive.parse("#form");
         $("#edit-note").modal('show');
@@ -151,6 +118,7 @@
     }
 
     function OnSuccess(data) {
+
         if (data.response == "success") {
             window.location.reload();
             $("#addDrugModal").modal('hide');
