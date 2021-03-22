@@ -9,12 +9,12 @@ namespace inventoryAppWebUi.Controllers
     public class DrugCartController : Controller
     {
         private readonly IDrugCartService _drugCartService;
-        private readonly IDrugService _drugService;
+
         
-        public DrugCartController(IDrugCartService drugCartService, IDrugService drugService)
+        public DrugCartController(IDrugCartService drugCartService)
         {
             _drugCartService = drugCartService;
-            _drugService = drugService;
+           
         }
 
         public ActionResult Index()
