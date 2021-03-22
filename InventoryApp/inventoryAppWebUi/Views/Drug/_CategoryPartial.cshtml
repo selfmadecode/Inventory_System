@@ -21,7 +21,7 @@
 
         <div class="form-group">
             <div class="col-sm-12">
-                @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control textbox", PlaceHolder = "Drug Name" } })
+                @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control textbox", PlaceHolder = "Category Name" } })
                 @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -31,5 +31,6 @@
                 <input type="submit" value="Add" class="btn btn-primary col-sm-12" style="height: 3rem" />
             </div>
         </div>
+        @Html.HiddenFor(model => model.Id)
     }
 </div>

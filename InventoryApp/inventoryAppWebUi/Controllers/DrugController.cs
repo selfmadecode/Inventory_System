@@ -178,7 +178,7 @@ namespace inventoryAppWebUi.Controllers
         [HttpGet]
         public ActionResult AddDrugCategory()
         {
-            return View();
+            return PartialView("_CategoryPartial");
         }
 
         //Post
@@ -189,10 +189,10 @@ namespace inventoryAppWebUi.Controllers
             {
                 _drugService.AddDrugCategory(category);
                 TempData["categoryAdded"] = "added";
-                return View("AddDrugCategory");
+                return PartialView("_CategoryPartial");
             }
             TempData["failedToAddCategory"] = "failed";
-            return View("AddDrugCategory", category);
+            return PartialView("_CategoryPartial", category);
         }
 
         public ActionResult RemoveDrug(int id)
