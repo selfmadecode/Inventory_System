@@ -82,10 +82,10 @@ namespace inventoryAppWebUi.Controllers
             return View(drugCategory);
         }
 
-        public ActionResult UpdateDrug(DrugViewModel drug)
+        public ActionResult UpdateDrug(int id)
         {
 
-            var drugInDb = Mapper.Map<DrugViewModel>(_drugService.EditDrug(drug.Id));
+            var drugInDb = Mapper.Map<DrugViewModel>(_drugService.EditDrug(id));
 
             if (drugInDb == null) return HttpNotFound("No drug found");
 
