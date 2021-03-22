@@ -576,6 +576,7 @@
     <Content Include="Views\Shared\_DrugModalPartial.cshtml" />
     <Content Include="Views\Drug\_DrugPartial.cshtml" />
     <Content Include="Views\Shared\_DrugCategoryModalPartial.cshtml" />
+    <Content Include="Views\Drug\_CategoryPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
