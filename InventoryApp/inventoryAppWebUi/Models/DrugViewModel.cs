@@ -18,6 +18,7 @@ namespace inventoryAppWebUi.Models
         [Required]
         public string DrugName { get; set; }
         [Required]
+        [Display(Name = "Quantity")]
         public int Quantity { get; set; }
         [Required]
         public decimal Price { get; set; }
@@ -31,5 +32,8 @@ namespace inventoryAppWebUi.Models
         public List<DrugCategory> DrugCategory { get; set; }
         [Required]
         public int DrugCategoryId { get; set; }
+        //[Required]
+        //public int DrugCategoryId { get; set; }
+        //public DrugCategory DrugCategory { get; set; }
     }
 }

@@ -396,6 +396,8 @@
     <Content Include="Content\assets\images\layouts\side-bkg.png" />
     <Content Include="Content\assets\images\loader.gif" />
     <Content Include="Content\assets\images\login\01.png" />
+    <Content Include="Content\assets\images\login\02.png" />
+    <Content Include="Content\assets\images\login\03.png" />
     <Content Include="Content\assets\images\login\mail.png" />
     <Content Include="Content\assets\images\logo.png" />
     <Content Include="Content\assets\images\page-img\07.jpg" />
@@ -571,6 +573,8 @@
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
     <Content Include="Views\Shared\_SupplierModalPartial.cshtml" />
     <Content Include="Views\Supplier\_SupplierPartial.cshtml" />
+    <Content Include="Views\Shared\_DrugModalPartial.cshtml" />
+    <Content Include="Views\Drug\_DrugPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

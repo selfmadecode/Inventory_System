@@ -36,18 +36,6 @@ namespace inventoryAppWebUi.Controllers
           
             return View(drugs);
         }
-        //public ActionResult FilteredDrugsList(string searchQuery)
-        //{
-        //    var drugs = _drugService.GetAvailableDrugs();
-
-        //    var drugsearchVM = new DrugSearchViewModel
-        //    {
-        //        Drugs = drugs,
-        //        SearchString = searchQuery
-        //    };
-
-        //    return View(drugsearchVM);
-        //}
         public ActionResult FilteredDrugsList(string searchString)
         {
             var drugs = _drugService.GetAvailableDrugs();
@@ -79,19 +67,20 @@ namespace inventoryAppWebUi.Controllers
                 DrugCategory = _drugService.AllCategories()
 
             };
-            return View(drugCategory);
+            
+            return PartialView("_DrugPartial", drugCategory);
         }
 
-        public ActionResult UpdateDrug(DrugViewModel drug)
+        public ActionResult UpdateDrug(int id)
         {
 
-            var drugInDb = Mapper.Map<DrugViewModel>(_drugService.EditDrug(drug.Id));
+            var drugInDb = Mapper.Map<DrugViewModel>(_drugService.EditDrug(id));
 
             if (drugInDb == null) return HttpNotFound("No drug found");
 
             drugInDb.DrugCategory = _drugService.AllCategories();
 
-            return View("AddDrugForm", drugInDb);
+            return PartialView("_DrugPartial", drugInDb);
         }
 
         public ActionResult SaveDrug(DrugViewModel drug)
@@ -114,7 +103,7 @@ namespace inventoryAppWebUi.Controllers
                     ModelState.AddModelError("SupplierTag", "Supplier Tag isn't registered yet");
                     drug.DrugCategory = _drugService.AllCategories();
                     TempData["failed"] = "failed";
-                    return View("AddDrugForm", drug);
+                    return PartialView("_DrugPartial", drug);
                 }
                 else
                 {
@@ -129,16 +118,16 @@ namespace inventoryAppWebUi.Controllers
                             ModelState.AddModelError("ExpiryDate", "Must be later than today");
                             drug.DrugCategory = _drugService.AllCategories();
                             TempData["failed"] = "failed";
-                            return View("AddDrugForm", drug);
+                            return PartialView("_DrugPartial", drug);
                         }
 
                         //SUPPLIER IS INACTIVE
-                        if(supplierInDb.Status == SupplierStatus.InActive)
+                        if (supplierInDb.Status == SupplierStatus.InActive)
                         {
                             ModelState.AddModelError("SupplierTag", "Supplier has been deactivated");
                             drug.DrugCategory = _drugService.AllCategories();
                             TempData["failed"] = "failed";
-                            return View("AddDrugForm", drug);
+                            return PartialView("_DrugPartial", drug);
                         }
 
                         // DRUG IS NOT GREATER THAN 0
@@ -147,7 +136,7 @@ namespace inventoryAppWebUi.Controllers
                             ModelState.AddModelError("Quantity", "Quantity should be greater than zero");
                             drug.DrugCategory = _drugService.AllCategories();
                             TempData["failed"] = "failed";
-                            return View("AddDrugForm", drug);
+                            return PartialView("_DrugPartial", drug);
                         }
 
                         // DRUG PRICE IS LESS THAN 0
@@ -156,7 +145,7 @@ namespace inventoryAppWebUi.Controllers
                             ModelState.AddModelError("Price", "Price should be greater than zero");
                             drug.DrugCategory = _drugService.AllCategories();
                             TempData["failed"] = "failed";
-                            return View("AddDrugForm", drug);
+                            return PartialView("_DrugPartial", drug);
                         }
 
 
@@ -180,7 +169,9 @@ namespace inventoryAppWebUi.Controllers
 
                 throw new HttpException("Something went wrong");
             }
-            return RedirectToAction("AddDrugForm");
+            //return RedirectToAction("AddDrugForm");
+            return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
+
         }
 
         //Get
