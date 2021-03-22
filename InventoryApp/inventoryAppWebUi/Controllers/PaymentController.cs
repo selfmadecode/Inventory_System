@@ -24,23 +24,38 @@ namespace inventoryAppWebUi.Controllers
 
         public async Task<ActionResult> ProcessPayment(int orderId)
         {
-            var result = await _paymentService.InitiatePayment(orderId);
-            return Redirect(result.checkoutUrl);
+            try
+            {
+                var result = await _paymentService.InitiatePayment(orderId);
+                return Redirect(result.checkoutUrl);
+            }
+            catch (Exception e)
+            {
+                ViewBag.Error = e.Message;
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public async Task<ActionResult> VerifyPayment(string paymentReference)
         {
-            var response = await _paymentService.VerifyPayment(paymentReference);
-            Console.WriteLine(response);
-            if (response)
+            try
             {
-                ViewBag.PaymentResponse = true;
+                var response = await _paymentService.VerifyPayment(paymentReference);
+                if (response)
+                {
+                    ViewBag.PaymentResponse = true;
+                }
+                else
+                {
+                    ViewBag.PaymentResponse = false;
+                }
+                return RedirectToAction("Index", "Home");
             }
-            else
+            catch (Exception e)
             {
-                ViewBag.PaymentResponse = false;
+                ViewBag.Error = e.Message;
+                return RedirectToAction("Index", "Home");
             }
-            return RedirectToAction("Index", "Home");
         }
     }
 }
