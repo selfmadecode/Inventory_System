@@ -365,6 +365,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DrugCartViewModel.cs" />
+    <Compile Include="Models\DrugCategoryViewModel.cs" />
     <Compile Include="Models\DrugSearchViewModel.cs" />
     <Compile Include="Models\DrugViewModel.cs" />
     <Compile Include="Models\EditProfileViewModel.cs" />

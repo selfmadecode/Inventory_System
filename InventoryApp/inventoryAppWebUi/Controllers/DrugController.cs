@@ -10,6 +10,7 @@ using inventoryAppDomain.Entities;
 using inventoryAppDomain.IdentityEntities;
 using inventoryAppWebUi.Models;
 using inventoryAppDomain.Entities.Enums;
+using Microsoft.Ajax.Utilities;
 
 namespace inventoryAppWebUi.Controllers
 {
@@ -183,13 +184,28 @@ namespace inventoryAppWebUi.Controllers
 
         //Post
         [HttpPost]
-        public ActionResult SaveDrugCategory(DrugCategory category)
+        public ActionResult SaveDrugCategory(DrugCategoryViewModel category)
         {
             if (ModelState.IsValid)
             {
-                _drugService.AddDrugCategory(category);
-                TempData["categoryAdded"] = "added";
-                return PartialView("_CategoryPartial");
+                
+                if (string.IsNullOrWhiteSpace(category.CategoryName))
+                {
+                    ModelState.AddModelError("Category Name", "Please input category");
+                    //return Json(new { response = "failure", cat = category }, JsonRequestBehavior.AllowGet);
+
+                    return PartialView("_CategoryPartial", category);
+
+                }
+                else
+                {
+                    var cate = Mapper.Map<DrugCategory>(category);
+                    _drugService.AddDrugCategory(cate);
+
+                    TempData["categoryAdded"] = "added";
+                    return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
+                }
+
             }
             TempData["failedToAddCategory"] = "failed";
             return PartialView("_CategoryPartial", category);
