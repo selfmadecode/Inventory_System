@@ -30,5 +30,7 @@ namespace inventoryAppDomain.Services
 
         void UpdateDrug(Drug drug);
 
+        void UpdateDrugCategory(DrugCategory category);
+
     }
 }

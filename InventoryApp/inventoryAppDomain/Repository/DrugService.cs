@@ -155,5 +155,13 @@ namespace inventoryAppDomain.Repository
             _dbContext.SaveChanges();
         }
 
+        public void UpdateDrugCategory(DrugCategory category)
+        {
+            var update = _dbContext.DrugCategories.Add(category);
+            _dbContext.Entry(update).State = EntityState.Modified;
+
+            _dbContext.SaveChanges();
+        }
+
     }
 }

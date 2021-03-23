@@ -228,5 +228,17 @@ namespace inventoryAppWebUi.Controllers
             _drugService.RemoveDrugCategory(id);
             return RedirectToAction("ListDrugCategories");
         }
+
+        public ActionResult UpdateDrugCategory(int id)
+        {
+
+            var drugInDb = Mapper.Map<DrugViewModel>(_drugService.EditDrug(id));
+
+            if (drugInDb == null) return HttpNotFound("No drug found");
+
+            drugInDb.DrugCategory = _drugService.AllCategories();
+
+            return PartialView("_DrugPartial", drugInDb);
+        }
     }
 }
