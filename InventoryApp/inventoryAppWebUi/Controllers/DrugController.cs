@@ -229,6 +229,7 @@ namespace inventoryAppWebUi.Controllers
             return RedirectToAction("ListDrugCategories");
         }
 
+        [HttpGet]
         public ActionResult UpdateDrugCategory(int id)
         {
             var categoryInDb = Mapper.Map<EditCategoryViewModel>(_drugService.EditDrugCategory(id));
@@ -236,6 +237,17 @@ namespace inventoryAppWebUi.Controllers
             if (categoryInDb == null) return HttpNotFound("No category found");
 
             return PartialView("_EditCategoryPartial", categoryInDb);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateDrugCategory(EditCategoryViewModel category)
+        {
+
+            _drugService.UpdateDrugCategory(Mapper.Map<DrugCategory>(category));
+            //_drugService.EditDrugCategory(category.Id);
+            // return View("ListDrugCategories");
+            return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
+
         }
     }
 }

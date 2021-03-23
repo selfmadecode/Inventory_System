@@ -44,7 +44,6 @@
 
                                     <th>Category Name</th>
                                     <th></th>
-                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -81,7 +80,7 @@
 @Html.Partial("_DrugCategoryModalPartial")
 @Html.Partial("_FooterPartial")
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#tablee').DataTable();
 
     });
@@ -113,26 +112,34 @@
 
     function OnSuccess(data) {
 
-        alert("Success");
+        alert("Successkk");
     }
 
     function OnSuccess(data) {
-       // window.location.reload();
-       // $("#addDrugCategoryModal").modal('hide');
+        // window.location.reload();
+        // $("#addDrugCategoryModal").modal('hide');
         // $("#edit-note").modal('hide');
 
         if (data.response == "success") {
-            $("#edit-note").modal('show');
+            $("#edit-note").modal('hide');
+            //$("#addSupplierModal").modal('hide');
             window.location.reload();
 
         }
 
-       var modalPartial = document.getElementById("contentpage");
+        var modalPartial = document.getElementById("contentpage");
         modalPartial.innerHTML = data;
-       $.validator.unobtrusive.parse("#form");
-       $("#edit-note").modal('show');
+        $.validator.unobtrusive.parse("#form");
+        $("#edit-note").modal('show');
 
-       
-       
+
+    }
+
+    function OnCategoryAdded(data) {
+        // $("#edit-note").modal('hide');
+       window.location.reload();
+        //alert(data.response);
+
+
     }
 </script>

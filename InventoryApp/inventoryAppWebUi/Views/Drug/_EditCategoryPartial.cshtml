@@ -11,9 +11,9 @@
 
 <div id="quill-toolbar1">
 
-    @using (Ajax.BeginForm("SaveDrugCategory", "Drug", null, new AjaxOptions
+    @using (Ajax.BeginForm("UpdateDrugCategory", "Drug", null, new AjaxOptions
     {
-        OnSuccess = "OnSuccess",
+        OnSuccess = "OnCategoryAdded",
         OnFailure = "OnFailure"
     }, new { @class = "form-horizontal", id = "form", role = "form" }))
     {
