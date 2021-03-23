@@ -368,6 +368,7 @@
     <Compile Include="Models\DrugCategoryViewModel.cs" />
     <Compile Include="Models\DrugSearchViewModel.cs" />
     <Compile Include="Models\DrugViewModel.cs" />
+    <Compile Include="Models\EditCategoryViewModel.cs" />
     <Compile Include="Models\EditProfileViewModel.cs" />
     <Compile Include="Models\IndexPageViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -578,6 +579,7 @@
     <Content Include="Views\Drug\_DrugPartial.cshtml" />
     <Content Include="Views\Shared\_DrugCategoryModalPartial.cshtml" />
     <Content Include="Views\Drug\_CategoryPartial.cshtml" />
+    <Content Include="Views\Drug\_EditCategoryPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

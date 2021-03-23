@@ -31,6 +31,9 @@ namespace inventoryAppWebUi.Infrastructures
 
             Mapper.CreateMap<DrugCategoryViewModel, DrugCategory>().ReverseMap();
 
+            Mapper.CreateMap<EditCategoryViewModel, DrugCategory>().ReverseMap();
+
+
             Mapper.CreateMap<OrderViewModel, Order>()
                  .ForMember(order => order.OrderItems, act => act.Ignore())
                  .ForMember(order => order.Price, act => act.Ignore());

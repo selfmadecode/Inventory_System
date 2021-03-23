@@ -231,14 +231,11 @@ namespace inventoryAppWebUi.Controllers
 
         public ActionResult UpdateDrugCategory(int id)
         {
+            var categoryInDb = Mapper.Map<EditCategoryViewModel>(_drugService.EditDrugCategory(id));
 
-            var drugInDb = Mapper.Map<DrugViewModel>(_drugService.EditDrug(id));
+            if (categoryInDb == null) return HttpNotFound("No category found");
 
-            if (drugInDb == null) return HttpNotFound("No drug found");
-
-            drugInDb.DrugCategory = _drugService.AllCategories();
-
-            return PartialView("_DrugPartial", drugInDb);
+            return PartialView("_EditCategoryPartial", categoryInDb);
         }
     }
 }

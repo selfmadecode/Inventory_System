@@ -155,6 +155,8 @@ namespace inventoryAppDomain.Repository
             _dbContext.SaveChanges();
         }
 
+        public DrugCategory EditDrugCategory(int id) => _dbContext.DrugCategories.SingleOrDefault(d => d.Id == id);
+
         public void UpdateDrugCategory(DrugCategory category)
         {
             var update = _dbContext.DrugCategories.Add(category);
