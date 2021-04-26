@@ -19,12 +19,25 @@ namespace inventoryAppWebUi
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+            bundles.Add(new ScriptBundle("~/bundles/js").Include(
+                "~/Content/assets/js/backend-bundle.min.js",
+                "~/Content/assets/js/table-treeview.js",
+                "~/Content/assets/js/customizer.js",
+                "~/Content/assets/js/chart-custom.js",
+                "~/Scripts/jquery-3.4.1.min.js",
+                "~/Content/assets/js/app.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/template/css").Include(
+                      "~/Content/assets/css/backend-plugin.min.css",
+                      "~/Content/assets/css/backende209.css?v=1.0.0",
+                      "~/Content/assets/vendor/%40fortawesome/fontawesome-free/css/all.min.css",
+                      "~/Content/assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css",
+                      "~/Content/assets/vendor/remixicon/fonts/remixicon.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/ajaxUnobtrusive").Include(
+                        "~/Scripts/jquery.unobtrusive-ajax.min.js"));
+
         }
     }
 }

@@ -1,3 +1,6 @@
+using System.Web.Mvc;
+using inventoryAppWebUi.Infrastructures;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(inventoryAppWebUi.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(inventoryAppWebUi.App_Start.NinjectWebCommon), "Stop")]
 
@@ -61,7 +64,7 @@ namespace inventoryAppWebUi.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            System.Web.Mvc.DependencyResolver.SetResolver(new Infrastructures.NinjectDependenceResolver(kernel));
+            DependencyResolver.SetResolver(new NinjectDependenceResolver(kernel));
         }
     }
 }
